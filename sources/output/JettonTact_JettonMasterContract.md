@@ -3,7 +3,7 @@ Contract: JettonMasterContract
 BOC Size: 2174 bytes
 
 # Types
-Total Types: 17
+Total Types: 18
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -40,6 +40,10 @@ Signature: `TokenTransfer{query_id:uint64,amount:coins,destination:address,respo
 ## TokenTransferInternal
 TLB: `token_transfer_internal#178d4519 query_id:uint64 amount:coins from:address response_destination:address forward_ton_amount:coins forward_payload:remainder<slice> = TokenTransferInternal`
 Signature: `TokenTransferInternal{query_id:uint64,amount:coins,from:address,response_destination:address,forward_ton_amount:coins,forward_payload:remainder<slice>}`
+
+## TokenTransferFeeInternal
+TLB: `token_transfer_fee_internal#53f2ca8c query_id:uint64 amount:coins from:address = TokenTransferFeeInternal`
+Signature: `TokenTransferFeeInternal{query_id:uint64,amount:coins,from:address}`
 
 ## TokenNotification
 TLB: `token_notification#7362d09c query_id:uint64 amount:coins from:address forward_payload:remainder<slice> = TokenNotification`

@@ -21,6 +21,10 @@ _ $StateInit$_get_code((cell, cell) v) inline {
     return (bounce, to, value, mode, body, null(), null());
 }
 
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_body_code_data(slice to, int value, int bounce, cell body, cell code, cell data) inline {
+    return (bounce, to, value, 0, body, code, data);
+}
+
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_body(slice to, int value, int bounce, cell body) inline {
     return (bounce, to, value, 0, body, null(), null());
 }
@@ -99,6 +103,37 @@ cell $TokenTransferInternal$_store_cell((int, int, slice, slice, int, slice) v) 
 
 ((int, int, slice, slice, int, slice)) $TokenTransferInternal$_constructor_query_id_amount_from_response_destination_forward_ton_amount_forward_payload(int query_id, int amount, slice from, slice response_destination, int forward_ton_amount, slice forward_payload) inline {
     return (query_id, amount, from, response_destination, forward_ton_amount, forward_payload);
+}
+
+;;
+;; Type: TokenTransferFeeInternal
+;; Header: 0x53f2ca8c
+;; TLB: token_transfer_fee_internal#53f2ca8c query_id:uint64 amount:coins from:address = TokenTransferFeeInternal
+;;
+
+builder $TokenTransferFeeInternal$_store(builder build_0, (int, int, slice) v) inline {
+    var (v'query_id, v'amount, v'from) = v;
+    build_0 = store_uint(build_0, 1408420492, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = build_0.store_coins(v'amount);
+    build_0 = __tact_store_address(build_0, v'from);
+    return build_0;
+}
+
+cell $TokenTransferFeeInternal$_store_cell((int, int, slice) v) inline {
+    return $TokenTransferFeeInternal$_store(begin_cell(), v).end_cell();
+}
+
+(slice, ((int, int, slice))) $TokenTransferFeeInternal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1408420492);
+    var v'query_id = sc_0~load_uint(64);
+    var v'amount = sc_0~load_coins();
+    var v'from = sc_0~__tact_load_address();
+    return (sc_0, (v'query_id, v'amount, v'from));
+}
+
+((int, int, slice)) $TokenTransferFeeInternal$_constructor_query_id_amount_from(int query_id, int amount, slice from) inline {
+    return (query_id, amount, from);
 }
 
 ;;

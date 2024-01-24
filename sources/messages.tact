@@ -32,6 +32,13 @@ message(0x178d4519) TokenTransferInternal {
     forward_payload: Slice as remaining; // Comment Text message when Transfer the jetton
 }
 
+
+message TokenTransferFeeInternal {
+    query_id: Int as uint64;
+    amount: Int as coins;
+    from: Address;
+}
+
 message(0x7362d09c) TokenNotification {
     query_id: Int as uint64;
     amount: Int as coins; // forward_ton_amount from sender's transfer message

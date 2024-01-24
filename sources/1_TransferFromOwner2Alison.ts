@@ -18,7 +18,7 @@ export async function transferJetton(from: string, to: string) {
         endpoint: process.env._IS_TEST_ENV === "true" ? _ENDPOINT_TESTNET : _ENDPOINT_MAINNET,
     });
 
-    console.info(" ###### Using " + process.env._IS_TEST_ENV === "true" ? "Testnet" : "Mainnet");
+    console.info(" ###### Using ", process.env._IS_TEST_ENV === "true" ? "Testnet" : "Mainnet");
     let workchain = 0;
 
     // 🔴 Change to your own, by creating .env file!
@@ -69,11 +69,11 @@ export async function transferJetton(from: string, to: string) {
             storeTokenTransfer({
                 $$type: "TokenTransfer",
                 query_id: 0n,
-                amount: toNano(100000000),
+                amount: toNano(200),
                 destination: receiverTonWalletAddress,
                 response_destination: owner, // Original Owner, aka. First Minter's Jetton Wallet
                 custom_payload: customPayload,
-                forward_ton_amount: toNano("0.01"),
+                forward_ton_amount: toNano("0.001"),
                 forward_payload: forwardPayloadLeft,
             }),
         )
@@ -92,7 +92,7 @@ export async function transferJetton(from: string, to: string) {
 
     let senderJettonWallet = await jettonMasterContractOpened.getGetWalletAddress(senderTonWallet.address);
 
-    let deployAmount = toNano("0.6");
+    let deployAmount = toNano("2");
     let seqno: number = await senderTonWalletContract.getSeqno();
     let balance: bigint = await senderTonWalletContract.getBalance();
     // ========================================
