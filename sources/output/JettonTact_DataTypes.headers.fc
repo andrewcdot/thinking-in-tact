@@ -1,0 +1,64 @@
+;;
+;; Header files for DataTypes
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; __tact_create_address
+slice __tact_create_address(int chain, int hash) inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_dict_set_slice_int
+(cell, ()) __tact_dict_set_slice_int(cell d, int kl, slice k, int v, int vl) inline;
+
+;; __tact_string_builder_start
+tuple __tact_string_builder_start(builder b) inline;
+
+;; __tact_string_builder_start_string
+tuple __tact_string_builder_start_string() inline;
+
+;; __tact_string_builder_end
+cell __tact_string_builder_end(tuple builders) inline;
+
+;; __tact_string_builder_end_slice
+slice __tact_string_builder_end_slice(tuple builders) inline;
+
+;; __tact_string_builder_append
+((tuple), ()) __tact_string_builder_append(tuple builders, slice sc) inline_ref;
+
+;; $PointMsg$_load
+(slice, ((int, slice))) $PointMsg$_load(slice sc_0) inline;
+
+;; $DataTypes$_store
+builder $DataTypes$_store(builder build_0, (int, int, slice, slice, int, int, int, slice, cell) v) inline;
+
+;; $DataTypes$_load
+(slice, ((int, int, slice, slice, int, int, int, slice, cell))) $DataTypes$_load(slice sc_0) inline;
+
+;; $DataTypes$init$_load
+(slice, ((int, slice, cell))) $DataTypes$init$_load(slice sc_0) inline;
+
+;; $DataTypes$_contract_init
+(int, int, slice, slice, int, int, int, slice, cell) $DataTypes$_contract_init(int $initBool, slice $initStr, cell $intMap) impure inline_ref;
+
+;; $DataTypes$_contract_load
+(int, int, slice, slice, int, int, int, slice, cell) $DataTypes$_contract_load() impure inline_ref;
+
+;; $DataTypes$_contract_store
+() $DataTypes$_contract_store((int, int, slice, slice, int, int, int, slice, cell) v) impure inline;
+
+;; $Point$_constructor_x_y
+((int, slice)) $Point$_constructor_x_y(int x, slice y) inline;
+
+;; $PointMsg$_constructor_x_y
+((int, slice)) $PointMsg$_constructor_x_y(int x, slice y) inline;

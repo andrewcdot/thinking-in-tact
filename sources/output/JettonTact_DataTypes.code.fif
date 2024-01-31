@@ -1,0 +1,477 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_create_address
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_dict_set_slice_int
+  DECLPROC __tact_string_builder_start
+  DECLPROC __tact_string_builder_start_string
+  DECLPROC __tact_string_builder_end
+  DECLPROC __tact_string_builder_end_slice
+  DECLPROC __tact_string_builder_append
+  DECLPROC $PointMsg$_load
+  DECLPROC $DataTypes$_store
+  DECLPROC $DataTypes$_load
+  DECLPROC $DataTypes$init$_load
+  DECLPROC $DataTypes$_contract_init
+  DECLPROC $DataTypes$_contract_load
+  DECLPROC $DataTypes$_contract_store
+  DECLPROC $Point$_constructor_x_y
+  DECLPROC $PointMsg$_constructor_x_y
+  DECLPROC $DataTypes$_internal_text_a04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76
+  DECLPROC $DataTypes$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a
+  DECLPROC $DataTypes$_internal_text_00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7
+  DECLPROC $DataTypes$_internal_text_7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f
+  DECLPROC $DataTypes$_internal_text_24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529
+  DECLPROC $DataTypes$_internal_binary_PointMsg
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $DataTypes$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  __tact_create_address PROCINLINE:<{
+    NEWC
+    2 PUSHINT
+    SWAP
+    2 STU
+    0 PUSHINT
+    SWAP
+    1 STU
+    s1 s2 XCHG
+    8 STI
+    256 STU
+    ENDC
+    CTOS
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_dict_set_slice_int PROCINLINE:<{
+    OVER
+    ISNULL
+    IF:<{
+      2DROP
+      -ROT
+      DICTDEL
+      DROP
+    }>ELSE<{
+      NEWC
+      SWAP
+      STIX
+      s1 s3 s3 XCHG3
+      DICTSETB
+    }>
+  }>
+  __tact_string_builder_start PROCINLINE:<{
+    NIL
+    SWAP
+    TPUSH
+    PUSHNULL
+    TPUSH
+  }>
+  __tact_string_builder_start_string PROCINLINE:<{
+    NEWC
+    __tact_string_builder_start INLINECALLDICT
+  }>
+  __tact_string_builder_end PROCINLINE:<{
+    UNCONS
+    SWAP
+    ENDC
+    WHILE:<{
+      OVER
+      ISNULL
+      NOT
+    }>DO<{
+      SWAP
+      UNCONS
+      -ROT
+      STREF
+      ENDC
+    }>
+    NIP
+  }>
+  __tact_string_builder_end_slice PROCINLINE:<{
+    __tact_string_builder_end INLINECALLDICT
+    CTOS
+  }>
+  __tact_string_builder_append PROCREF:<{
+    DUP
+    SREFS
+    OVER
+    SBITS
+    WHILE:<{
+      DUP
+      0 GTINT
+      s2 PUSH
+      0 GTINT
+      OR
+    }>DO<{
+      s0 s3 XCHG
+      UNCONS
+      127 PUSHINT
+      s2 PUSH
+      BBITS
+      3 RSHIFT#
+      SUB
+      s0 s5 XCHG
+      3 RSHIFT#
+      s5 s5 XCPU
+      MIN
+      DUP
+      0 GTINT
+      IF:<{
+        DUP
+        3 LSHIFT#
+        s1 s5 XCHG
+        LDSLICEX
+        s3 s3 XCHG2
+        STSLICER
+        s0 s1 s4 XCHG3
+      }>
+      -ROT
+      CONS
+      s4 s1 PUSH2
+      SUB
+      0 GTINT
+      IF:<{
+        NEWC
+        SWAP
+        CONS
+        s4 s4 XCHG2
+        SUB
+        3 LSHIFT#
+      }>ELSE<{
+        NIP
+        s3 POP
+        0 GTINT
+        IF:<{
+          LDREF
+          DROP
+          CTOS
+          DUP
+          SREFS
+          OVER
+          SBITS
+        }>ELSE<{
+          0 PUSHINT
+          DUP
+        }>
+      }>
+    }>
+    3 BLKDROP
+  }>
+  $PointMsg$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    121325890 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    257 PUSHINT
+    LDIX
+    LDREF
+    SWAP
+    CTOS
+    s1 s2 XCHG
+  }>
+  $DataTypes$_store PROCINLINE:<{
+    s8 s9 XCHG2
+    257 PUSHINT
+    STIX
+    s1 s6 XCHG
+    256 STU
+    NEWC
+    s0 s5 XCHG2
+    STSLICER
+    ENDC
+    s0 s4 XCHG2
+    STREF
+    NEWC
+    s0 s3 XCHG2
+    STSLICER
+    ENDC
+    ROT
+    STREF
+    1 STI
+    1 STI
+    1 STI
+    SWAP
+    __tact_store_address INLINECALLDICT
+    SWAP
+    NEWC
+    STDICT
+    ENDC
+    SWAP
+    STREF
+  }>
+  $DataTypes$_load PROCINLINE:<{
+    257 PUSHINT
+    LDIX
+    256 LDU
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    1 LDI
+    1 LDI
+    1 LDI
+    __tact_load_address INLINECALLDICT
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    LDDICT
+    DROP
+    s1 s9 XCHG
+    s1 s8 XCHG
+    s1 s7 XCHG
+    s1 s6 XCHG
+    s1 s5 XCHG
+    s1 s4 XCHG
+    s3 s3 s0 XCHG3
+  }>
+  $DataTypes$init$_load PROCINLINE:<{
+    1 LDI
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDDICT
+    3 -ROLL
+  }>
+  $DataTypes$_contract_init PROCREF:<{
+    1 PUSHINT
+    32 PUSHINT
+    B{b5ee9c7241010101000c00001468656c6c6f2074616374927ce9c3} B>boc <s PUSHSLICE
+    TRUE
+    FALSE
+    B{b5ee9c724101010100240000438009d453c002fa89b0ec18da9bae4cbf98a66de5ec9aa4a8c605b1d309c22a63ba505dc89a5e} B>boc <s PUSHSLICE
+    s0 s8 XCHG
+    NOT
+    s5 s8 XCHG
+    s4 s7 XCHG
+    4 3 REVERSE
+    2 3 BLKSWAP
+  }>
+  $DataTypes$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $DataTypes$_load INLINECALLDICT
+      1 9 BLKDROP2
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $DataTypes$init$_load INLINECALLDICT
+    s0 s3 XCHG
+    ENDS
+    ROT
+    $DataTypes$_contract_init INLINECALLDICT
+  }>
+  $DataTypes$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    9 -ROLL
+    $DataTypes$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $Point$_constructor_x_y PROCINLINE:<{
+  }>
+  $PointMsg$_constructor_x_y PROCINLINE:<{
+  }>
+  $DataTypes$_internal_text_a04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76 PROCINLINE:<{
+  }>
+  $DataTypes$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a PROCINLINE:<{
+  }>
+  $DataTypes$_internal_text_00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7 PROCINLINE:<{
+    s4 PUSH
+    IF:<{
+      s3 PUSH
+    }>ELSE<{
+      FALSE
+    }>
+    IF:<{
+      TRUE
+    }>ELSE<{
+      s2 PUSH
+      NOT
+    }>
+    IF:<{
+    }>
+  }>
+  $DataTypes$_internal_text_7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f PROCINLINE:<{
+    NIP
+    __tact_context_get_sender INLINECALLDICT
+    SWAP
+  }>
+  $DataTypes$_internal_text_24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529 PROCINLINE:<{
+  }>
+  $DataTypes$_internal_binary_PointMsg PROCINLINE:<{
+    2DROP
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d6365644545356b783879487a3169706a34527755645a3762566343713656577156333363435456656e595575} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $DataTypes$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    DUP
+    121325890 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $PointMsg$_load INLINECALLDICT
+      1 2 BLKDROP2
+      $DataTypes$_internal_binary_PointMsg INLINECALLDICT
+      TRUE
+    }>
+    0 EQINT
+    IF:<{
+      HASHSU
+      DUP
+      72508962763601978742245109815692037852563822129951733072405225457938418719862 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $DataTypes$_internal_text_a04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      DUP
+      30692604594177638769505654065388351777922303069802167783848951579215590042458 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $DataTypes$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      DUP
+      311423173648965934220779513582580732893152225972926150150559648759367303351 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $DataTypes$_internal_text_00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      DUP
+      56357285514849583556242638178490800784282802788076427886776895776543889227551 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $DataTypes$_internal_text_7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      16410903193311158196642857470426793176778544047973802395851847491770932667689 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $DataTypes$_internal_text_24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $DataTypes$_contract_load INLINECALLDICT
+    2 9 BLKSWAP
+    $DataTypes$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $DataTypes$_contract_store INLINECALLDICT
+  }>
+}END>c

@@ -1,0 +1,181 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "JettonTact_DataTypes.headers.fc";
+#include "JettonTact_DataTypes.stdlib.fc";
+#include "JettonTact_DataTypes.constants.fc";
+#include "JettonTact_DataTypes.storage.fc";
+
+;;
+;; Contract DataTypes functions
+;;
+
+(int, int, slice, slice, int, int, int, slice, cell) $DataTypes$_contract_init(int $initBool, slice $initStr, cell $intMap) impure inline_ref {
+    var (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap)) = (1, 32, __gen_slice_string_7972cb09d876ba485e76d169e29aa4be873122cc0e3411dc097a674a6606e083(), null(), true, false, null(), __gen_slice_address_c859bfa03560507f34cd1c9c23dd36be607034ed3ef99071c19f6a2665cd6638(), null());
+    $self'b3 = (~ $initBool);
+    $self's2 = $initStr;
+    $self'intMap = $intMap;
+    return ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap);
+}
+
+;;
+;; Receivers of a Contract DataTypes
+;;
+
+((int, int, slice, slice, int, int, int, slice, cell), ()) $DataTypes$_internal_text_a04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76((int, int, slice, slice, int, int, int, slice, cell) $self) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    int $add = ($self'intMax257bitSigned + $self'int256bitUnsigned);
+    int $sub = ($self'intMax257bitSigned - $self'int256bitUnsigned);
+    int $mul = ($self'intMax257bitSigned * $self'int256bitUnsigned);
+    int $div = ($self'intMax257bitSigned / $self'int256bitUnsigned);
+    int $mini = min($self'intMax257bitSigned, $self'int256bitUnsigned);
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+((int, int, slice, slice, int, int, int, slice, cell), ()) $DataTypes$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a((int, int, slice, slice, int, int, int, slice, cell) $self) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    tuple $sb = __tact_string_builder_start_string();
+    $sb~__tact_string_builder_append($self's1);
+    slice $sss = __tact_string_builder_end_slice($sb);
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+((int, int, slice, slice, int, int, int, slice, cell), ()) $DataTypes$_internal_text_00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7((int, int, slice, slice, int, int, int, slice, cell) $self) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    int $boo = ( (( ($self'b1) ? ($self'b2) : (false) )) ? (true) : ((~ $self'b3)) );
+    if ($boo) {
+        __tact_nop();
+    }
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+((int, int, slice, slice, int, int, int, slice, cell), ()) $DataTypes$_internal_text_7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f((int, int, slice, slice, int, int, int, slice, cell) $self) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    $self'a1 = __tact_create_address(0, 0);
+    $self'a1 = __tact_create_address(0, 35567721892421188497516132240470680422433725613244561145563056164194911198674);
+    $self'a1 = my_address();
+    $self'a1 = __tact_context_get_sender();
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+((int, int, slice, slice, int, int, int, slice, cell), ()) $DataTypes$_internal_text_24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529((int, int, slice, slice, int, int, int, slice, cell) $self) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    cell $addressMap = null();
+    $addressMap~__tact_dict_set_slice_int(267, __gen_slice_address_c859bfa03560507f34cd1c9c23dd36be607034ed3ef99071c19f6a2665cd6638(), 100, 257);
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+(((int, int, slice, slice, int, int, int, slice, cell)), ()) $DataTypes$_internal_binary_PointMsg((int, int, slice, slice, int, int, int, slice, cell) $self, (int, slice) $msg) impure inline {
+    var ($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap) = $self;
+    var ($msg'x, $msg'y) = $msg;
+    var ($p'x, $p'y) = $Point$_constructor_x_y(($msg'x + 1), $msg'y);
+    var ($msgVar'x, $msgVar'y) = $PointMsg$_constructor_x_y(($msg'x + 100), $self's1);
+    return (($self'intMax257bitSigned, $self'int256bitUnsigned, $self's1, $self's2, $self'b1, $self'b2, $self'b3, $self'a1, $self'intMap), ());
+}
+
+;;
+;; Get methods of a Contract DataTypes
+;;
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmcedEE5kx8yHz1ipj4RwUdZ7bVcCq6VWqV33cCTVenYUu";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract DataTypes
+;;
+
+((int, int, slice, slice, int, int, int, slice, cell), int) $DataTypes$_contract_router_internal((int, int, slice, slice, int, int, int, slice, cell) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive PointMsg message
+    if (op == 121325890) {
+        var msg = in_msg~$PointMsg$_load();
+        self~$DataTypes$_internal_binary_PointMsg(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "int" message
+        if (text_op == 0xa04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76) {
+            self~$DataTypes$_internal_text_a04e9e5aa08ea6861731b2ddb8209ad67df1ae14b258bafc406e68a96e715c76();
+            return (self, true);
+        }
+        
+        ;; Receive "string" message
+        if (text_op == 0x43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a) {
+            self~$DataTypes$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a();
+            return (self, true);
+        }
+        
+        ;; Receive "bool" message
+        if (text_op == 0x00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7) {
+            self~$DataTypes$_internal_text_00b0425f82fbb7d52dd9cfbc9b5da49f0c5c856c1fd7f95d1304f938e16b80b7();
+            return (self, true);
+        }
+        
+        ;; Receive "address" message
+        if (text_op == 0x7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f) {
+            self~$DataTypes$_internal_text_7c9917dcad61b1c9e0b315462995393112597079375d37a3c3cff7da9884ff1f();
+            return (self, true);
+        }
+        
+        ;; Receive "map" message
+        if (text_op == 0x24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529) {
+            self~$DataTypes$_internal_text_24483df6a131217c844ad963138f48a54f7ee142a8c2eefa922c4a9c60ce2529();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $DataTypes$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$DataTypes$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $DataTypes$_contract_store(self);
+}
