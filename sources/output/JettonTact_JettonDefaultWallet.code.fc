@@ -4,7 +4,6 @@
 
 #include "JettonTact_JettonDefaultWallet.headers.fc";
 #include "JettonTact_JettonDefaultWallet.stdlib.fc";
-#include "JettonTact_JettonDefaultWallet.constants.fc";
 #include "JettonTact_JettonDefaultWallet.storage.fc";
 
 ;;
@@ -78,12 +77,6 @@
     if (($msg'forward_ton_amount > 0)) {
         $msg_value = (($msg_value - $msg'forward_ton_amount) - $fwd_fee);
         $global_send($SendParameters$_constructor_to_value_mode_bounce_body($self'owner, $msg'forward_ton_amount, 1, false, $TokenNotification$_store_cell($TokenNotification$_constructor_query_id_amount_from_forward_payload($msg'query_id, $realAmount, $msg'from, $msg'forward_payload))));
-    }
-    if (( ~ __tact_slice_eq_bits($self'master, $ctx'sender) )) {
-        slice $feeTonAddress = __gen_slice_address_625b3898368f4714e0d79c896b42b53635a970ca77c6527c074790e5954c92f3();
-        var ($feeJettonWalletInit'code, $feeJettonWalletInit'data) = $JettonDefaultWallet$_init_child(__tact_context_sys, $feeTonAddress, $self'master);
-        slice $feeJettonWalletAddress = $global_contractAddress(($feeJettonWalletInit'code, $feeJettonWalletInit'data));
-        $global_send($SendParameters$_constructor_to_value_bounce_body_code_data($feeJettonWalletAddress, 0, false, $TokenTransferFeeInternal$_store_cell($TokenTransferFeeInternal$_constructor_query_id_amount_from($msg'query_id, $feeAmount, $msg'from)), $feeJettonWalletInit'code, $feeJettonWalletInit'data));
     }
     if (( ((~ null?($msg'response_destination))) ? (($msg_value > 0)) : (false) )) {
         $global_send($SendParameters$_constructor_to_value_bounce_body($msg'response_destination, $msg_value, false, $TokenExcesses$_store_cell($TokenExcesses$_constructor_query_id($msg'query_id))));

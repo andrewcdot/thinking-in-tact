@@ -54,12 +54,6 @@ cell $TokenTransferInternal$_store_cell((int, int, slice, slice, int, slice) v) 
 ;; $TokenTransferInternal$_load_bounced
 (slice, ((int, int))) $TokenTransferInternal$_load_bounced(slice sc_0) inline;
 
-;; $TokenTransferFeeInternal$_store
-builder $TokenTransferFeeInternal$_store(builder build_0, (int, int, slice) v) inline;
-
-;; $TokenTransferFeeInternal$_store_cell
-cell $TokenTransferFeeInternal$_store_cell((int, int, slice) v) inline;
-
 ;; $TokenTransferFeeInternal$_load
 (slice, ((int, int, slice))) $TokenTransferFeeInternal$_load(slice sc_0) inline;
 
@@ -146,12 +140,6 @@ int $Context$_fun_readForwardFee((int, slice, int, slice) $self) impure inline_r
 
 ;; $TokenNotification$_constructor_query_id_amount_from_forward_payload
 ((int, int, slice, slice)) $TokenNotification$_constructor_query_id_amount_from_forward_payload(int query_id, int amount, slice from, slice forward_payload) inline;
-
-;; $SendParameters$_constructor_to_value_bounce_body_code_data
-((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_body_code_data(slice to, int value, int bounce, cell body, cell code, cell data) inline;
-
-;; $TokenTransferFeeInternal$_constructor_query_id_amount_from
-((int, int, slice)) $TokenTransferFeeInternal$_constructor_query_id_amount_from(int query_id, int amount, slice from) inline;
 
 ;; $SendParameters$_constructor_to_value_bounce_body
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_body(slice to, int value, int bounce, cell body) inline;

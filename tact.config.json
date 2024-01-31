@@ -1,10 +1,10 @@
 {
-    "projects": [{
-        "name": "JettonTact",
-        "path": "./sources/master.tact",
-        "output": "./sources/output",
-        "options":{
-
+    "projects": [
+        {
+            "name": "JettonTact",
+            "path": "./sources/d1.types.tact",
+            "output": "./sources/output",
+            "options": {}
         }
-    }]
+    ]
 }

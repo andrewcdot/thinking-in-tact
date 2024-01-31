@@ -92,7 +92,7 @@ export async function transferJetton(from: string, to: string) {
 
     let senderJettonWallet = await jettonMasterContractOpened.getGetWalletAddress(senderTonWallet.address);
 
-    let deployAmount = toNano("2");
+    let deployAmount = toNano("1");
     let seqno: number = await senderTonWalletContract.getSeqno();
     let balance: bigint = await senderTonWalletContract.getBalance();
     // ========================================

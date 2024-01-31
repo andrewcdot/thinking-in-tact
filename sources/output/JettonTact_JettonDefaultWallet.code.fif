@@ -16,8 +16,6 @@ PROGRAM{
   DECLPROC $TokenTransferInternal$_store_cell
   DECLPROC $TokenTransferInternal$_load
   DECLPROC $TokenTransferInternal$_load_bounced
-  DECLPROC $TokenTransferFeeInternal$_store
-  DECLPROC $TokenTransferFeeInternal$_store_cell
   DECLPROC $TokenTransferFeeInternal$_load
   DECLPROC $TokenNotification$_store
   DECLPROC $TokenNotification$_store_cell
@@ -47,8 +45,6 @@ PROGRAM{
   DECLPROC $SendParameters$_constructor_to_value_mode_bounce_body_code_data
   DECLPROC $SendParameters$_constructor_to_value_mode_bounce_body
   DECLPROC $TokenNotification$_constructor_query_id_amount_from_forward_payload
-  DECLPROC $SendParameters$_constructor_to_value_bounce_body_code_data
-  DECLPROC $TokenTransferFeeInternal$_constructor_query_id_amount_from
   DECLPROC $SendParameters$_constructor_to_value_bounce_body
   DECLPROC $TokenExcesses$_constructor_query_id
   DECLPROC $TokenBurnNotification$_constructor_query_id_amount_sender_response_destination
@@ -235,23 +231,6 @@ PROGRAM{
     64 LDU
     LDGRAMS
     -ROT
-  }>
-  $TokenTransferFeeInternal$_store PROCINLINE:<{
-    1408420492 PUSHINT
-    s0 s4 XCHG2
-    32 STU
-    s1 s2 XCHG
-    64 STU
-    SWAP
-    STGRAMS
-    SWAP
-    __tact_store_address INLINECALLDICT
-  }>
-  $TokenTransferFeeInternal$_store_cell PROCINLINE:<{
-    NEWC
-    3 -ROLL
-    $TokenTransferFeeInternal$_store INLINECALLDICT
-    ENDC
   }>
   $TokenTransferFeeInternal$_load PROCINLINE:<{
     32 LDU
@@ -603,14 +582,6 @@ PROGRAM{
   }>
   $TokenNotification$_constructor_query_id_amount_from_forward_payload PROCINLINE:<{
   }>
-  $SendParameters$_constructor_to_value_bounce_body_code_data PROCINLINE:<{
-    s3 s5 XCHG
-    s3 s4 XCHG
-    0 PUSHINT
-    3 -ROLL
-  }>
-  $TokenTransferFeeInternal$_constructor_query_id_amount_from PROCINLINE:<{
-  }>
   $SendParameters$_constructor_to_value_bounce_body PROCINLINE:<{
     s3 s3 s0 XCHG3
     0 PUSHINT
@@ -704,77 +675,52 @@ PROGRAM{
     }>
     s8 PUSH
     90 MULCONST
+    s9 POP
+    s0 s8 XCHG
     100 PUSHINT
     DIV
-    s9 s9 XCPU
-    SUB
-    s13 s9 XCPU
+    s12 s12 XCPU
     ADD
     62972 PUSHINT
     OVER
     -1 GTINT
     THROWANYIFNOT
-    s0 s12 s11 XCHG3
+    s0 s11 s10 XCHG3
     s11 PUSH
     $JettonDefaultWallet$_fun_msg_value INLINECALLDICT
-    s4 PUSH
-    s3 s6 XCHG
-    s0 s13 s14 XCHG3
+    s3 s4 XCHG
+    s11 s12 s9 XCHG3
     $Context$_fun_readForwardFee INLINECALLDICT
-    s5 PUSH
+    s3 PUSH
     0 GTINT
     IF:<{
-      s10 s5 XCPU
+      s6 s3 XCPU
       SUB
-      s0 s10 XCHG2
+      s0 s6 XCHG2
       SUB
       1 PUSHINT
       FALSE
-      s10 s9 s(-1) PUXC2
-      s9 s6 PUXC
+      s8 PUSH
+      s12 s1 s3 XCHG3
+      s7 s4 XCHG2
       $TokenNotification$_constructor_query_id_amount_from_forward_payload INLINECALLDICT
       $TokenNotification$_store_cell INLINECALLDICT
-      s3 PUSH
-      s3 s6 XCHG
-      s5 s9 s9 XCHG3
+      s7 PUSH
+      s10 s1 s4 XCHG3
+      s5 s5 XCHG2
       $SendParameters$_constructor_to_value_mode_bounce_body INLINECALLDICT
       $global_send INLINECALLDICT
-      s0 s6 XCHG
+      s5 s5 XCHG2
     }>ELSE<{
       DROP
-      s2 s7 XCHG
-      3 2 BLKDROP2
-    }>
-    s7 s1 PUXC
-    __tact_slice_eq_bits INLINECALLDICT
-    NOT
-    IF:<{
-      B{b5ee9c7241010101002400004380050c02dafe7cca871808c3884abf06f5415478a91ed2fc686b1dd1c1ded27213d0eea9880d} B>boc <s PUSHSLICE
-      __tact_context_sys GETGLOB
-      s1 s8 XCPU
-      $JettonDefaultWallet$_init_child INLINECALLDICT
-      2DUP
-      $global_contractAddress INLINECALLDICT
-      0 PUSHINT
-      FALSE
-      s9 s12 s7 PUXC2
-      $TokenTransferFeeInternal$_constructor_query_id_amount_from INLINECALLDICT
-      $TokenTransferFeeInternal$_store_cell INLINECALLDICT
-      s1 s5 XCHG
-      s4 s6 XCHG
-      s3 s11 XCHG
-      s11 s2 XCHG2
-      $SendParameters$_constructor_to_value_bounce_body_code_data INLINECALLDICT
-      $global_send INLINECALLDICT
-    }>ELSE<{
-      s2 POP
-      s6 POP
+      s3 s9 XCHG
+      4 1 BLKDROP2
     }>
     s5 PUSH
     ISNULL
     NOT
     IF:<{
-      s3 PUSH
+      OVER
       0 GTINT
     }>ELSE<{
       FALSE
@@ -784,13 +730,13 @@ PROGRAM{
       s0 s3 XCHG
       $TokenExcesses$_constructor_query_id INLINECALLDICT
       $TokenExcesses$_store_cell INLINECALLDICT
-      s3 s6 XCHG
-      s4 s6 s0 XCHG3
+      s1 s6 XCHG
+      s1 s3 XCHG
       $SendParameters$_constructor_to_value_bounce_body INLINECALLDICT
       $global_send INLINECALLDICT
     }>ELSE<{
       s5 POP
-      2 1 BLKDROP2
+      2DROP
     }>
     SWAP
   }>
