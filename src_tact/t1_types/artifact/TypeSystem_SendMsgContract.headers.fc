@@ -1,0 +1,49 @@
+;;
+;; Header files for SendMsgContract
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; __tact_my_balance
+int __tact_my_balance() inline;
+
+;; __tact_not_null
+forall X -> X __tact_not_null(X x) inline;
+
+;; __tact_context_get
+(int, slice, int, slice) __tact_context_get() inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_store_bool
+builder __tact_store_bool(builder b, int v) inline;
+
+;; $StateInit$_not_null
+((cell, cell)) $StateInit$_not_null(tuple v) inline;
+
+;; $SendMsgContract$_contract_init
+tuple $SendMsgContract$_contract_init() impure inline_ref;
+
+;; $SendMsgContract$_contract_load
+tuple $SendMsgContract$_contract_load() impure inline_ref;
+
+;; $SendMsgContract$_contract_store
+() $SendMsgContract$_contract_store(tuple v) impure inline;
+
+;; $global_send
+() $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
+
+;; $SendMsgContract$_fun_forward
+(tuple, ()) $SendMsgContract$_fun_forward(tuple $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
+
+;; $SendMsgContract$_fun_reply
+(tuple, ()) $SendMsgContract$_fun_reply(tuple $self, cell $body) impure inline;
