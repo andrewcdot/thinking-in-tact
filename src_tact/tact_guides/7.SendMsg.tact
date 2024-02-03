@@ -1,20 +1,13 @@
+import "@stdlib/ownable";
+import "@stdlib/deploy";
 import "./HelloContract";
 
+contract SendMsgContract with Ownable,Deployable {
 
-struct MyMsgBody{
-   x:Int;
-   y:String;
-}
-
-
-message BinMsg {
-   x:Int;
-   y:String;
-}
-
-
-contract SendMsgContract{
-    init(){}
+    owner:Address;
+    init(owner:Address){
+      self.owner = owner;
+    }
 
     receive("reply_text"){
         let replyMsg:Cell = "got it. reply from [reply_text]".asComment();
@@ -99,3 +92,15 @@ contract SendMsgContract{
             return 1212;
         }
 }
+
+
+    struct MyMsgBody{
+       x:Int;
+       y:String;
+    }
+
+
+    message BinMsg {
+       x:Int;
+       y:String;
+    }

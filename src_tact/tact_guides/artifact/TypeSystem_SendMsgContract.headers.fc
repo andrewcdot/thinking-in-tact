@@ -6,6 +6,9 @@
 ;; __tact_verify_address
 slice __tact_verify_address(slice address) inline;
 
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
 ;; __tact_store_address
 builder __tact_store_address(builder b, slice address) inline;
 
@@ -48,6 +51,15 @@ cell __tact_string_builder_end(tuple builders) inline;
 ;; __tact_string_builder_append
 ((tuple), ()) __tact_string_builder_append(tuple builders, slice sc) inline_ref;
 
+;; $Deploy$_load
+(slice, ((int))) $Deploy$_load(slice sc_0) inline;
+
+;; $DeployOk$_store
+builder $DeployOk$_store(builder build_0, (int) v) inline;
+
+;; $DeployOk$_store_cell
+cell $DeployOk$_store_cell((int) v) inline;
+
 ;; $MyMsgBody$_store
 builder $MyMsgBody$_store(builder build_0, (int, slice) v) inline;
 
@@ -57,20 +69,29 @@ cell $MyMsgBody$_store_cell((int, slice) v) inline;
 ;; $BinMsg$_load
 (slice, ((int, slice))) $BinMsg$_load(slice sc_0) inline;
 
+;; $SendMsgContract$_store
+builder $SendMsgContract$_store(builder build_0, (slice) v) inline;
+
+;; $SendMsgContract$_load
+(slice, ((slice))) $SendMsgContract$_load(slice sc_0) inline;
+
 ;; $StateInit$_not_null
 ((cell, cell)) $StateInit$_not_null(tuple v) inline;
 
 ;; $HelloWorld$init$_store
 builder $HelloWorld$init$_store(builder build_0, tuple v) inline;
 
+;; $SendMsgContract$init$_load
+(slice, ((slice))) $SendMsgContract$init$_load(slice sc_0) inline;
+
 ;; $SendMsgContract$_contract_init
-tuple $SendMsgContract$_contract_init() impure inline_ref;
+(slice) $SendMsgContract$_contract_init(slice $owner) impure inline_ref;
 
 ;; $SendMsgContract$_contract_load
-tuple $SendMsgContract$_contract_load() impure inline_ref;
+(slice) $SendMsgContract$_contract_load() impure inline_ref;
 
 ;; $SendMsgContract$_contract_store
-() $SendMsgContract$_contract_store(tuple v) impure inline;
+() $SendMsgContract$_contract_store((slice) v) impure inline;
 
 ;; $global_contractAddress
 slice $global_contractAddress((cell, cell) $s) impure inline;
@@ -88,13 +109,19 @@ cell $String$_fun_asComment(slice $self) impure inline_ref;
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
 
 ;; $SendMsgContract$_fun_counter
-(tuple, int) $SendMsgContract$_fun_counter(tuple $self) impure inline_ref;
+((slice), int) $SendMsgContract$_fun_counter((slice) $self) impure inline_ref;
 
 ;; $SendMsgContract$_fun_forward
-(tuple, ()) $SendMsgContract$_fun_forward(tuple $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
+((slice), ()) $SendMsgContract$_fun_forward((slice) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
 
 ;; $SendMsgContract$_fun_reply
-(tuple, ()) $SendMsgContract$_fun_reply(tuple $self, cell $body) impure inline;
+((slice), ()) $SendMsgContract$_fun_reply((slice) $self, cell $body) impure inline;
+
+;; $SendMsgContract$_fun_notify
+((slice), ()) $SendMsgContract$_fun_notify((slice) $self, cell $body) impure inline;
+
+;; $SendMsgContract$_fun_owner
+((slice), slice) $SendMsgContract$_fun_owner((slice) $self) impure inline_ref;
 
 ;; $SendParameters$_constructor_bounce_to_value_mode_body
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body(int bounce, slice to, int value, int mode, cell body) inline;
@@ -104,3 +131,6 @@ cell $String$_fun_asComment(slice $self) impure inline_ref;
 
 ;; $SendParameters$_constructor_bounce_to_value_mode_code_data_body
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_code_data_body(int bounce, slice to, int value, int mode, cell code, cell data, cell body) inline;
+
+;; $DeployOk$_constructor_queryId
+((int)) $DeployOk$_constructor_queryId(int queryId) inline;

@@ -8,13 +8,14 @@ import { toNano } from "@ton/ton";
 };
 
 async function main() {
+    let owner = Address.parse("UQBOop4AF9RNh2DG1N1yZfzFM28vZNUlRjAtjphOEVMd0j-8");
     let system = await ContractSystem.create();
 
     // Treasure 是一个拥有 1M TON 的合约，是智能合约的便捷切入点
     // Treasure is a contract that has 1m of TONs and is a handy entry point for your smart contracts
     let treasure: Treasure = system.treasure("Sender Treasure Contract");
 
-    let openedSendMsgContract = system.open(await SendMsgContract.fromInit());
+    let openedSendMsgContract = system.open(await SendMsgContract.fromInit(owner));
 
     // This object would track all transactions in this contract
     let tracker = system.track(openedSendMsgContract.address);

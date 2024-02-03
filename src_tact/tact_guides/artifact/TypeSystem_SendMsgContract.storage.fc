@@ -27,6 +27,39 @@
 }
 
 ;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int queryId) inline {
+    return (queryId);
+}
+
+;;
 ;; Type: MyMsgBody
 ;; TLB: _ x:int257 y:^string = MyMsgBody
 ;;
@@ -88,22 +121,41 @@ builder $HelloWorld$init$_store(builder build_0, tuple v) inline {
 ;; Type: SendMsgContract
 ;;
 
-tuple $SendMsgContract$_contract_load() impure inline_ref {
+builder $SendMsgContract$_store(builder build_0, (slice) v) inline {
+    var (v'owner) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    return build_0;
+}
+
+(slice, ((slice))) $SendMsgContract$_load(slice sc_0) inline {
+    var v'owner = sc_0~__tact_load_address();
+    return (sc_0, (v'owner));
+}
+
+(slice, ((slice))) $SendMsgContract$init$_load(slice sc_0) inline {
+    var v'owner = sc_0~__tact_load_address();
+    return (sc_0, (v'owner));
+}
+
+(slice) $SendMsgContract$_contract_load() impure inline_ref {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
     if ($loaded) {
-        return null();
+        return $sc~$SendMsgContract$_load();
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        return $SendMsgContract$_contract_init();
+        (slice owner) = $sc~$SendMsgContract$init$_load();
+        $sc.end_parse();
+        return $SendMsgContract$_contract_init(owner);
     }
 }
 
-() $SendMsgContract$_contract_store(tuple v) impure inline {
+() $SendMsgContract$_contract_store((slice) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);
+    b = $SendMsgContract$_store(b, v);
     set_data(b.end_cell());
 }

@@ -11,6 +11,11 @@ slice __tact_verify_address(slice address) inline {
     return address;
 }
 
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    return (cs, __tact_verify_address(raw));
+}
+
 builder __tact_store_address(builder b, slice address) inline {
     return b.store_slice(__tact_verify_address(address));
 }
@@ -180,8 +185,8 @@ cell $String$_fun_asComment(slice $self) impure inline_ref {
     return __tact_string_builder_end($b);
 }
 
-(tuple, ()) $SendMsgContract$_fun_forward(tuple $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
-    var ($self) = $self;
+((slice), ()) $SendMsgContract$_fun_forward((slice) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
+    var (($self'owner)) = $self;
     var ($init) = $init;
     cell $code = null();
     cell $data = null();
@@ -197,15 +202,21 @@ cell $String$_fun_asComment(slice $self) impure inline_ref {
         if (($balanceBeforeMessage < 0)) {
             raw_reserve(0, 0);
             $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (128 + 2), $body, $code, $data));
-            return ($self, ());
+            return (($self'owner), ());
         }
     }
     $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (64 + 2), $body, $code, $data));
-    return ($self, ());
+    return (($self'owner), ());
 }
 
-(tuple, ()) $SendMsgContract$_fun_reply(tuple $self, cell $body) impure inline {
-    var ($self) = $self;
-    $self~$SendMsgContract$_fun_forward(__tact_context_get_sender(), $body, true, null());
-    return ($self, ());
+((slice), ()) $SendMsgContract$_fun_reply((slice) $self, cell $body) impure inline {
+    var (($self'owner)) = $self;
+    ($self'owner)~$SendMsgContract$_fun_forward(__tact_context_get_sender(), $body, true, null());
+    return (($self'owner), ());
+}
+
+((slice), ()) $SendMsgContract$_fun_notify((slice) $self, cell $body) impure inline {
+    var (($self'owner)) = $self;
+    ($self'owner)~$SendMsgContract$_fun_forward(__tact_context_get_sender(), $body, false, null());
+    return (($self'owner), ());
 }

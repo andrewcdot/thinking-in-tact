@@ -1,5 +1,6 @@
 PROGRAM{
   DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
   DECLPROC __tact_store_address
   DECLPROC __tact_create_address
   DECLPROC __tact_compute_contract_address
@@ -14,11 +15,17 @@ PROGRAM{
   DECLPROC __tact_string_builder_start_comment
   DECLPROC __tact_string_builder_end
   DECLPROC __tact_string_builder_append
+  DECLPROC $Deploy$_load
+  DECLPROC $DeployOk$_store
+  DECLPROC $DeployOk$_store_cell
   DECLPROC $MyMsgBody$_store
   DECLPROC $MyMsgBody$_store_cell
   DECLPROC $BinMsg$_load
+  DECLPROC $SendMsgContract$_store
+  DECLPROC $SendMsgContract$_load
   DECLPROC $StateInit$_not_null
   DECLPROC $HelloWorld$init$_store
+  DECLPROC $SendMsgContract$init$_load
   DECLPROC $SendMsgContract$_contract_init
   DECLPROC $SendMsgContract$_contract_load
   DECLPROC $SendMsgContract$_contract_store
@@ -30,15 +37,20 @@ PROGRAM{
   DECLPROC $SendMsgContract$_fun_counter
   DECLPROC $SendMsgContract$_fun_forward
   DECLPROC $SendMsgContract$_fun_reply
+  DECLPROC $SendMsgContract$_fun_notify
+  DECLPROC $SendMsgContract$_fun_owner
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body
   DECLPROC $MyMsgBody$_constructor_x_y
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_code_data_body
+  DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c
   DECLPROC $SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40
   DECLPROC $SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe
   DECLPROC $SendMsgContract$_internal_text_649c197f48ab34aef4e749ec9a510d6b93612f47b7577de1d62838b9cc645397
   DECLPROC $SendMsgContract$_internal_binary_BinMsg
+  DECLPROC $SendMsgContract$_internal_binary_Deploy
   104984 DECLMETHOD %counter
+  83229 DECLMETHOD %owner
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -63,6 +75,11 @@ PROGRAM{
     10 PUSHPOW2
     EQUAL
     136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
   }>
   __tact_store_address PROCINLINE:<{
     __tact_verify_address INLINECALLDICT
@@ -230,6 +247,27 @@ PROGRAM{
     }>
     3 BLKDROP
   }>
+  $Deploy$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $DeployOk$_store PROCINLINE:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  $DeployOk$_store_cell PROCINLINE:<{
+    NEWC
+    SWAP
+    $DeployOk$_store INLINECALLDICT
+    ENDC
+  }>
   $MyMsgBody$_store PROCINLINE:<{
     s0 s2 XCHG
     257 PUSHINT
@@ -260,6 +298,12 @@ PROGRAM{
     CTOS
     s1 s2 XCHG
   }>
+  $SendMsgContract$_store PROCINLINE:<{
+    __tact_store_address INLINECALLDICT
+  }>
+  $SendMsgContract$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+  }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
     ISNULL
@@ -269,8 +313,10 @@ PROGRAM{
   $HelloWorld$init$_store PROCINLINE:<{
     DROP
   }>
+  $SendMsgContract$init$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+  }>
   $SendMsgContract$_contract_init PROCREF:<{
-    PUSHNULL
   }>
   $SendMsgContract$_contract_load PROCREF:<{
     c4 PUSH
@@ -279,19 +325,22 @@ PROGRAM{
     SWAP
     __tact_context_sys SETGLOB
     1 LDI
-    DROP
+    SWAP
     IFJMP:<{
-      PUSHNULL
+      $SendMsgContract$_load INLINECALLDICT
+      NIP
     }>
     MYADDR
     11 PLDU
     10 PUSHPOW2
     EQUAL
     137 THROWIFNOT
+    $SendMsgContract$init$_load INLINECALLDICT
+    SWAP
+    ENDS
     $SendMsgContract$_contract_init INLINECALLDICT
   }>
   $SendMsgContract$_contract_store PROCINLINE:<{
-    DROP
     NEWC
     __tact_context_sys GETGLOB
     SWAP
@@ -299,6 +348,8 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
+    SWAP
+    $SendMsgContract$_store INLINECALLDICT
     ENDC
     c4 POP
   }>
@@ -475,6 +526,16 @@ PROGRAM{
     PUSHNULL
     $SendMsgContract$_fun_forward INLINECALLDICT
   }>
+  $SendMsgContract$_fun_notify PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    SWAP
+    FALSE
+    PUSHNULL
+    $SendMsgContract$_fun_forward INLINECALLDICT
+  }>
+  $SendMsgContract$_fun_owner PROCREF:<{
+    DUP
+  }>
   $SendParameters$_constructor_bounce_to_value_mode_body PROCINLINE:<{
     PUSHNULL
     PUSHNULL
@@ -483,6 +544,8 @@ PROGRAM{
   }>
   $SendParameters$_constructor_bounce_to_value_mode_code_data_body PROCINLINE:<{
     -ROT
+  }>
+  $DeployOk$_constructor_queryId PROCINLINE:<{
   }>
   $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c PROCINLINE:<{
     B{b5ee9c7241010101002500004600000000676f742069742e207265706c792066726f6d205b7265706c795f746578745d9d66ad81} B>boc PUSHREF
@@ -555,9 +618,19 @@ PROGRAM{
     B{b5ee9c72410101010026000048000000007265706c792066726f6d205b72656365697665286d73673a42696e4d7367295d160adf12} B>boc PUSHREF
     $SendMsgContract$_fun_reply INLINECALLDICT
   }>
+  $SendMsgContract$_internal_binary_Deploy PROCINLINE:<{
+    $DeployOk$_constructor_queryId INLINECALLDICT
+    $DeployOk$_store_cell INLINECALLDICT
+    $SendMsgContract$_fun_notify INLINECALLDICT
+  }>
   %counter PROC:<{
     $SendMsgContract$_contract_load INLINECALLDICT
     $SendMsgContract$_fun_counter INLINECALLDICT
+    NIP
+  }>
+  %owner PROC:<{
+    $SendMsgContract$_contract_load INLINECALLDICT
+    $SendMsgContract$_fun_owner INLINECALLDICT
     NIP
   }>
   supported_interfaces PROC:<{
@@ -565,9 +638,10 @@ PROGRAM{
     209801025412363888721030803524359905849 PUSHINT
     42980537499636128163026532310500881091 PUSHINT
     209474421377847335869795010607481022628 PUSHINT
+    86142586315491086060343270784266291122 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d577a436979694c6f7569476f4e4b396843634d42773169316344457a456a616664394b4a45416b5173676a77} PUSHSLICE
+    x{697066733a2f2f516d6550356f57353159637478317670706971394b455966364e54676f687a633331325743614834696750786e72} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -600,6 +674,16 @@ PROGRAM{
       $BinMsg$_load INLINECALLDICT
       1 2 BLKDROP2
       $SendMsgContract$_internal_binary_BinMsg INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Deploy$_load INLINECALLDICT
+      NIP
+      $SendMsgContract$_internal_binary_Deploy INLINECALLDICT
       TRUE
     }>
     0 EQINT

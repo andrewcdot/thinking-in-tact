@@ -12,7 +12,7 @@ async function deploy() {
     let owner = Address.parse("UQBOop4AF9RNh2DG1N1yZfzFM28vZNUlRjAtjphOEVMd0j-8");
 
     //没有owner, 因为没有Ownable - （ import "@stdlib/ownable";）
-    let initState = await SendMsgContract.init();
+    let initState = await SendMsgContract.init(owner);
 
     let deployAddress = contractAddress(0, initState);
     let dataBuffer = initState.data.toBoc(); // data 的值，会因为 init 的初始化参数而变化

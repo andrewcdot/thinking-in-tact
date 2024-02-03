@@ -190,6 +190,231 @@ function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
     }
 }
 
+export type ChangeOwner = {
+    $$type: 'ChangeOwner';
+    queryId: bigint;
+    newOwner: Address;
+}
+
+export function storeChangeOwner(src: ChangeOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(2174598809, 32);
+        b_0.storeUint(src.queryId, 64);
+        b_0.storeAddress(src.newOwner);
+    };
+}
+
+export function loadChangeOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2174598809) { throw Error('Invalid prefix'); }
+    let _queryId = sc_0.loadUintBig(64);
+    let _newOwner = sc_0.loadAddress();
+    return { $$type: 'ChangeOwner' as const, queryId: _queryId, newOwner: _newOwner };
+}
+
+function loadTupleChangeOwner(source: TupleReader) {
+    let _queryId = source.readBigNumber();
+    let _newOwner = source.readAddress();
+    return { $$type: 'ChangeOwner' as const, queryId: _queryId, newOwner: _newOwner };
+}
+
+function storeTupleChangeOwner(source: ChangeOwner) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.queryId);
+    builder.writeAddress(source.newOwner);
+    return builder.build();
+}
+
+function dictValueParserChangeOwner(): DictionaryValue<ChangeOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeChangeOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadChangeOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type ChangeOwnerOk = {
+    $$type: 'ChangeOwnerOk';
+    queryId: bigint;
+    newOwner: Address;
+}
+
+export function storeChangeOwnerOk(src: ChangeOwnerOk) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(846932810, 32);
+        b_0.storeUint(src.queryId, 64);
+        b_0.storeAddress(src.newOwner);
+    };
+}
+
+export function loadChangeOwnerOk(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 846932810) { throw Error('Invalid prefix'); }
+    let _queryId = sc_0.loadUintBig(64);
+    let _newOwner = sc_0.loadAddress();
+    return { $$type: 'ChangeOwnerOk' as const, queryId: _queryId, newOwner: _newOwner };
+}
+
+function loadTupleChangeOwnerOk(source: TupleReader) {
+    let _queryId = source.readBigNumber();
+    let _newOwner = source.readAddress();
+    return { $$type: 'ChangeOwnerOk' as const, queryId: _queryId, newOwner: _newOwner };
+}
+
+function storeTupleChangeOwnerOk(source: ChangeOwnerOk) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.queryId);
+    builder.writeAddress(source.newOwner);
+    return builder.build();
+}
+
+function dictValueParserChangeOwnerOk(): DictionaryValue<ChangeOwnerOk> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeChangeOwnerOk(src)).endCell());
+        },
+        parse: (src) => {
+            return loadChangeOwnerOk(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type Deploy = {
+    $$type: 'Deploy';
+    queryId: bigint;
+}
+
+export function storeDeploy(src: Deploy) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(2490013878, 32);
+        b_0.storeUint(src.queryId, 64);
+    };
+}
+
+export function loadDeploy(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2490013878) { throw Error('Invalid prefix'); }
+    let _queryId = sc_0.loadUintBig(64);
+    return { $$type: 'Deploy' as const, queryId: _queryId };
+}
+
+function loadTupleDeploy(source: TupleReader) {
+    let _queryId = source.readBigNumber();
+    return { $$type: 'Deploy' as const, queryId: _queryId };
+}
+
+function storeTupleDeploy(source: Deploy) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.queryId);
+    return builder.build();
+}
+
+function dictValueParserDeploy(): DictionaryValue<Deploy> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDeploy(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDeploy(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type DeployOk = {
+    $$type: 'DeployOk';
+    queryId: bigint;
+}
+
+export function storeDeployOk(src: DeployOk) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(2952335191, 32);
+        b_0.storeUint(src.queryId, 64);
+    };
+}
+
+export function loadDeployOk(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2952335191) { throw Error('Invalid prefix'); }
+    let _queryId = sc_0.loadUintBig(64);
+    return { $$type: 'DeployOk' as const, queryId: _queryId };
+}
+
+function loadTupleDeployOk(source: TupleReader) {
+    let _queryId = source.readBigNumber();
+    return { $$type: 'DeployOk' as const, queryId: _queryId };
+}
+
+function storeTupleDeployOk(source: DeployOk) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.queryId);
+    return builder.build();
+}
+
+function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDeployOk(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDeployOk(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type FactoryDeploy = {
+    $$type: 'FactoryDeploy';
+    queryId: bigint;
+    cashback: Address;
+}
+
+export function storeFactoryDeploy(src: FactoryDeploy) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(1829761339, 32);
+        b_0.storeUint(src.queryId, 64);
+        b_0.storeAddress(src.cashback);
+    };
+}
+
+export function loadFactoryDeploy(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 1829761339) { throw Error('Invalid prefix'); }
+    let _queryId = sc_0.loadUintBig(64);
+    let _cashback = sc_0.loadAddress();
+    return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
+}
+
+function loadTupleFactoryDeploy(source: TupleReader) {
+    let _queryId = source.readBigNumber();
+    let _cashback = source.readAddress();
+    return { $$type: 'FactoryDeploy' as const, queryId: _queryId, cashback: _cashback };
+}
+
+function storeTupleFactoryDeploy(source: FactoryDeploy) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.queryId);
+    builder.writeAddress(source.cashback);
+    return builder.build();
+}
+
+function dictValueParserFactoryDeploy(): DictionaryValue<FactoryDeploy> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeFactoryDeploy(src)).endCell());
+        },
+        parse: (src) => {
+            return loadFactoryDeploy(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type MyMsgBody = {
     $$type: 'MyMsgBody';
     x: bigint;
@@ -293,8 +518,8 @@ function initHelloWorld_init_args(src: HelloWorld_init_args) {
 }
 
 async function HelloWorld_init() {
-    const __code = Cell.fromBase64('te6ccgECDgEAAU0AART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBwQCASAFBgAaAZIwf+Ag10kxwh8wcAIPvY1W2ebZ4YwHCAIBIAoLATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAkAGou2hlbGxvIHdvcmxkgAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSAwNABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVlOdkRhMmp0ZVU5MXhWZEpwNmdlbUhVYUVNaktRSmZYbXh1cTRic2lQcVZpgg');
-    const __system = Cell.fromBase64('te6cckECEAEAAVcAAQHAAQEFoPYVAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtWU52RGEyanRlVTkxeFZkSnA2Z2VtSFVhRU1qS1FKZlhteHVxNGJzaVBxVmmCAAEbCvu1E0NIAAYACVu70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwnZdOWrNOy3M6DpZtlGbopIAg+9jVbZ5tnhjA4LABqLtoZWxsbyB3b3JsZIApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UDg0AGgGSMH/gINdJMcIfMHABNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8DwACbUBzgxE=');
+    const __code = Cell.fromBase64('te6ccgECDgEAAU0AART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBwQCASAFBgAaAZIwf+Ag10kxwh8wcAIPvY1W2ebZ4YwHCAIBIAoLATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAkAGou2hlbGxvIHdvcmxkgAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSAwNABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVAzSnlSNEE1dmtwUFluSjJjSEdkRXYxdGFGTGhkaW9NQjV6TEJRZ2lWSFZxgg');
+    const __system = Cell.fromBase64('te6cckECEAEAAVcAAQHAAQEFoPYVAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtUDNKeVI0QTV2a3BQWW5KMmNIR2RFdjF0YUZMaGRpb01CNXpMQlFnaVZIVnGCAAEbCvu1E0NIAAYACVu70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwnZdOWrNOy3M6DpZtlGbopIAg+9jVbZ5tnhjA4LABqLtoZWxsbyB3b3JsZIApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UDg0AGgGSMH/gINdJMcIfMHABNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8DwACbXeJwGY=');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -334,6 +559,11 @@ const HelloWorld_types: ABIType[] = [
     {"name":"StateInit","header":null,"fields":[{"name":"code","type":{"kind":"simple","type":"cell","optional":false}},{"name":"data","type":{"kind":"simple","type":"cell","optional":false}}]},
     {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
     {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
+    {"name":"ChangeOwner","header":2174598809,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"newOwner","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"ChangeOwnerOk","header":846932810,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"newOwner","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"Deploy","header":2490013878,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"DeployOk","header":2952335191,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"FactoryDeploy","header":1829761339,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"cashback","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"MyMsgBody","header":null,"fields":[{"name":"x","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"y","type":{"kind":"simple","type":"string","optional":false}}]},
     {"name":"BinMsg","header":766381494,"fields":[{"name":"x","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"y","type":{"kind":"simple","type":"string","optional":false}}]},
 ]

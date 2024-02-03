@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: SendMsgContract
-BOC Size: 1636 bytes
+BOC Size: 1815 bytes
 
 # Types
-Total Types: 5
+Total Types: 10
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -17,6 +17,26 @@ Signature: `Context{bounced:bool,sender:address,value:int257,raw:^slice}`
 TLB: `_ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters`
 Signature: `SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}`
 
+## ChangeOwner
+TLB: `change_owner#819dbe99 queryId:uint64 newOwner:address = ChangeOwner`
+Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
+
+## ChangeOwnerOk
+TLB: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
+Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
+
+## Deploy
+TLB: `deploy#946a98b6 queryId:uint64 = Deploy`
+Signature: `Deploy{queryId:uint64}`
+
+## DeployOk
+TLB: `deploy_ok#aff90f57 queryId:uint64 = DeployOk`
+Signature: `DeployOk{queryId:uint64}`
+
+## FactoryDeploy
+TLB: `factory_deploy#6d0ff13b queryId:uint64 cashback:address = FactoryDeploy`
+Signature: `FactoryDeploy{queryId:uint64,cashback:address}`
+
 ## MyMsgBody
 TLB: `_ x:int257 y:^string = MyMsgBody`
 Signature: `MyMsgBody{x:int257,y:^string}`
@@ -26,9 +46,11 @@ TLB: `bin_msg#2dae0db6 x:int257 y:^string = BinMsg`
 Signature: `BinMsg{x:int257,y:^string}`
 
 # Get Methods
-Total Get Methods: 1
+Total Get Methods: 2
 
 ## counter
+
+## owner
 
 # Error Codes
 2: Stack undeflow
