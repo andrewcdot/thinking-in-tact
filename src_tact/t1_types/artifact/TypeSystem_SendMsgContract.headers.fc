@@ -9,6 +9,12 @@ slice __tact_verify_address(slice address) inline;
 ;; __tact_store_address
 builder __tact_store_address(builder b, slice address) inline;
 
+;; __tact_create_address
+slice __tact_create_address(int chain, int hash) inline;
+
+;; __tact_compute_contract_address
+slice __tact_compute_contract_address(int chain, cell code, cell data) inline;
+
 ;; __tact_my_balance
 int __tact_my_balance() inline;
 
@@ -24,6 +30,12 @@ slice __tact_context_get_sender() inline;
 ;; __tact_store_bool
 builder __tact_store_bool(builder b, int v) inline;
 
+;; __tact_dict_set_code
+cell __tact_dict_set_code(cell dict, int id, cell code) inline;
+
+;; __tact_dict_get_code
+cell __tact_dict_get_code(cell dict, int id) inline;
+
 ;; $MyMsgBody$_store
 builder $MyMsgBody$_store(builder build_0, (int, slice) v) inline;
 
@@ -32,6 +44,9 @@ cell $MyMsgBody$_store_cell((int, slice) v) inline;
 
 ;; $StateInit$_not_null
 ((cell, cell)) $StateInit$_not_null(tuple v) inline;
+
+;; $HelloWorld$init$_store
+builder $HelloWorld$init$_store(builder build_0, tuple v) inline;
 
 ;; $SendMsgContract$_contract_init
 tuple $SendMsgContract$_contract_init() impure inline_ref;
@@ -42,8 +57,14 @@ tuple $SendMsgContract$_contract_load() impure inline_ref;
 ;; $SendMsgContract$_contract_store
 () $SendMsgContract$_contract_store(tuple v) impure inline;
 
+;; $global_contractAddress
+slice $global_contractAddress((cell, cell) $s) impure inline;
+
 ;; $global_send
 () $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
+
+;; $HelloWorld$_init_child
+(cell, cell) $HelloWorld$_init_child(cell sys') inline_ref;
 
 ;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
@@ -59,3 +80,6 @@ tuple $SendMsgContract$_contract_load() impure inline_ref;
 
 ;; $MyMsgBody$_constructor_x_y
 ((int, slice)) $MyMsgBody$_constructor_x_y(int x, slice y) inline;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_code_data_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_code_data_body(int bounce, slice to, int value, int mode, cell code, cell data, cell body) inline;

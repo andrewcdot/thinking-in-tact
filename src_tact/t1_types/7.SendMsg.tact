@@ -1,3 +1,5 @@
+import "./HelloContract";
+
 
 struct MyMsgBody{
    x:Int;
@@ -38,4 +40,19 @@ contract SendMsgContract{
        });
     }
 
+
+     receive("send_SendParameters_with_Deploy"){
+           let state:StateInit = initOf HelloWorld();
+           let address:Address = contractAddress(state);
+           let value:Int = ton("1");
+           send(SendParameters{
+              bounce:true,
+              to:address,
+              value:value,
+              mode:SendIgnoreErrors,
+              code: state.code,
+              data: state.data,
+              body:"Deploy".asComment()
+           });
+        }
 }

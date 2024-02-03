@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: SendMsgContract
-BOC Size: 882 bytes
+BOC Size: 1076 bytes
 
 # Types
 Total Types: 4

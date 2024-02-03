@@ -43,6 +43,15 @@ tuple $SendMsgContract$_contract_init() impure inline_ref {
     return ($self, ());
 }
 
+(tuple, ()) $SendMsgContract$_internal_text_f4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273(tuple $self) impure inline {
+    var $self = $self;
+    var ($state'code, $state'data) = $HelloWorld$_init_child(__tact_context_sys);
+    slice $address = $global_contractAddress(($state'code, $state'data));
+    int $value = 1000000000;
+    $global_send($SendParameters$_constructor_bounce_to_value_mode_code_data_body(true, $address, $value, 2, $state'code, $state'data, __gen_cell_comment_85d288384c0043458b02803cb22059f68803c553c3656344346468dac961f246()));
+    return ($self, ());
+}
+
 ;;
 ;; Get methods of a Contract SendMsgContract
 ;;
@@ -57,7 +66,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmWGQUjAJFzjmxg6WuwCyxH9hGu31zP8PAYQMeDbhebnGn";
+    return "ipfs://QmTp2Xj9r1uoGTFd5bJaPcp2JRHFHY7ZfUYdALgToztwXc";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -100,6 +109,12 @@ _ lazy_deployment_completed() method_id {
         ;; Receive "send_SendParameters_binary" message
         if (text_op == 0x52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe) {
             self~$SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe();
+            return (self, true);
+        }
+        
+        ;; Receive "send_SendParameters_with_Deploy" message
+        if (text_op == 0xf4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273) {
+            self~$SendMsgContract$_internal_text_f4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273();
             return (self, true);
         }
     }

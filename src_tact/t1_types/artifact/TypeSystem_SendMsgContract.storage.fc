@@ -22,6 +22,10 @@
     return (bounce, to, value, mode, body, null(), null());
 }
 
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_code_data_body(int bounce, slice to, int value, int mode, cell code, cell data, cell body) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
 ;;
 ;; Type: MyMsgBody
 ;; TLB: _ x:int257 y:^string = MyMsgBody
@@ -40,6 +44,31 @@ cell $MyMsgBody$_store_cell((int, slice) v) inline {
 
 ((int, slice)) $MyMsgBody$_constructor_x_y(int x, slice y) inline {
     return (x, y);
+}
+
+;;
+;; Type: HelloWorld
+;;
+
+builder $HelloWorld$init$_store(builder build_0, tuple v) inline {
+    return build_0;
+}
+
+(cell, cell) $HelloWorld$_init_child(cell sys') inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: HelloWorld
+    cell mine = __tact_dict_get_code(source, 31498);
+    contracts = __tact_dict_set_code(contracts, 31498, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $HelloWorld$init$_store(b, null());
+    return (mine, b.end_cell());
 }
 
 ;;
