@@ -3,8 +3,8 @@
         "name": "JettonTact",
         "path": "./src_tact/master.tact",
         "output": "./artifact",
-        "options":{
-
+        "options": {
+            "external": true
         }
     }]
 }

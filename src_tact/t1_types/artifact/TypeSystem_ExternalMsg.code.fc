@@ -1,0 +1,135 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "TypeSystem_ExternalMsg.headers.fc";
+#include "TypeSystem_ExternalMsg.stdlib.fc";
+#include "TypeSystem_ExternalMsg.storage.fc";
+
+;;
+;; Contract ExternalMsg functions
+;;
+
+(int) $ExternalMsg$_contract_init() impure inline_ref {
+    var (($self'timeout)) = (null());
+    $self'timeout = (now() + (((10 * 24) * 60) * 60));
+    return ($self'timeout);
+}
+
+((int), ()) $ExternalMsg$_fun_onTimeouted((int) $self) impure inline_ref {
+    var (($self'timeout)) = $self;
+    return (($self'timeout), ());
+}
+
+;;
+;; Receivers of a Contract ExternalMsg
+;;
+
+((int), ()) $ExternalMsg$_external_text_f508d06fed13b32de3c1747066264b99ad8f5b7988a40ba74cb51c5dd479051e((int) $self) impure inline {
+    var ($self'timeout) = $self;
+    throw_unless(10481, ($self'timeout > now()));
+    accept_message();
+    ($self'timeout)~$ExternalMsg$_fun_onTimeouted();
+    return (($self'timeout), ());
+}
+
+;;
+;; Get methods of a Contract ExternalMsg
+;;
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmYczsgrkyYA4qqcqH1vS4z9rGHZW2yLVpFHbx7YjZYqyh";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract ExternalMsg
+;;
+
+((int), int) $ExternalMsg$_contract_router_internal((int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    return (self, false);
+}
+
+((int), int) $ExternalMsg$_contract_router_external((int) self, slice in_msg) impure inline_ref {
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "Check Timeout" message
+        if (text_op == 0xf508d06fed13b32de3c1747066264b99ad8f5b7988a40ba74cb51c5dd479051e) {
+            self~$ExternalMsg$_external_text_f508d06fed13b32de3c1747066264b99ad8f5b7988a40ba74cb51c5dd479051e();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $ExternalMsg$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$ExternalMsg$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $ExternalMsg$_contract_store(self);
+}
+
+() recv_external(slice in_msg) impure {
+    ;; Load contract data
+    var self = $ExternalMsg$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$ExternalMsg$_contract_router_external(in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(handled, 130);
+    
+    ;; Persist state
+    $ExternalMsg$_contract_store(self);
+}

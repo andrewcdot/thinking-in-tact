@@ -190,28 +190,28 @@ function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
     }
 }
 
- type Container_init_args = {
-    $$type: 'Container_init_args';
+ type ExternalMsg_init_args = {
+    $$type: 'ExternalMsg_init_args';
 }
 
-function initContainer_init_args(src: Container_init_args) {
+function initExternalMsg_init_args(src: ExternalMsg_init_args) {
     return (builder: Builder) => {
         let b_0 = builder;
     };
 }
 
-async function Container_init() {
-    const __code = Cell.fromBase64('te6ccgECDgEAAY4AART/APSkE/S88sgLAQIBYgIDAp7QAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4ILI+EMBzH8BygABAYEBAc8Aye1UCQQCAVgFBgCa7aLt+wGWgCDXITB/4HAh10nCH5UwINcLH97AAI4r+QGC8M3Q9ZZqN5IiOKaVTukYoWLMWQQJ72XwlM7oHp0LxSu0upSkf9sx4JEw4nACASAHCAIBSAwNAg+3Qxtnm2eGMAkKAJW3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOE7Lpy1Zp2W5nQdLNsozdFJABQu1E0NQB+GPSAAGXgQEB1wABMeAw+CjXCwqDCbry4InbPAsAAiAAAnEAEbCvu1E0NIAAYAB1sm7jQ1aXBmczovL1FtWk1kTXJtVHd1NUVaMVZUWUpweXVwQU5od3gzWUYxdjNwb215N2hnOUpwdVGCA=');
-    const __system = Cell.fromBase64('te6cckECEAEAAZgAAQHAAQEFoa4BAgEU/wD0pBP0vPLICwMCAWIMBAIBWAgFAgFIBwYAdbJu40NWlwZnM6Ly9RbVpNZE1ybVR3dTVFWjFWVFlKcHl1cEFOaHd4M1lGMXYzcG9teTdoZzlKcHVRggABGwr7tRNDSAAGACASAKCQCVt3owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTgQKuANwDOxymcsHVcjktlhwThOy6ctWadluZ0HSzbKM3RSQAg+3Qxtnm2eGMA4LAAIgAp7QAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4ILI+EMBzH8BygABAYEBAc8Aye1UDg0Amu2i7fsBloAg1yEwf+BwIddJwh+VMCDXCx/ewACOK/kBgvDN0PWWajeSIjimlU7pGKFizFkECe9l8JTO6B6dC8UrtLqUpH/bMeCRMOJwAULtRNDUAfhj0gABl4EBAdcAATHgMPgo1wsKgwm68uCJ2zwPAAJxrlFglg==');
+async function ExternalMsg_init() {
+    const __code = Cell.fromBase64('te6ccgECDgEAAasAART/APSkE/S88sgLAQIBIAIDAgFIBAUCLvLbPAHbPDDI+EMBzH8BygABAcsfye1UCwwCmNAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFnbPPLggsj4QwHMfwHKAAEByx/J7VQLBgIBWAcIABoBkjB/4CDXSTHCHzBwAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCAUgJCgARsK+7UTQ0gABgAHWybuNDVpcGZzOi8vUW1ZY3pzZ3JreVlBNHFxY3FIMXZTNHo5ckdIWlcyeUxWcEZIYng3WWpaWXF5aIIAE87UTQ1AH4Y9IAAZTTHwEx4DD4KNcLCoMJuvLgids8DQCc7aLt+3Ah10nCH5UwINcLH97AAI41+QGC8PUI0G/tE7Mt48F0cGYmS5mtj1t5iKQLp0y1HF3UeQUeup6BKPEh+CO88vT4AH/bMeCRMOJwABD4I4IIDS8AoA==');
+    const __system = Cell.fromBase64('te6cckECEAEAAbUAAQHAAQEFoFWBAgEU/wD0pBP0vPLICwMCASAGBAIu8ts8Ads8MMj4QwHMfwHKAAEByx/J7VQOBQCc7aLt+3Ah10nCH5UwINcLH97AAI41+QGC8PUI0G/tE7Mt48F0cGYmS5mtj1t5iKQLp0y1HF3UeQUeup6BKPEh+CO88vT4AH/bMeCRMOJwAgFIDAcCAVgLCAIBSAoJAHWybuNDVpcGZzOi8vUW1ZY3pzZ3JreVlBNHFxY3FIMXZTNHo5ckdIWlcyeUxWcEZIYng3WWpaWXF5aIIAARsK+7UTQ0gABgAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCmNAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFnbPPLggsj4QwHMfwHKAAEByx/J7VQODQAaAZIwf+Ag10kxwh8wcAE87UTQ1AH4Y9IAAZTTHwEx4DD4KNcLCoMJuvLgids8DwAQ+COCCA0vAKDwCpdh');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initContainer_init_args({ $$type: 'Container_init_args' })(builder);
+    initExternalMsg_init_args({ $$type: 'ExternalMsg_init_args' })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
 
-const Container_errors: { [key: number]: { message: string } } = {
+const ExternalMsg_errors: { [key: number]: { message: string } } = {
     2: { message: `Stack undeflow` },
     3: { message: `Stack overflow` },
     4: { message: `Integer overflow` },
@@ -236,45 +236,45 @@ const Container_errors: { [key: number]: { message: string } } = {
     135: { message: `Code of a contract was not found` },
     136: { message: `Invalid address` },
     137: { message: `Masterchain support is not enabled for this contract` },
+    10481: { message: `Not time outed` },
 }
 
-const Container_types: ABIType[] = [
+const ExternalMsg_types: ABIType[] = [
     {"name":"StateInit","header":null,"fields":[{"name":"code","type":{"kind":"simple","type":"cell","optional":false}},{"name":"data","type":{"kind":"simple","type":"cell","optional":false}}]},
     {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
     {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
 ]
 
-const Container_getters: ABIGetter[] = [
-    {"name":"counter","arguments":[],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
+const ExternalMsg_getters: ABIGetter[] = [
 ]
 
-const Container_receivers: ABIReceiver[] = [
-    {"receiver":"internal","message":{"kind":"text","text":"Increment"}},
+const ExternalMsg_receivers: ABIReceiver[] = [
+    {"receiver":"external","message":{"kind":"text","text":"Check Timeout"}},
 ]
 
-export class Container implements Contract {
+export class ExternalMsg implements Contract {
     
     static async init() {
-        return await Container_init();
+        return await ExternalMsg_init();
     }
     
     static async fromInit() {
-        const init = await Container_init();
+        const init = await ExternalMsg_init();
         const address = contractAddress(0, init);
-        return new Container(address, init);
+        return new ExternalMsg(address, init);
     }
     
     static fromAddress(address: Address) {
-        return new Container(address);
+        return new ExternalMsg(address);
     }
     
     readonly address: Address; 
     readonly init?: { code: Cell, data: Cell };
     readonly abi: ContractABI = {
-        types:  Container_types,
-        getters: Container_getters,
-        receivers: Container_receivers,
-        errors: Container_errors,
+        types:  ExternalMsg_types,
+        getters: ExternalMsg_getters,
+        receivers: ExternalMsg_receivers,
+        errors: ExternalMsg_errors,
     };
     
     private constructor(address: Address, init?: { code: Cell, data: Cell }) {
@@ -282,23 +282,16 @@ export class Container implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'Increment') {
+    async sendExternal(provider: ContractProvider, message: 'Check Timeout') {
         
         let body: Cell | null = null;
-        if (message === 'Increment') {
+        if (message === 'Check Timeout') {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (body === null) { throw new Error('Invalid message type'); }
         
-        await provider.internal(via, { ...args, body: body });
+        await provider.external(body);
         
-    }
-    
-    async getCounter(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('counter', builder.build())).stack;
-        let result = source.readBigNumber();
-        return result;
     }
     
 }

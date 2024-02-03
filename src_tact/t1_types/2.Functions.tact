@@ -54,4 +54,11 @@ init(){}
   get fun counter(): Int {
     return self.counter;
   }
+
+
+// Bounced functions
+   bounced(src: Slice) {
+          // ...
+    }
+
 }

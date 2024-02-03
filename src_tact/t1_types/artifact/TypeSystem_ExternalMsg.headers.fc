@@ -1,0 +1,25 @@
+;;
+;; Header files for ExternalMsg
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; $ExternalMsg$_store
+builder $ExternalMsg$_store(builder build_0, (int) v) inline;
+
+;; $ExternalMsg$_load
+(slice, ((int))) $ExternalMsg$_load(slice sc_0) inline;
+
+;; $ExternalMsg$_contract_init
+(int) $ExternalMsg$_contract_init() impure inline_ref;
+
+;; $ExternalMsg$_contract_load
+(int) $ExternalMsg$_contract_load() impure inline_ref;
+
+;; $ExternalMsg$_contract_store
+() $ExternalMsg$_contract_store((int) v) impure inline;
+
+;; $ExternalMsg$_fun_onTimeouted
+((int), ()) $ExternalMsg$_fun_onTimeouted((int) $self) impure inline_ref;

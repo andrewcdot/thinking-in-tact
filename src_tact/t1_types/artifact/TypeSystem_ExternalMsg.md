@@ -1,6 +1,6 @@
 # TACT Compilation Report
-Contract: Container
-BOC Size: 410 bytes
+Contract: ExternalMsg
+BOC Size: 439 bytes
 
 # Types
 Total Types: 3
@@ -18,9 +18,7 @@ TLB: `_ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Ma
 Signature: `SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}`
 
 # Get Methods
-Total Get Methods: 1
-
-## counter
+Total Get Methods: 0
 
 # Error Codes
 2: Stack undeflow
@@ -47,3 +45,4 @@ Total Get Methods: 1
 135: Code of a contract was not found
 136: Invalid address
 137: Masterchain support is not enabled for this contract
+10481: Not time outed

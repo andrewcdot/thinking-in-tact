@@ -1,9 +1,10 @@
 {
     "projects": [{
         "name": "TypeSystem",
-        "path": "./4.Constants.tact",
+        "path": "./5.ExternalMsg.tact",
         "output": "./artifact",
-        "options":{
+        "options": {
+            "external": true
         }
     }]
 }
