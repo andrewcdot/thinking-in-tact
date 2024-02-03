@@ -6,6 +6,7 @@
     "build": "tact --config ./tact.config.json",
     "test": "jest",
     "btest": "npx blueprint test",
+    "deploy_demo": "ts-node ./src_ts/deploy.demo_code.ts",
     "deploy_with_mint": "ts-node ./src_ts/contract.deploy.ts",
     "read": "ts-node ./src_ts/contract.read.ts",
     "transferFromOwner2Alison": "ts-node ./src_ts/1_TransferFromOwner2Alison.ts",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.2.0",
     "@tact-lang/compiler": "^1.1.5",
+    "@tact-lang/deployer": "^0.2.0",
     "@tact-lang/emulator": "^4.2.3",
     "@ton-community/sandbox": "^0.11.0",
     "@ton-community/test-utils": "^0.3.0",
