@@ -1,0 +1,25 @@
+;;
+;; Header files for SimpleContract
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; $SimpleContract$_store
+builder $SimpleContract$_store(builder build_0, (int) v) inline;
+
+;; $SimpleContract$_load
+(slice, ((int))) $SimpleContract$_load(slice sc_0) inline;
+
+;; $SimpleContract$_contract_init
+(int) $SimpleContract$_contract_init() impure inline_ref;
+
+;; $SimpleContract$_contract_load
+(int) $SimpleContract$_contract_load() impure inline_ref;
+
+;; $SimpleContract$_contract_store
+() $SimpleContract$_contract_store((int) v) impure inline;
+
+;; $SimpleContract$_fun_value
+((int), int) $SimpleContract$_fun_value((int) $self) impure inline_ref;

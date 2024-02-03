@@ -1,0 +1,127 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "TypeSystem_DeployableTraitContract.headers.fc";
+#include "TypeSystem_DeployableTraitContract.stdlib.fc";
+#include "TypeSystem_DeployableTraitContract.storage.fc";
+
+;;
+;; Contract DeployableTraitContract functions
+;;
+
+(int) $DeployableTraitContract$_contract_init() impure inline_ref {
+    var (($self'val)) = (null());
+    $self'val = 0;
+    return ($self'val);
+}
+
+((int), int) $DeployableTraitContract$_fun_value((int) $self) impure inline_ref {
+    var (($self'val)) = $self;
+    return (($self'val), $self'val);
+}
+
+;;
+;; Receivers of a Contract DeployableTraitContract
+;;
+
+((int), ()) $DeployableTraitContract$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae((int) $self) impure inline {
+    var ($self'val) = $self;
+    $self'val = ($self'val + 1);
+    return (($self'val), ());
+}
+
+(((int)), ()) $DeployableTraitContract$_internal_binary_Deploy((int) $self, (int) $deploy) impure inline {
+    var ($self'val) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'val)~$DeployableTraitContract$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'val), ());
+}
+
+;;
+;; Get methods of a Contract DeployableTraitContract
+;;
+
+_ %value() method_id(121536) {
+    var self = $DeployableTraitContract$_contract_load();
+    var res = self~$DeployableTraitContract$_fun_value();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmcAi9y87ZayiCR77rfjM6eP5LGYW3pyrh9YrbTKDFTaeS";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract DeployableTraitContract
+;;
+
+((int), int) $DeployableTraitContract$_contract_router_internal((int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$DeployableTraitContract$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "increment" message
+        if (text_op == 0xc4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae) {
+            self~$DeployableTraitContract$_internal_text_c4f8d72312edfdef5b7bec7833bdbb162d1511bd78a912aed0f2637af65572ae();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $DeployableTraitContract$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$DeployableTraitContract$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $DeployableTraitContract$_contract_store(self);
+}

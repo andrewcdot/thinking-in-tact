@@ -1,0 +1,19 @@
+;;
+;; Header files for HelloWorld
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; $HelloWorld$_contract_init
+tuple $HelloWorld$_contract_init() impure inline_ref;
+
+;; $HelloWorld$_contract_load
+tuple $HelloWorld$_contract_load() impure inline_ref;
+
+;; $HelloWorld$_contract_store
+() $HelloWorld$_contract_store(tuple v) impure inline;
+
+;; $HelloWorld$_fun_greeting
+(tuple, slice) $HelloWorld$_fun_greeting(tuple $self) impure inline_ref;
