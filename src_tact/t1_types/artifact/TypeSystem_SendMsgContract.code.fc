@@ -27,6 +27,22 @@ tuple $SendMsgContract$_contract_init() impure inline_ref {
     return ($self, ());
 }
 
+(tuple, ()) $SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40(tuple $self) impure inline {
+    var $self = $self;
+    slice $to = __gen_slice_address_dc1f6237098885429f974acdb123427386351bd8abd96585aeb5d4316d5baaa3();
+    int $value = 1000000000;
+    $global_send($SendParameters$_constructor_bounce_to_value_mode_body(true, $to, $value, 2, __gen_cell_comment_25cb67c386ed538e44cedf5447aca3f93556eb9f9b8c80812df23dfd0505f732()));
+    return ($self, ());
+}
+
+(tuple, ()) $SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe(tuple $self) impure inline {
+    var $self = $self;
+    slice $to = __gen_slice_address_dc1f6237098885429f974acdb123427386351bd8abd96585aeb5d4316d5baaa3();
+    int $value = 1000000000;
+    $global_send($SendParameters$_constructor_bounce_to_value_mode_body(true, $to, $value, 2, $MyMsgBody$_store_cell($MyMsgBody$_constructor_x_y(1, __gen_slice_string_87c011bcd272c4c7b63d87e897af2d1dbe7dad3d0a7d4a8e6520010d13f4493d()))));
+    return ($self, ());
+}
+
 ;;
 ;; Get methods of a Contract SendMsgContract
 ;;
@@ -41,7 +57,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://Qma6Shytkuda1EVe3VgZ4izEHsCApvfDeTKGmm4PspxRLV";
+    return "ipfs://QmWGQUjAJFzjmxg6WuwCyxH9hGu31zP8PAYQMeDbhebnGn";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -72,6 +88,18 @@ _ lazy_deployment_completed() method_id {
         ;; Receive "reply_text" message
         if (text_op == 0xdf4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c) {
             self~$SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c();
+            return (self, true);
+        }
+        
+        ;; Receive "send_SendParameters_text" message
+        if (text_op == 0x304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40) {
+            self~$SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40();
+            return (self, true);
+        }
+        
+        ;; Receive "send_SendParameters_binary" message
+        if (text_op == 0x52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe) {
+            self~$SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe();
             return (self, true);
         }
     }

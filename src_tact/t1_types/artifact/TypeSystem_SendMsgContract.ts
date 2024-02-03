@@ -190,6 +190,51 @@ function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
     }
 }
 
+export type MyMsgBody = {
+    $$type: 'MyMsgBody';
+    x: bigint;
+    y: string;
+}
+
+export function storeMyMsgBody(src: MyMsgBody) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeInt(src.x, 257);
+        b_0.storeStringRefTail(src.y);
+    };
+}
+
+export function loadMyMsgBody(slice: Slice) {
+    let sc_0 = slice;
+    let _x = sc_0.loadIntBig(257);
+    let _y = sc_0.loadStringRefTail();
+    return { $$type: 'MyMsgBody' as const, x: _x, y: _y };
+}
+
+function loadTupleMyMsgBody(source: TupleReader) {
+    let _x = source.readBigNumber();
+    let _y = source.readString();
+    return { $$type: 'MyMsgBody' as const, x: _x, y: _y };
+}
+
+function storeTupleMyMsgBody(source: MyMsgBody) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.x);
+    builder.writeString(source.y);
+    return builder.build();
+}
+
+function dictValueParserMyMsgBody(): DictionaryValue<MyMsgBody> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeMyMsgBody(src)).endCell());
+        },
+        parse: (src) => {
+            return loadMyMsgBody(src.loadRef().beginParse());
+        }
+    }
+}
+
  type SendMsgContract_init_args = {
     $$type: 'SendMsgContract_init_args';
 }
@@ -201,8 +246,8 @@ function initSendMsgContract_init_args(src: SendMsgContract_init_args) {
 }
 
 async function SendMsgContract_init() {
-    const __code = Cell.fromBase64('te6ccgECDwEAAlYAART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBAUCAVgLDAE07UTQ1AH4Y9IAMJFt4Pgo1wsKgwm68uCJ2zwGAqLtou37AZIwf+BwIddJwh+VMCDXCx/ewACPM/kBgvDfShYUtSI4FnDktBNTWfDo10X92xWuqqREOSHxA0HybLqPC4j4QgF/bds8f9sx4JEw4nAHCAACbQAWAAAAAGdvdCBpdC4BOm1tIm6zmVsgbvLQgG8iAZEy4hAkcAMEgEJQI9s8CQHKyHEBygFQBwHKAHABygJQBSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFlAD+gJwAcpoI26zkX+TJG6z4pczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAKAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCAUgNDgARsK+7UTQ0gABgAHWybuNDVpcGZzOi8vUW1hNlNoeXRrdWRhMUVWZTNWZ1o0aXpFSHNDQXB2ZkRlVEtHbW00UHNweFJMVoIA==');
-    const __system = Cell.fromBase64('te6cckECEQEAAmAAAQHAAQEFoTr3AgEU/wD0pBP0vPLICwMCAWIJBAIBWAgFAgFIBwYAdbJu40NWlwZnM6Ly9RbWE2U2h5dGt1ZGExRVZlM1ZnWjRpekVIc0NBcHZmRGVUS0dtbTRQc3B4UkxWggABGwr7tRNDSAAGAAlbu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAKS0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8Wds88uCCMMj4QwHMfwHKAMntVA8KAqLtou37AZIwf+BwIddJwh+VMCDXCx/ewACPM/kBgvDfShYUtSI4FnDktBNTWfDo10X92xWuqqREOSHxA0HybLqPC4j4QgF/bds8f9sx4JEw4nAOCwE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwMAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7AA0AmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwAFgAAAABnb3QgaXQuATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPBAAAm3dJXkw');
+    const __code = Cell.fromBase64('te6ccgECEwEAA2YAART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBAUCAVgPEAE07UTQ1AH4Y9IAMJFt4Pgo1wsKgwm68uCJ2zwGATrtou37AZIwf+BwIddJwh+VMCDXCx/ewACRMOMNcAcAAm0E/PkBIILw30oWFLUiOBZw5LQTU1nw6NdF/dsVrqqkRDkh8QNB8my6jwwwiPhCAX9t2zx/2zHgIILwMEoBB3HWOpxIc3aHqZGbcB4mx1618wQmqlM4OzXYXEC64wKC8FKgBn1hbbGdwLkItYPLFbXn9vlfTG7nw9+1Ee3pMSy+uggJCgsAFgAAAABnb3QgaXQuATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPA0CcjCNCGADfzDIz0nlzFS3k7gxzAph8xVq83+FB57L1iQvYiLWaQSCEDuaygB/cogQJBAjbW3bPH/bMQwNAZyOy40IYAN/MMjPSeXMVLeTuDHMCmHzFWrzf4UHnsvWJC9iItZpBIIQO5rKAH9ycYsXmMhZAoEBAc8AyFjPFskBzMkQJBAjbW3bPH/bMeANAGIAAAAAYnVpbGQgd2l0aCBTZW5kUGFyYW1ldGVycy4gQ29kZSZkYXRlIGlzIG51bGwuAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7AA4AmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwAlbu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSBESABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVdHUVVqQUpGempteGc2V3V3Q3l4SDloR3UzMXpQOFBBWVFNZURiaGVibkdugg');
+    const __system = Cell.fromBase64('te6cckECFQEAA3AAAQHAAQEFoTr3AgEU/wD0pBP0vPLICwMCAWIJBAIBWAgFAgFIBwYAdbJu40NWlwZnM6Ly9RbVdHUVVqQUpGempteGc2V3V3Q3l4SDloR3UzMXpQOFBBWVFNZURiaGVibkduggABGwr7tRNDSAAGAAlbu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAKS0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8Wds88uCCMMj4QwHMfwHKAMntVBMKATrtou37AZIwf+BwIddJwh+VMCDXCx/ewACRMOMNcAsE/PkBIILw30oWFLUiOBZw5LQTU1nw6NdF/dsVrqqkRDkh8QNB8my6jwwwiPhCAX9t2zx/2zHgIILwMEoBB3HWOpxIc3aHqZGbcB4mx1618wQmqlM4OzXYXEC64wKC8FKgBn1hbbGdwLkItYPLFbXn9vlfTG7nw9+1Ee3pMSy+uhIPDQwBnI7LjQhgA38wyM9J5cxUt5O4McwKYfMVavN/hQeey9YkL2Ii1mkEghA7msoAf3JxixeYyFkCgQEBzwDIWM8WyQHMyRAkECNtbds8f9sx4BACcjCNCGADfzDIz0nlzFS3k7gxzAph8xVq83+FB57L1iQvYiLWaQSCEDuaygB/cogQJBAjbW3bPH/bMQ4QAGIAAAAAYnVpbGQgd2l0aCBTZW5kUGFyYW1ldGVycy4gQ29kZSZkYXRlIGlzIG51bGwuATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPBAByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsAEQCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzAAWAAAAAGdvdCBpdC4BNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8FAACbQ4dr/E=');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -242,6 +287,7 @@ const SendMsgContract_types: ABIType[] = [
     {"name":"StateInit","header":null,"fields":[{"name":"code","type":{"kind":"simple","type":"cell","optional":false}},{"name":"data","type":{"kind":"simple","type":"cell","optional":false}}]},
     {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
     {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
+    {"name":"MyMsgBody","header":null,"fields":[{"name":"x","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"y","type":{"kind":"simple","type":"string","optional":false}}]},
 ]
 
 const SendMsgContract_getters: ABIGetter[] = [
@@ -249,6 +295,8 @@ const SendMsgContract_getters: ABIGetter[] = [
 
 const SendMsgContract_receivers: ABIReceiver[] = [
     {"receiver":"internal","message":{"kind":"text","text":"reply_text"}},
+    {"receiver":"internal","message":{"kind":"text","text":"send_SendParameters_text"}},
+    {"receiver":"internal","message":{"kind":"text","text":"send_SendParameters_binary"}},
 ]
 
 export class SendMsgContract implements Contract {
@@ -281,10 +329,16 @@ export class SendMsgContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'reply_text') {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'reply_text' | 'send_SendParameters_text' | 'send_SendParameters_binary') {
         
         let body: Cell | null = null;
         if (message === 'reply_text') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'send_SendParameters_text') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'send_SendParameters_binary') {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (body === null) { throw new Error('Invalid message type'); }

@@ -24,6 +24,12 @@ slice __tact_context_get_sender() inline;
 ;; __tact_store_bool
 builder __tact_store_bool(builder b, int v) inline;
 
+;; $MyMsgBody$_store
+builder $MyMsgBody$_store(builder build_0, (int, slice) v) inline;
+
+;; $MyMsgBody$_store_cell
+cell $MyMsgBody$_store_cell((int, slice) v) inline;
+
 ;; $StateInit$_not_null
 ((cell, cell)) $StateInit$_not_null(tuple v) inline;
 
@@ -47,3 +53,9 @@ tuple $SendMsgContract$_contract_load() impure inline_ref;
 
 ;; $SendMsgContract$_fun_reply
 (tuple, ()) $SendMsgContract$_fun_reply(tuple $self, cell $body) impure inline;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body(int bounce, slice to, int value, int mode, cell body) inline;
+
+;; $MyMsgBody$_constructor_x_y
+((int, slice)) $MyMsgBody$_constructor_x_y(int x, slice y) inline;

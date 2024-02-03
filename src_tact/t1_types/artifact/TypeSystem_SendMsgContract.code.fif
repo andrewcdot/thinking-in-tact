@@ -6,6 +6,8 @@ PROGRAM{
   DECLPROC __tact_context_get
   DECLPROC __tact_context_get_sender
   DECLPROC __tact_store_bool
+  DECLPROC $MyMsgBody$_store
+  DECLPROC $MyMsgBody$_store_cell
   DECLPROC $StateInit$_not_null
   DECLPROC $SendMsgContract$_contract_init
   DECLPROC $SendMsgContract$_contract_load
@@ -14,7 +16,11 @@ PROGRAM{
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $SendMsgContract$_fun_forward
   DECLPROC $SendMsgContract$_fun_reply
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body
+  DECLPROC $MyMsgBody$_constructor_x_y
   DECLPROC $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c
+  DECLPROC $SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40
+  DECLPROC $SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -63,6 +69,23 @@ PROGRAM{
   __tact_store_bool PROCINLINE:<{
     SWAP
     1 STI
+  }>
+  $MyMsgBody$_store PROCINLINE:<{
+    s0 s2 XCHG
+    257 PUSHINT
+    STIX
+    NEWC
+    ROT
+    STSLICER
+    ENDC
+    SWAP
+    STREF
+  }>
+  $MyMsgBody$_store_cell PROCINLINE:<{
+    NEWC
+    -ROT
+    $MyMsgBody$_store INLINECALLDICT
+    ENDC
   }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
@@ -236,9 +259,40 @@ PROGRAM{
     PUSHNULL
     $SendMsgContract$_fun_forward INLINECALLDICT
   }>
+  $SendParameters$_constructor_bounce_to_value_mode_body PROCINLINE:<{
+    PUSHNULL
+    PUSHNULL
+  }>
+  $MyMsgBody$_constructor_x_y PROCINLINE:<{
+  }>
   $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c PROCINLINE:<{
     B{b5ee9c7241010101000d00001600000000676f742069742e71727389} B>boc PUSHREF
     $SendMsgContract$_fun_reply INLINECALLDICT
+  }>
+  $SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40 PROCINLINE:<{
+    B{b5ee9c72410101010024000043800dfcc3233d27973152de4ee0c7302987cc55abcdfe141e7b2f5890bd888b59a410f2dc6770} B>boc <s PUSHSLICE
+    1000000000 PUSHINT
+    TRUE
+    2 PUSHINT
+    B{b5ee9c72410101010033000062000000006275696c6420776974682053656e64506172616d65746572732e20436f64652664617465206973206e756c6c2e1a78d695} B>boc PUSHREF
+    s2 s4 XCHG
+    s2 s3 XCHG
+    $SendParameters$_constructor_bounce_to_value_mode_body INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe PROCINLINE:<{
+    B{b5ee9c72410101010024000043800dfcc3233d27973152de4ee0c7302987cc55abcdfe141e7b2f5890bd888b59a410f2dc6770} B>boc <s PUSHSLICE
+    1000000000 PUSHINT
+    TRUE
+    2 PUSHINT
+    1 PUSHINT
+    B{b5ee9c724101010100030000027912e8f648} B>boc <s PUSHSLICE
+    $MyMsgBody$_constructor_x_y INLINECALLDICT
+    $MyMsgBody$_store_cell INLINECALLDICT
+    s2 s4 XCHG
+    s2 s3 XCHG
+    $SendParameters$_constructor_bounce_to_value_mode_body INLINECALLDICT
+    $global_send INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -247,7 +301,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d6136536879746b756461314556653356675a34697a45487343417076664465544b476d6d3450737078524c56} PUSHSLICE
+    x{697066733a2f2f516d574751556a414a467a6a6d786736577577437978483968477533317a5038504159514d6544626865626e476e} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -275,10 +329,28 @@ PROGRAM{
     0 EQINT
     IF:<{
       HASHSU
+      DUP
       100996664313556169493197506366008710493928544734960694162712760955593457529452 PUSHINT
       EQUAL
       IFJMP:<{
+        DROP
         $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      DUP
+      21841770517244778178701568085576860811992857989359395081360683152929826823232 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $SendMsgContract$_internal_text_304a010771d63a9c48737687a9919b701e26c75eb5f30426aa53383b35d85c40 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      37372393904924217185860012988631523188334378698259674877076292144798396132542 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $SendMsgContract$_internal_text_52a0067d616db19dc0b908b583cb15b5e7f6f95f4c6ee7c3dfb511ede9312cbe INLINECALLDICT
         TRUE
         RETALT
       }>
