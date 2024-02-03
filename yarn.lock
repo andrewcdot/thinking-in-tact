@@ -746,6 +746,11 @@
   resolved "https://registry.npmmirror.com/@tact-lang/opcode/-/opcode-0.0.14.tgz#52a9cb65bd43b8975481ecac26a3a59b377d1cf2"
   integrity sha512-8FKHK2jwvViRBReO2t40DCkHAP9KPTRWZof4kdsAUJFlyeWIC8SsRQSl9QkZxF+48WvjDduKNqN5Ltb80paufA==
 
+"@tact-lang/ton-abi@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.npmmirror.com/@tact-lang/ton-abi/-/ton-abi-0.0.3.tgz#68aa8ecf8e14d91f37252773395753e4c623798e"
+  integrity sha512-n3ecmlwJiRI+4YKodc2/I3OsI14kYuxjPgFSWdNfr+GRMSZ76OvDIzq8Qr8k8iA3mSE+1RIplpluNnO9HCtgXg==
+
 "@ton-community/sandbox@^0.11.0":
   version "0.11.0"
   resolved "https://registry.npmjs.org/@ton-community/sandbox/-/sandbox-0.11.0.tgz"

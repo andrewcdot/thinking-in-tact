@@ -5,7 +5,7 @@ import * as fs from "fs";
 import { prepareTactDeployment } from "@tact-lang/deployer";
 
 async function deploy() {
-    let testnet = true;
+    let testnet = false;
     let workchain = 0;
     let pkgName = "TypeSystem_SendMsgContract.pkg";
     let outputPath = path.resolve(__dirname, "../src_tact/tact_guides/artifact/");

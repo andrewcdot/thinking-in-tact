@@ -16,13 +16,21 @@ tuple $SendMsgContract$_contract_init() impure inline_ref {
     return $self;
 }
 
+(tuple, int) $SendMsgContract$_fun_counter(tuple $self) impure inline_ref {
+    var ($self) = $self;
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    return ($self, 1212);
+}
+
 ;;
 ;; Receivers of a Contract SendMsgContract
 ;;
 
 (tuple, ()) $SendMsgContract$_internal_text_df4a1614b522381670e4b4135359f0e8d745fddb15aeaaa4443921f10341f26c(tuple $self) impure inline {
     var $self = $self;
-    cell $replyMsg = __gen_cell_comment_28f065fad89a8ff8647502955a1f3d53545a227be87b6095e0b039803973f72a();
+    cell $replyMsg = __gen_cell_comment_bc7c32ff56142a045ea94a84e52982f5a1e590f9647b0828d1f37a071804eefd();
     $self~$SendMsgContract$_fun_reply($replyMsg);
     return ($self, ());
 }
@@ -32,6 +40,8 @@ tuple $SendMsgContract$_contract_init() impure inline_ref {
     slice $to = __gen_slice_address_dc1f6237098885429f974acdb123427386351bd8abd96585aeb5d4316d5baaa3();
     int $value = 1000000000;
     $global_send($SendParameters$_constructor_bounce_to_value_mode_body(true, $to, $value, 2, __gen_cell_comment_25cb67c386ed538e44cedf5447aca3f93556eb9f9b8c80812df23dfd0505f732()));
+    cell $replyMsg = __gen_cell_comment_7611560266aa8a214af1307f2f69d191d7db3c6fc3d4d53874c0375c31c7b5ef();
+    $self~$SendMsgContract$_fun_reply($replyMsg);
     return ($self, ());
 }
 
@@ -40,21 +50,43 @@ tuple $SendMsgContract$_contract_init() impure inline_ref {
     slice $to = __gen_slice_address_dc1f6237098885429f974acdb123427386351bd8abd96585aeb5d4316d5baaa3();
     int $value = 1000000000;
     $global_send($SendParameters$_constructor_bounce_to_value_mode_body(true, $to, $value, 2, $MyMsgBody$_store_cell($MyMsgBody$_constructor_x_y(1, __gen_slice_string_87c011bcd272c4c7b63d87e897af2d1dbe7dad3d0a7d4a8e6520010d13f4493d()))));
+    cell $replyMsg = __gen_cell_comment_071569c0d084ad2b5b264977ea3189cbcedfe2bc96c9755e141c4d3c12fdeefd();
+    $self~$SendMsgContract$_fun_reply($replyMsg);
     return ($self, ());
 }
 
-(tuple, ()) $SendMsgContract$_internal_text_f4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273(tuple $self) impure inline {
+(tuple, ()) $SendMsgContract$_internal_text_649c197f48ab34aef4e749ec9a510d6b93612f47b7577de1d62838b9cc645397(tuple $self) impure inline {
     var $self = $self;
     var ($state'code, $state'data) = $HelloWorld$_init_child(__tact_context_sys);
     slice $address = $global_contractAddress(($state'code, $state'data));
     int $value = 1000000000;
     $global_send($SendParameters$_constructor_bounce_to_value_mode_code_data_body(true, $address, $value, 2, $state'code, $state'data, __gen_cell_comment_85d288384c0043458b02803cb22059f68803c553c3656344346468dac961f246()));
+    cell $replyMsg = __gen_cell_comment_b2740cc2e0933da53d8ad083c081da6ada41b1dbb6d5604b4f22b1a24b6ab94c();
+    $self~$SendMsgContract$_fun_reply($replyMsg);
+    return ($self, ());
+}
+
+((tuple), ()) $SendMsgContract$_internal_binary_BinMsg(tuple $self, (int, slice) $msg) impure inline {
+    var $self = $self;
+    var ($msg'x, $msg'y) = $msg;
+    var ($state'code, $state'data) = $HelloWorld$_init_child(__tact_context_sys);
+    slice $address = $global_contractAddress(($state'code, $state'data));
+    int $value = 1000000000;
+    $global_send($SendParameters$_constructor_bounce_to_value_mode_code_data_body(true, $address, $value, 2, $state'code, $state'data, $String$_fun_asComment($msg'y)));
+    cell $replyMsg = __gen_cell_comment_82730e2d893d6277ef91f2c95df5c8ebbd0cf068b09da172f744f61df39335dd();
+    $self~$SendMsgContract$_fun_reply($replyMsg);
     return ($self, ());
 }
 
 ;;
 ;; Get methods of a Contract SendMsgContract
 ;;
+
+_ %counter() method_id(104984) {
+    var self = $SendMsgContract$_contract_load();
+    var res = self~$SendMsgContract$_fun_counter();
+    return res;
+}
 
 _ supported_interfaces() method_id {
     return (
@@ -66,7 +98,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmTp2Xj9r1uoGTFd5bJaPcp2JRHFHY7ZfUYdALgToztwXc";
+    return "ipfs://QmWzCiyiLouiGoNK9hCcMBw1i1cDEzEjafd9KJEAkQsgjw";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -90,6 +122,13 @@ _ lazy_deployment_completed() method_id {
     }
     
     
+    ;; Receive BinMsg message
+    if (op == 766381494) {
+        var msg = in_msg~$BinMsg$_load();
+        self~$SendMsgContract$_internal_binary_BinMsg(msg);
+        return (self, true);
+    }
+    
     ;; Text Receivers
     if (op == 0) {
         var text_op = slice_hash(in_msg);
@@ -112,9 +151,9 @@ _ lazy_deployment_completed() method_id {
             return (self, true);
         }
         
-        ;; Receive "send_SendParameters_with_Deploy" message
-        if (text_op == 0xf4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273) {
-            self~$SendMsgContract$_internal_text_f4f9e85b34039f79b0cbf4afc95bf69fec4a307971d06b0809a55542e1d84273();
+        ;; Receive "send_SendParameters_to_deploy_other_contract" message
+        if (text_op == 0x649c197f48ab34aef4e749ec9a510d6b93612f47b7577de1d62838b9cc645397) {
+            self~$SendMsgContract$_internal_text_649c197f48ab34aef4e749ec9a510d6b93612f47b7577de1d62838b9cc645397();
             return (self, true);
         }
     }

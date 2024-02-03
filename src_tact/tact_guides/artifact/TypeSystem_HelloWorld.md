@@ -3,7 +3,7 @@ Contract: HelloWorld
 BOC Size: 345 bytes
 
 # Types
-Total Types: 4
+Total Types: 5
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -20,6 +20,10 @@ Signature: `SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:
 ## MyMsgBody
 TLB: `_ x:int257 y:^string = MyMsgBody`
 Signature: `MyMsgBody{x:int257,y:^string}`
+
+## BinMsg
+TLB: `bin_msg#2dae0db6 x:int257 y:^string = BinMsg`
+Signature: `BinMsg{x:int257,y:^string}`
 
 # Get Methods
 Total Get Methods: 1

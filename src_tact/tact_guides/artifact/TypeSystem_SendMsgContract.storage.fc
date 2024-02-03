@@ -47,6 +47,19 @@ cell $MyMsgBody$_store_cell((int, slice) v) inline {
 }
 
 ;;
+;; Type: BinMsg
+;; Header: 0x2dae0db6
+;; TLB: bin_msg#2dae0db6 x:int257 y:^string = BinMsg
+;;
+
+(slice, ((int, slice))) $BinMsg$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 766381494);
+    var v'x = sc_0~load_int(257);
+    var v'y = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'x, v'y));
+}
+
+;;
 ;; Type: HelloWorld
 ;;
 

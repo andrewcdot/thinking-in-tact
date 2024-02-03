@@ -235,6 +235,53 @@ function dictValueParserMyMsgBody(): DictionaryValue<MyMsgBody> {
     }
 }
 
+export type BinMsg = {
+    $$type: 'BinMsg';
+    x: bigint;
+    y: string;
+}
+
+export function storeBinMsg(src: BinMsg) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(766381494, 32);
+        b_0.storeInt(src.x, 257);
+        b_0.storeStringRefTail(src.y);
+    };
+}
+
+export function loadBinMsg(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 766381494) { throw Error('Invalid prefix'); }
+    let _x = sc_0.loadIntBig(257);
+    let _y = sc_0.loadStringRefTail();
+    return { $$type: 'BinMsg' as const, x: _x, y: _y };
+}
+
+function loadTupleBinMsg(source: TupleReader) {
+    let _x = source.readBigNumber();
+    let _y = source.readString();
+    return { $$type: 'BinMsg' as const, x: _x, y: _y };
+}
+
+function storeTupleBinMsg(source: BinMsg) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.x);
+    builder.writeString(source.y);
+    return builder.build();
+}
+
+function dictValueParserBinMsg(): DictionaryValue<BinMsg> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeBinMsg(src)).endCell());
+        },
+        parse: (src) => {
+            return loadBinMsg(src.loadRef().beginParse());
+        }
+    }
+}
+
  type HelloWorld_init_args = {
     $$type: 'HelloWorld_init_args';
 }
@@ -246,8 +293,8 @@ function initHelloWorld_init_args(src: HelloWorld_init_args) {
 }
 
 async function HelloWorld_init() {
-    const __code = Cell.fromBase64('te6ccgECDgEAAU0AART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBwQCASAFBgAaAZIwf+Ag10kxwh8wcAIPvY1W2ebZ4YwHCAIBIAoLATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAkAGou2hlbGxvIHdvcmxkgAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSAwNABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbWRGcUtUMWkzTnNydDE1b21EeDNYbkFzc3hpWndkZ2I3YUVmVlhNcDZUS0Zqgg');
-    const __system = Cell.fromBase64('te6cckECEAEAAVcAAQHAAQEFoPYVAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtZEZxS1QxaTNOc3J0MTVvbUR4M1huQXNzeGlad2RnYjdhRWZWWE1wNlRLRmqCAAEbCvu1E0NIAAYACVu70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwnZdOWrNOy3M6DpZtlGbopIAg+9jVbZ5tnhjA4LABqLtoZWxsbyB3b3JsZIApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UDg0AGgGSMH/gINdJMcIfMHABNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8DwACbY52Yys=');
+    const __code = Cell.fromBase64('te6ccgECDgEAAU0AART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBwQCASAFBgAaAZIwf+Ag10kxwh8wcAIPvY1W2ebZ4YwHCAIBIAoLATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAkAGou2hlbGxvIHdvcmxkgAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSAwNABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVlOdkRhMmp0ZVU5MXhWZEpwNmdlbUhVYUVNaktRSmZYbXh1cTRic2lQcVZpgg');
+    const __system = Cell.fromBase64('te6cckECEAEAAVcAAQHAAQEFoPYVAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtWU52RGEyanRlVTkxeFZkSnA2Z2VtSFVhRU1qS1FKZlhteHVxNGJzaVBxVmmCAAEbCvu1E0NIAAYACVu70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwnZdOWrNOy3M6DpZtlGbopIAg+9jVbZ5tnhjA4LABqLtoZWxsbyB3b3JsZIApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UDg0AGgGSMH/gINdJMcIfMHABNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8DwACbUBzgxE=');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -288,6 +335,7 @@ const HelloWorld_types: ABIType[] = [
     {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
     {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
     {"name":"MyMsgBody","header":null,"fields":[{"name":"x","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"y","type":{"kind":"simple","type":"string","optional":false}}]},
+    {"name":"BinMsg","header":766381494,"fields":[{"name":"x","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"y","type":{"kind":"simple","type":"string","optional":false}}]},
 ]
 
 const HelloWorld_getters: ABIGetter[] = [
