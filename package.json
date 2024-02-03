@@ -1,8 +1,11 @@
 {
   "private": true,
   "scripts": {
+    "emulator": "ts-node ./src_ts/emulator.ts",
+    "t1_types": "tact --config ./src_tact/t1_types/tact.config.json",
     "build": "tact --config ./tact.config.json",
     "test": "jest",
+    "btest": "npx blueprint test",
     "deploy_with_mint": "ts-node ./src_ts/contract.deploy.ts",
     "read": "ts-node ./src_ts/contract.read.ts",
     "transferFromOwner2Alison": "ts-node ./src_ts/1_TransferFromOwner2Alison.ts",
@@ -15,8 +18,9 @@
     "@tact-lang/emulator": "^4.2.3",
     "@ton-community/sandbox": "^0.11.0",
     "@ton-community/test-utils": "^0.3.0",
-    "@ton/core": "^0.53.0",
+    "@ton/core": "^0.54.0",
     "@ton/crypto": "^3.2.0",
+    "@ton/sandbox": "^0.15.0",
     "@ton/ton": "^13.9.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
@@ -29,6 +33,9 @@
     "prando": "^6.0.1",
     "prettier": "^3.2.4",
     "qs": "^6.11.2",
+    "ton": "^13.9.0",
+    "ton-core": "^0.53.0",
+    "ton-crypto": "^3.2.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

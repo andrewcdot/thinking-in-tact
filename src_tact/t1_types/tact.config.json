@@ -1,0 +1,10 @@
+{
+    "projects": [{
+        "name": "TypeSystem",
+        "path": "./DeployableTraitContract.tact",
+        "output": "./artifact",
+        "options":{
+
+        }
+    }]
+}
