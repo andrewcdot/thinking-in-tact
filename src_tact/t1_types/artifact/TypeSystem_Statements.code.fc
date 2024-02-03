@@ -1,0 +1,116 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "TypeSystem_Statements.headers.fc";
+#include "TypeSystem_Statements.stdlib.fc";
+#include "TypeSystem_Statements.storage.fc";
+
+;;
+;; Contract Statements functions
+;;
+
+tuple $Statements$_contract_init() impure inline_ref {
+    tuple $self = null();
+    return $self;
+}
+
+(int, ()) $Int$_fun_int_pow_again(int $self, int $c) impure inline_ref {
+    var ($self) = $self;
+    int $res = 1;
+    repeat ($c) {
+        $res = ($res * $self);
+    }
+    $self = $res;
+    return ($self, ());
+}
+
+() $global_test() impure inline_ref {
+    int $a = 100;
+    $a~$Int$_fun_int_pow_again(2);
+}
+
+;;
+;; Receivers of a Contract Statements
+;;
+
+(tuple, ()) $Statements$_internal_text_236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a(tuple $self) impure inline {
+    var $self = $self;
+    $global_test();
+    return ($self, ());
+}
+
+;;
+;; Get methods of a Contract Statements
+;;
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmWTcW7dNKWTgsTv6K1aYpXeNQMm645Tynwcj3jt7aq1gQ";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Statements
+;;
+
+(tuple, int) $Statements$_contract_router_internal(tuple self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "func_test" message
+        if (text_op == 0x236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a) {
+            self~$Statements$_internal_text_236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Statements$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Statements$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Statements$_contract_store(self);
+}

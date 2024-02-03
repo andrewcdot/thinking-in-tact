@@ -1,0 +1,156 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC $Statements$_contract_init
+  DECLPROC $Statements$_contract_load
+  DECLPROC $Statements$_contract_store
+  DECLPROC $Int$_fun_int_pow_again
+  DECLPROC $global_test
+  DECLPROC $Statements$_internal_text_236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $Statements$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  $Statements$_contract_init PROCREF:<{
+    PUSHNULL
+  }>
+  $Statements$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    DROP
+    IFJMP:<{
+      PUSHNULL
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $Statements$_contract_init INLINECALLDICT
+  }>
+  $Statements$_contract_store PROCINLINE:<{
+    DROP
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    ENDC
+    c4 POP
+  }>
+  $Int$_fun_int_pow_again PROCREF:<{
+    1 PUSHINT
+    SWAP
+    REPEAT:<{
+      OVER
+      MUL
+    }>
+    NIP
+  }>
+  $global_test PROCREF:<{
+    100 PUSHINT
+    2 PUSHINT
+    $Int$_fun_int_pow_again INLINECALLDICT
+    DROP
+  }>
+  $Statements$_internal_text_236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a PROCINLINE:<{
+    $global_test INLINECALLDICT
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d5754635737644e4b575467735476364b3161597058654e514d6d36343554796e77636a336a74376171316751} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $Statements$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    0 EQINT
+    IF:<{
+      HASHSU
+      16023479857425420267879878934597625714978850145828225088910279112892125959498 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $Statements$_internal_text_236cf7dc6d0029e6c1fa7eb45b5d4769eb0bd5725bff4fa40e2c652f00de554a INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $Statements$_contract_load INLINECALLDICT
+    -ROT
+    $Statements$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $Statements$_contract_store INLINECALLDICT
+  }>
+}END>c

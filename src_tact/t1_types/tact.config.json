@@ -1,10 +1,9 @@
 {
     "projects": [{
         "name": "TypeSystem",
-        "path": "./Integers.tact",
+        "path": "./4.Constants.tact",
         "output": "./artifact",
         "options":{
-
         }
     }]
 }

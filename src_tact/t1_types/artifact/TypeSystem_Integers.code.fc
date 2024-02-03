@@ -1,0 +1,137 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "TypeSystem_Integers.headers.fc";
+#include "TypeSystem_Integers.stdlib.fc";
+#include "TypeSystem_Integers.storage.fc";
+
+;;
+;; Contract Integers functions
+;;
+
+(int, int, int, int, int, int, int, int, int, int, int, int, int, int) $Integers$_contract_init() impure inline_ref {
+    var (($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14)) = (3001, null(), 17, null(), null(), null(), 7242, -203, 0, 0, 0, 0, 0, 0);
+    $self'i2 = 59648462366785489467430652908958923083039847914122061688607845508479932379560;
+    $self'i4 = 1507998500293440234999;
+    $self'i5 = 1000000000;
+    $self'i6 = 1230000000;
+    return ($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14);
+}
+
+((int, int, int, int, int, int, int, int, int, int, int, int, int, int), int) $Integers$_fun_result((int, int, int, int, int, int, int, int, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14)) = $self;
+    return (($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14), $self'i1);
+}
+
+;;
+;; Receivers of a Contract Integers
+;;
+
+((int, int, int, int, int, int, int, int, int, int, int, int, int, int), ()) $Integers$_internal_text_3242cc65952f05d9b07d2b2caad91638a341c8e1f253c238d4de60b90bfd734a((int, int, int, int, int, int, int, int, int, int, int, int, int, int) $self) impure inline {
+    var ($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14) = $self;
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    __tact_nop();
+    return (($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14), ());
+}
+
+(((int, int, int, int, int, int, int, int, int, int, int, int, int, int)), ()) $Integers$_internal_binary_Deploy((int, int, int, int, int, int, int, int, int, int, int, int, int, int) $self, (int) $deploy) impure inline {
+    var ($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14)~$Integers$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'i1, $self'i2, $self'i3, $self'i4, $self'i5, $self'i6, $self'i7, $self'i8, $self'i9, $self'i10, $self'i11, $self'i12, $self'i13, $self'i14), ());
+}
+
+;;
+;; Get methods of a Contract Integers
+;;
+
+_ %result() method_id(93778) {
+    var self = $Integers$_contract_load();
+    var res = self~$Integers$_fun_result();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmTibZacD1ya6vptVDBeETgrkFw2TfrYW7QcThUF9gqErw";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Integers
+;;
+
+((int, int, int, int, int, int, int, int, int, int, int, int, int, int), int) $Integers$_contract_router_internal((int, int, int, int, int, int, int, int, int, int, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$Integers$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "show all" message
+        if (text_op == 0x3242cc65952f05d9b07d2b2caad91638a341c8e1f253c238d4de60b90bfd734a) {
+            self~$Integers$_internal_text_3242cc65952f05d9b07d2b2caad91638a341c8e1f253c238d4de60b90bfd734a();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Integers$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Integers$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Integers$_contract_store(self);
+}

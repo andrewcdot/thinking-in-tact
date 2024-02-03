@@ -1,0 +1,117 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int queryId) inline {
+    return (queryId);
+}
+
+;;
+;; Type: Integers
+;;
+
+builder $Integers$_store(builder build_0, (int, int, int, int, int, int, int, int, int, int, int, int, int, int) v) inline {
+    var (v'i1, v'i2, v'i3, v'i4, v'i5, v'i6, v'i7, v'i8, v'i9, v'i10, v'i11, v'i12, v'i13, v'i14) = v;
+    build_0 = build_0.store_int(v'i1, 257);
+    build_0 = build_0.store_uint(v'i2, 256);
+    build_0 = build_0.store_int(v'i3, 256);
+    build_0 = build_0.store_uint(v'i4, 128);
+    var build_1 = begin_cell();
+    build_1 = build_1.store_int(v'i5, 128);
+    build_1 = build_1.store_coins(v'i6);
+    build_1 = build_1.store_uint(v'i7, 64);
+    build_1 = build_1.store_int(v'i8, 64);
+    build_1 = build_1.store_uint(v'i9, 32);
+    build_1 = build_1.store_int(v'i10, 32);
+    build_1 = build_1.store_uint(v'i11, 16);
+    build_1 = build_1.store_int(v'i12, 16);
+    build_1 = build_1.store_uint(v'i13, 8);
+    build_1 = build_1.store_int(v'i14, 8);
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+(slice, ((int, int, int, int, int, int, int, int, int, int, int, int, int, int))) $Integers$_load(slice sc_0) inline {
+    var v'i1 = sc_0~load_int(257);
+    var v'i2 = sc_0~load_uint(256);
+    var v'i3 = sc_0~load_int(256);
+    var v'i4 = sc_0~load_uint(128);
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'i5 = sc_1~load_int(128);
+    var v'i6 = sc_1~load_coins();
+    var v'i7 = sc_1~load_uint(64);
+    var v'i8 = sc_1~load_int(64);
+    var v'i9 = sc_1~load_uint(32);
+    var v'i10 = sc_1~load_int(32);
+    var v'i11 = sc_1~load_uint(16);
+    var v'i12 = sc_1~load_int(16);
+    var v'i13 = sc_1~load_uint(8);
+    var v'i14 = sc_1~load_int(8);
+    return (sc_0, (v'i1, v'i2, v'i3, v'i4, v'i5, v'i6, v'i7, v'i8, v'i9, v'i10, v'i11, v'i12, v'i13, v'i14));
+}
+
+(int, int, int, int, int, int, int, int, int, int, int, int, int, int) $Integers$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$Integers$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $Integers$_contract_init();
+    }
+}
+
+() $Integers$_contract_store((int, int, int, int, int, int, int, int, int, int, int, int, int, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $Integers$_store(b, v);
+    set_data(b.end_cell());
+}

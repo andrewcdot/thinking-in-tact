@@ -1,0 +1,22 @@
+;;
+;; Header files for Statements
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; $Statements$_contract_init
+tuple $Statements$_contract_init() impure inline_ref;
+
+;; $Statements$_contract_load
+tuple $Statements$_contract_load() impure inline_ref;
+
+;; $Statements$_contract_store
+() $Statements$_contract_store(tuple v) impure inline;
+
+;; $Int$_fun_int_pow_again
+(int, ()) $Int$_fun_int_pow_again(int $self, int $c) impure inline_ref;
+
+;; $global_test
+() $global_test() impure inline_ref;

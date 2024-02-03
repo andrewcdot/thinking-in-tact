@@ -1,0 +1,35 @@
+;;
+;; Type: Container
+;;
+
+builder $Container$_store(builder build_0, (int) v) inline {
+    var (v'counter) = v;
+    build_0 = build_0.store_int(v'counter, 257);
+    return build_0;
+}
+
+(slice, ((int))) $Container$_load(slice sc_0) inline {
+    var v'counter = sc_0~load_int(257);
+    return (sc_0, (v'counter));
+}
+
+(int) $Container$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$Container$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $Container$_contract_init();
+    }
+}
+
+() $Container$_contract_store((int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $Container$_store(b, v);
+    set_data(b.end_cell());
+}
