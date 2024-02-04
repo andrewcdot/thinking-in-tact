@@ -4,7 +4,12 @@
         "path": "./src_tact/master.tact",
         "output": "./artifact",
         "options": {
-            "external": true
+            "debug": true,
+            "external": true,
+            "masterchain": true,
+            "experimental": {
+                "inline": true
+            }
         }
     }]
 }

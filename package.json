@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "run_util": "ts-node ./src_ts/utils/ton_slice.ts",
     "emulator": "ts-node ./src_ts/emulator.ts",
     "build": "tact --config ./tact.config.json",
     "build_tact_guides": "tact --config ./src_tact/tact_guides/tact.config.json",
