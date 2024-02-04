@@ -1,190 +1,69 @@
-import { buildOnchainMetadata } from "./utils/jetton-helpers";
-import {
-    Blockchain,
-    SandboxContract,
-    TreasuryContract,
-    printTransactionFees,
-    prettyLogTransactions,
-} from "@ton-community/sandbox";
-import "@ton-community/test-utils";
+import { describe } from "node:test";
+import { ContractSystem } from "@tact-lang/emulator";
+import { SendMsgContract } from "../src_tact/tact_guides/artifact/TypeSystem_SendMsgContract";
+import { toNano } from "@ton/ton";
 
-import {beginCell, toNano} from "@ton/ton";
-import {Address} from "@ton/core";
-import {JettonMasterContract} from "../artifact/JettonTact_JettonMasterContract";
-import {JettonDefaultWallet, Mint, TokenBurn, TokenTransfer} from "../artifact/JettonTact_JettonDefaultWallet";
+describe("c", () => {
+    it("should deploy correctly", async () => {
+        // Init test
+        const system = await ContractSystem.create();
+        const treasure = system.treasure("my treasure");
+        let openedSendMsgContract = system.open(await SendMsgContract.fromInit(treasure.address));
+        const tracker = system.track(openedSendMsgContract.address);
 
-//
-// This version of test is based on "@ton-community/sandbox" package
-//
-describe("contract", () => {
-    let blockchain: Blockchain;
-    let token: SandboxContract<JettonMasterContract>;
-    let jettonWallet: SandboxContract<JettonDefaultWallet>;
-    let deployer: SandboxContract<TreasuryContract>;
+        // Send a message
+        await openedSendMsgContract.send(treasure, { value: toNano(1) }, { $$type: "Deploy", queryId: 0n });
+        await system.run();
 
-    beforeEach(async () => {
-        blockchain = await Blockchain.create();
-        deployer = await blockchain.treasury("deployer");
-
-        // Create content Cell
-        const jettonParams = {
-            name: "Best Practice",
-            description: "This is description of Test tact jetton",
-            symbol: "XXXE",
-            image: "https://play-lh.googleusercontent.com/ahJtMe0vfOlAu1XJVQ6rcaGrQBgtrEZQefHy7SXB7jpijKhu1Kkox90XDuH8RmcBOXNn",
-        };
-        let content = buildOnchainMetadata(jettonParams);
-        let max_supply = toNano(1234766689011); // Set the specific total supply in nano
-        token = blockchain.openContract(await JettonMasterContract.fromInit(deployer.address, content, max_supply));
-
-        // Send Transaction
-        const deployResult = await token.send(deployer.getSender(), { value: toNano("10") }, "Mint: 100");
-        expect(deployResult.transactions).toHaveTransaction({
-            from: deployer.address,
-            to: token.address,
-            deploy: true,
-            success: true,
-        });
-    });
-
-    it("should deploy", async () => {
-        // the check is done inside beforeEach, blockchain and token are ready to use
-        // console.log((await token.getGetJettonData()).owner);
-        // console.log((await token.getGetJettonData()).totalSupply);
-        // console.log((await token.getGetJettonData()).max_supply);
-        // console.log((await token.getGetJettonData()).content);
-    });
-
-    it("should mint successfully", async () => {
-        const player = await blockchain.treasury("player");
-        const totalSupplyBefore = (await token.getGetJettonData()).total_supply;
-        const mintAmount = toNano(100);
-        const Mint: Mint = {
-            $$type: "Mint",
-            amount: mintAmount,
-            receiver: player.address,
-        };
-        const mintResult = await token.send(deployer.getSender(), { value: toNano("10") }, Mint);
-        expect(mintResult.transactions).toHaveTransaction({
-            from: deployer.address,
-            to: token.address,
-            success: true,
-        });
-
-        const totalSupplyAfter = (await token.getGetJettonData()).total_supply;
-        expect(totalSupplyBefore + mintAmount).toEqual(totalSupplyAfter);
-
-        const playerWallet = await token.getGetWalletAddress(player.address);
-        jettonWallet = blockchain.openContract(JettonDefaultWallet.fromAddress(playerWallet));
-        const walletData = await jettonWallet.getGetWalletData();
-        expect(walletData.owner).toEqualAddress(player.address);
-        expect(walletData.balance).toEqual(mintAmount);
-    });
-
-    it("should transfer successfully", async () => {
-        const sender = await blockchain.treasury("sender");
-        const receiver = await blockchain.treasury("receiver");
-        const initMintAmount = toNano(1000);
-        const transferAmount = toNano(80);
-
-        const mintMessage: Mint = {
-            $$type: "Mint",
-            amount: initMintAmount,
-            receiver: sender.address,
-        };
-        await token.send(deployer.getSender(), { value: toNano("10") }, mintMessage);
-
-        const senderWalletAddress = await token.getGetWalletAddress(sender.address);
-        const senderWallet = blockchain.openContract(JettonDefaultWallet.fromAddress(senderWalletAddress));
-
-        // Transfer tokens from sender's wallet to receiver's wallet
-        const transferMessage: TokenTransfer = {
-            $$type: "TokenTransfer",
-            query_id: 1n,
-            amount: transferAmount,
-            destination: receiver.address,
-            response_destination: sender.address,
-            custom_payload: null,
-            forward_ton_amount: 1n,
-            forward_payload: beginCell().endCell(),
-        };
-        const transferResult = await senderWallet.send(sender.getSender(), { value: toNano("10") }, transferMessage);
-        // console.log(transferResult.transactions);
-
-        const receiverWalletAddress = await token.getGetWalletAddress(receiver.address);
-        const receiverWallet = blockchain.openContract(JettonDefaultWallet.fromAddress(receiverWalletAddress));
-
-        const senderWalletDataAfterTransfer = await senderWallet.getGetWalletData();
-        const receiverWalletDataAfterTransfer = await receiverWallet.getGetWalletData();
-
-        expect(senderWalletDataAfterTransfer.balance).toEqual(initMintAmount - transferAmount); // check that the sender transferred the right amount of tokens
-        expect(receiverWalletDataAfterTransfer.balance).toEqual(transferAmount); // check that the receiver received the right amount of tokens
-        // const balance1 = (await receiverWallet.getGetWalletData()).balance;
-        // console.log(fromNano(balance1));
-    });
-
-    it("Mint tokens then Burn tokens", async () => {
-        // const sender = await blockchain.treasury("sender");
-        const deployerWalletAddress = await token.getGetWalletAddress(deployer.address);
-        const deployerWallet = blockchain.openContract(JettonDefaultWallet.fromAddress(deployerWalletAddress));
-        let deployerBalanceInit = (await deployerWallet.getGetWalletData()).balance;
-        console.log("deployerBalanceInit = ", deployerBalanceInit);
-        const initMintAmount = toNano(100);
-        const mintMessage: Mint = {
-            $$type: "Mint",
-            amount: initMintAmount,
-            receiver: deployer.address,
-        };
-        await token.send(deployer.getSender(), { value: toNano("10") }, mintMessage);
-        let deployerBalance = (await deployerWallet.getGetWalletData()).balance;
-        expect(deployerBalance).toEqual(deployerBalanceInit + initMintAmount);
-
-        let burnAmount = toNano(10);
-        const burnMessage: TokenBurn = {
-            $$type: "TokenBurn",
-            query_id: 0n,
-            amount: burnAmount,
-            response_destination: deployer.address,
-            custom_payload: beginCell().endCell(),
-        };
-
-        const burnResult = await deployerWallet.send(deployer.getSender(), { value: toNano("10") }, burnMessage);
-        let deployerBalanceAfterBurn = (await deployerWallet.getGetWalletData()).balance;
-        expect(deployerBalanceAfterBurn).toEqual(deployerBalance - burnAmount);
-    });
-
-    it("Should return value", async () => {
-        const player = await blockchain.treasury("player");
-        const mintAmount = 1119000n;
-        const Mint: Mint = {
-            $$type: "Mint",
-            amount: mintAmount,
-            receiver: player.address,
-        };
-        await token.send(deployer.getSender(), { value: toNano("1") }, Mint);
-
-        let totalSupply = (await token.getGetJettonData()).total_supply;
-        const messateResult = await token.send(player.getSender(), { value: 10033460n }, Mint);
-        expect(messateResult.transactions).toHaveTransaction({
-            from: player.address,
-            to: token.address,
-        });
-        let totalSupply_later = (await token.getGetJettonData()).total_supply;
-        expect(totalSupply_later).toEqual(totalSupply);
-        // printTransactionFees(messateResult.transactions);
-        // prettyLogTransactions(messateResult.transactions);
-        console.log("totalSupply = ", totalSupply_later);
-    });
-
-    it("Convert Address Format", async () => {
-        console.log("Example Address(Jetton Root Contract: " + token.address);
-        console.log("Is Friendly Address: " + Address.isFriendly(token.address.toString()));
-
-        const testAddr = Address.parse(token.address.toString());
-        console.log("✓ Address: " + testAddr.toString({ bounceable: false }));
-        console.log("✓ Address: " + testAddr.toString());
-        console.log("✓ Address(urlSafe: true): " + testAddr.toString({ urlSafe: true }));
-        console.log("✓ Address(urlSafe: false): " + testAddr.toString({ urlSafe: false }));
-        console.log("✓ Raw Address: " + testAddr.toRawString());
+        // Testing output
+        expect(tracker.collect()).toMatchInlineSnapshot(`[{
+    "$seq": 0,
+    "events": [
+      {
+        "$type": "deploy",
+      },
+      {
+        "$type": "received",
+        "message": {
+          "body": {
+            "type": "known",
+            "value": {
+              "$$type": "Deploy",
+              "queryId": 0n,
+            },
+          },
+          "bounce": true,
+          "from": "@treasure(my treasure)",
+          "to": "kQAwuijrjIZpaDdfTLD603vzVRglMoo7LLesA2LU-HKW2gAj",
+          "type": "internal",
+          "value": "1",
+        },
+      },
+      {
+        "$type": "processed",
+        "gasUsed": 7847n,
+      },
+      {
+        "$type": "sent",
+        "messages": [
+          {
+            "body": {
+              "type": "known",
+              "value": {
+                "$$type": "DeployOk",
+                "queryId": 0n,
+              },
+            },
+            "bounce": false,
+            "from": "kQAwuijrjIZpaDdfTLD603vzVRglMoo7LLesA2LU-HKW2gAj",
+            "to": "@treasure(my treasure)",
+            "type": "internal",
+            "value": "0.990957",
+          },
+        ],
+      },
+    ],
+  },
+]`);
     });
 });
