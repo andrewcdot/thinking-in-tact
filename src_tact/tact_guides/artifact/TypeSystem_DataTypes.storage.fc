@@ -1,0 +1,89 @@
+;;
+;; Type: Point
+;; TLB: _ x:int257 y:^string = Point
+;;
+
+((int, slice)) $Point$_constructor_x_y(int x, slice y) inline {
+    return (x, y);
+}
+
+;;
+;; Type: PointMsg
+;; Header: 0x073b4942
+;; TLB: point_msg#073b4942 x:int257 y:^string = PointMsg
+;;
+
+(slice, ((int, slice))) $PointMsg$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 121325890);
+    var v'x = sc_0~load_int(257);
+    var v'y = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'x, v'y));
+}
+
+((int, slice)) $PointMsg$_constructor_x_y(int x, slice y) inline {
+    return (x, y);
+}
+
+;;
+;; Type: DataTypes
+;;
+
+builder $DataTypes$_store(builder build_0, (int, int, slice, slice, int, int, int, slice, cell) v) inline {
+    var (v'intMax257bitSigned, v'int256bitUnsigned, v's1, v's2, v'b1, v'b2, v'b3, v'a1, v'intMap) = v;
+    build_0 = build_0.store_int(v'intMax257bitSigned, 257);
+    build_0 = build_0.store_uint(v'int256bitUnsigned, 256);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v's1).end_cell());
+    build_0 = build_0.store_ref(begin_cell().store_slice(v's2).end_cell());
+    build_0 = build_0.store_int(v'b1, 1);
+    build_0 = build_0.store_int(v'b2, 1);
+    build_0 = build_0.store_int(v'b3, 1);
+    build_0 = __tact_store_address(build_0, v'a1);
+    var build_1 = begin_cell();
+    build_1 = build_1.store_dict(v'intMap);
+    build_0 = store_ref(build_0, build_1.end_cell());
+    return build_0;
+}
+
+(slice, ((int, int, slice, slice, int, int, int, slice, cell))) $DataTypes$_load(slice sc_0) inline {
+    var v'intMax257bitSigned = sc_0~load_int(257);
+    var v'int256bitUnsigned = sc_0~load_uint(256);
+    var v's1 = sc_0~load_ref().begin_parse();
+    var v's2 = sc_0~load_ref().begin_parse();
+    var v'b1 = sc_0~load_int(1);
+    var v'b2 = sc_0~load_int(1);
+    var v'b3 = sc_0~load_int(1);
+    var v'a1 = sc_0~__tact_load_address();
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'intMap = sc_1~load_dict();
+    return (sc_0, (v'intMax257bitSigned, v'int256bitUnsigned, v's1, v's2, v'b1, v'b2, v'b3, v'a1, v'intMap));
+}
+
+(slice, ((int, slice, cell))) $DataTypes$init$_load(slice sc_0) inline {
+    var v'initBool = sc_0~load_int(1);
+    var v'initStr = sc_0~load_ref().begin_parse();
+    var v'intMap = sc_0~load_dict();
+    return (sc_0, (v'initBool, v'initStr, v'intMap));
+}
+
+(int, int, slice, slice, int, int, int, slice, cell) $DataTypes$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$DataTypes$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (int initBool, slice initStr, cell intMap) = $sc~$DataTypes$init$_load();
+        $sc.end_parse();
+        return $DataTypes$_contract_init(initBool, initStr, intMap);
+    }
+}
+
+() $DataTypes$_contract_store((int, int, slice, slice, int, int, int, slice, cell) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $DataTypes$_store(b, v);
+    set_data(b.end_cell());
+}

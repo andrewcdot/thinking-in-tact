@@ -1,7 +1,7 @@
 {
     "projects": [{
         "name": "TypeSystem",
-        "path": "./7.SendMsg.tact",
+        "path": "./0.Types.Map.tact",
         "output": "./artifact",
         "options": {
             "external": true

@@ -1,0 +1,34 @@
+;;
+;; Header files for HaveOwnerCon
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_load_address
+(slice, slice) __tact_load_address(slice cs) inline;
+
+;; __tact_store_address
+builder __tact_store_address(builder b, slice address) inline;
+
+;; $HaveOwnerCon$_store
+builder $HaveOwnerCon$_store(builder build_0, (slice) v) inline;
+
+;; $HaveOwnerCon$_load
+(slice, ((slice))) $HaveOwnerCon$_load(slice sc_0) inline;
+
+;; $HaveOwnerCon$init$_load
+(slice, ((slice))) $HaveOwnerCon$init$_load(slice sc_0) inline;
+
+;; $HaveOwnerCon$_contract_init
+(slice) $HaveOwnerCon$_contract_init(slice $add) impure inline_ref;
+
+;; $HaveOwnerCon$_contract_load
+(slice) $HaveOwnerCon$_contract_load() impure inline_ref;
+
+;; $HaveOwnerCon$_contract_store
+() $HaveOwnerCon$_contract_store((slice) v) impure inline;
+
+;; $HaveOwnerCon$_fun_owner
+((slice), slice) $HaveOwnerCon$_fun_owner((slice) $self) impure inline_ref;

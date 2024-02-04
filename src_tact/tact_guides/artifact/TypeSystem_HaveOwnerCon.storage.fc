@@ -1,0 +1,42 @@
+;;
+;; Type: HaveOwnerCon
+;;
+
+builder $HaveOwnerCon$_store(builder build_0, (slice) v) inline {
+    var (v'owner) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    return build_0;
+}
+
+(slice, ((slice))) $HaveOwnerCon$_load(slice sc_0) inline {
+    var v'owner = sc_0~__tact_load_address();
+    return (sc_0, (v'owner));
+}
+
+(slice, ((slice))) $HaveOwnerCon$init$_load(slice sc_0) inline {
+    var v'add = sc_0~__tact_load_address();
+    return (sc_0, (v'add));
+}
+
+(slice) $HaveOwnerCon$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$HaveOwnerCon$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (slice add) = $sc~$HaveOwnerCon$init$_load();
+        $sc.end_parse();
+        return $HaveOwnerCon$_contract_init(add);
+    }
+}
+
+() $HaveOwnerCon$_contract_store((slice) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $HaveOwnerCon$_store(b, v);
+    set_data(b.end_cell());
+}

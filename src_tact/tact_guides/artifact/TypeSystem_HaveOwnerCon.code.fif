@@ -1,0 +1,189 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC $HaveOwnerCon$_store
+  DECLPROC $HaveOwnerCon$_load
+  DECLPROC $HaveOwnerCon$init$_load
+  DECLPROC $HaveOwnerCon$_contract_init
+  DECLPROC $HaveOwnerCon$_contract_load
+  DECLPROC $HaveOwnerCon$_contract_store
+  DECLPROC $HaveOwnerCon$_fun_owner
+  DECLPROC $HaveOwnerCon$_internal_text_d294c772e489e8c22722376a1942a74c6d02498159827d16148676cfed99f145
+  DECLPROC $HaveOwnerCon$_internal_text_d2f7aed82c1a4dfd8fea83e0851610b2f2b114d01a7cb635fade9d004428487a
+  83229 DECLMETHOD %owner
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $HaveOwnerCon$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  $HaveOwnerCon$_store PROCINLINE:<{
+    __tact_store_address INLINECALLDICT
+  }>
+  $HaveOwnerCon$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+  }>
+  $HaveOwnerCon$init$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+  }>
+  $HaveOwnerCon$_contract_init PROCREF:<{
+  }>
+  $HaveOwnerCon$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $HaveOwnerCon$_load INLINECALLDICT
+      NIP
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $HaveOwnerCon$init$_load INLINECALLDICT
+    SWAP
+    ENDS
+    $HaveOwnerCon$_contract_init INLINECALLDICT
+  }>
+  $HaveOwnerCon$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    SWAP
+    $HaveOwnerCon$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $HaveOwnerCon$_fun_owner PROCREF:<{
+    DUP
+  }>
+  $HaveOwnerCon$_internal_text_d294c772e489e8c22722376a1942a74c6d02498159827d16148676cfed99f145 PROCINLINE:<{
+    DROP
+    B{b5ee9c724101010100240000438009d453c002fa89b0ec18da9bae4cbf98a66de5ec9aa4a8c605b1d309c22a63ba505dc89a5e} B>boc <s PUSHSLICE
+  }>
+  $HaveOwnerCon$_internal_text_d2f7aed82c1a4dfd8fea83e0851610b2f2b114d01a7cb635fade9d004428487a PROCINLINE:<{
+  }>
+  %owner PROC:<{
+    $HaveOwnerCon$_contract_load INLINECALLDICT
+    $HaveOwnerCon$_fun_owner INLINECALLDICT
+    NIP
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d5331723371596f3377746a5a785450744532624e336e6663384d367842575258444734754c48537677797473} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $HaveOwnerCon$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    0 EQINT
+    IF:<{
+      HASHSU
+      DUP
+      95248568113098008876405886906865769355099180449637119462834359732559884710213 PUSHINT
+      EQUAL
+      IFJMP:<{
+        DROP
+        $HaveOwnerCon$_internal_text_d294c772e489e8c22722376a1942a74c6d02498159827d16148676cfed99f145 INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+      95423316159343586089346420353123327249631105522494480960488916262348132993146 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $HaveOwnerCon$_internal_text_d2f7aed82c1a4dfd8fea83e0851610b2f2b114d01a7cb635fade9d004428487a INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $HaveOwnerCon$_contract_load INLINECALLDICT
+    -ROT
+    $HaveOwnerCon$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $HaveOwnerCon$_contract_store INLINECALLDICT
+  }>
+}END>c
