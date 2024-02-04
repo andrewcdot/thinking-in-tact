@@ -1,0 +1,157 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "TypeSystem_RefContract.headers.fc";
+#include "TypeSystem_RefContract.stdlib.fc";
+#include "TypeSystem_RefContract.constants.fc";
+#include "TypeSystem_RefContract.storage.fc";
+
+;;
+;; Contract RefContract functions
+;;
+
+tuple $RefContract$_contract_init() impure inline_ref {
+    tuple $self = null();
+    return $self;
+}
+
+(tuple, ()) $RefContract$_fun_echo(tuple $self) impure inline_ref {
+    var ($self) = $self;
+    slice $sender = __tact_context_get_sender();
+    return ($self, ());
+}
+
+;;
+;; Receivers of a Contract RefContract
+;;
+
+(tuple, ()) $RefContract$_internal_text_01b1cf2f5c0569df45c3ebba88a5d4f759235d3e6575e30ff13417360402089b(tuple $self) impure inline {
+    var $self = $self;
+    slice $sender = __tact_context_get_sender();
+    slice $myAddress = my_address();
+    slice $blackAddress = __tact_create_address(0, 0);
+    slice $oneAddress = __tact_create_address(0, 35567721892421188497516132240470680422433725613244561145563056164194911198674);
+    var ($state'code, $state'data) = $HelloWorld$_init_child(__tact_context_sys);
+    slice $contractAddress = $global_contractAddress(($state'code, $state'data));
+    slice $contractAddressAtM = __tact_compute_contract_address((- 1), $state'code, $state'data);
+    throw_unless(28586, ( __tact_slice_eq_bits(__gen_slice_address_c859bfa03560507f34cd1c9c23dd36be607034ed3ef99071c19f6a2665cd6638(), $sender) ));
+    int $currentTimeInSec = now();
+    int $contractNano = __tact_my_balance();
+    var ($context'bounced, $context'sender, $context'value, $context'raw) = __tact_context_get();
+    return ($self, ());
+}
+
+(tuple, ()) $RefContract$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a(tuple $self) impure inline {
+    var $self = $self;
+    tuple $sb = __tact_string_builder_start_string();
+    tuple $sbc = __tact_string_builder_start_comment();
+    tuple $sbt = __tact_string_builder_start_tail_string();
+    $sb~__tact_string_builder_append(__gen_slice_string_c16e465137c541839950dca782adc9aa6d49f8d44a890809df24cb3940ec3e68());
+    $sbc~__tact_string_builder_append(__gen_slice_string_c16e465137c541839950dca782adc9aa6d49f8d44a890809df24cb3940ec3e68());
+    $sbt~__tact_string_builder_append(__gen_slice_string_c16e465137c541839950dca782adc9aa6d49f8d44a890809df24cb3940ec3e68());
+    return ($self, ());
+}
+
+(tuple, ()) $RefContract$_internal_text_c912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535(tuple $self) impure inline {
+    var $self = $self;
+    builder $b = begin_cell();
+    store_uint($b, 100, 32);
+    store_int($b, 200, 257);
+    __tact_store_bool($b, true);
+    cell $c = end_cell($b);
+    return ($self, ());
+}
+
+;;
+;; Get methods of a Contract RefContract
+;;
+
+_ %echo() method_id(79974) {
+    var self = $RefContract$_contract_load();
+    var res = self~$RefContract$_fun_echo();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmSGCzYSgiBQgHCmgyxsEZFB7W1EtjSG6XpxiDtJ4wq2mh";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract RefContract
+;;
+
+(tuple, int) $RefContract$_contract_router_internal(tuple self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "RefContract" message
+        if (text_op == 0x01b1cf2f5c0569df45c3ebba88a5d4f759235d3e6575e30ff13417360402089b) {
+            self~$RefContract$_internal_text_01b1cf2f5c0569df45c3ebba88a5d4f759235d3e6575e30ff13417360402089b();
+            return (self, true);
+        }
+        
+        ;; Receive "string" message
+        if (text_op == 0x43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a) {
+            self~$RefContract$_internal_text_43db660969d50b52b8f815cb3c6522ada27a3de47d564d6bc47e387bbe83ab5a();
+            return (self, true);
+        }
+        
+        ;; Receive "cell" message
+        if (text_op == 0xc912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535) {
+            self~$RefContract$_internal_text_c912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $RefContract$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$RefContract$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $RefContract$_contract_store(self);
+}

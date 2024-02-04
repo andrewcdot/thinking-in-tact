@@ -1,6 +1,6 @@
 # TACT Compilation Report
-Contract: HelloWorld
-BOC Size: 345 bytes
+Contract: RefContract
+BOC Size: 639 bytes
 
 # Types
 Total Types: 3
@@ -20,7 +20,7 @@ Signature: `SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:
 # Get Methods
 Total Get Methods: 1
 
-## greeting
+## echo
 
 # Error Codes
 2: Stack undeflow

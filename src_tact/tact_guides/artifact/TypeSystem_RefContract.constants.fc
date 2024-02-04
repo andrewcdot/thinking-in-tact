@@ -1,0 +1,5 @@
+;; EQBOop4AF9RNh2DG1N1yZfzFM28vZNUlRjAtjphOEVMd0mJ5
+slice __gen_slice_address_c859bfa03560507f34cd1c9c23dd36be607034ed3ef99071c19f6a2665cd6638() asm "B{b5ee9c724101010100240000438009d453c002fa89b0ec18da9bae4cbf98a66de5ec9aa4a8c605b1d309c22a63ba505dc89a5e} B>boc <s PUSHSLICE";
+
+;; String "fine."
+slice __gen_slice_string_c16e465137c541839950dca782adc9aa6d49f8d44a890809df24cb3940ec3e68() asm "B{b5ee9c7241010101000700000a66696e652e5cb30cf8} B>boc <s PUSHSLICE";

@@ -1,7 +1,7 @@
 {
     "projects": [{
         "name": "TypeSystem",
-        "path": "./0.Types.Map.tact",
+        "path": "./x.Reference.tact",
         "output": "./artifact",
         "options": {
             "external": true

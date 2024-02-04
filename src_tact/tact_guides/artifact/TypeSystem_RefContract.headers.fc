@@ -1,0 +1,70 @@
+;;
+;; Header files for RefContract
+;; NOTE: declarations are sorted for optimal order
+;;
+
+;; __tact_verify_address
+slice __tact_verify_address(slice address) inline;
+
+;; __tact_create_address
+slice __tact_create_address(int chain, int hash) inline;
+
+;; __tact_compute_contract_address
+slice __tact_compute_contract_address(int chain, cell code, cell data) inline;
+
+;; __tact_my_balance
+int __tact_my_balance() inline;
+
+;; __tact_context_get
+(int, slice, int, slice) __tact_context_get() inline;
+
+;; __tact_context_get_sender
+slice __tact_context_get_sender() inline;
+
+;; __tact_store_bool
+builder __tact_store_bool(builder b, int v) inline;
+
+;; __tact_slice_eq_bits
+int __tact_slice_eq_bits(slice a, slice b) inline;
+
+;; __tact_dict_set_code
+cell __tact_dict_set_code(cell dict, int id, cell code) inline;
+
+;; __tact_dict_get_code
+cell __tact_dict_get_code(cell dict, int id) inline;
+
+;; __tact_string_builder_start
+tuple __tact_string_builder_start(builder b) inline;
+
+;; __tact_string_builder_start_comment
+tuple __tact_string_builder_start_comment() inline;
+
+;; __tact_string_builder_start_tail_string
+tuple __tact_string_builder_start_tail_string() inline;
+
+;; __tact_string_builder_start_string
+tuple __tact_string_builder_start_string() inline;
+
+;; __tact_string_builder_append
+((tuple), ()) __tact_string_builder_append(tuple builders, slice sc) inline_ref;
+
+;; $HelloWorld$init$_store
+builder $HelloWorld$init$_store(builder build_0, tuple v) inline;
+
+;; $RefContract$_contract_init
+tuple $RefContract$_contract_init() impure inline_ref;
+
+;; $RefContract$_contract_load
+tuple $RefContract$_contract_load() impure inline_ref;
+
+;; $RefContract$_contract_store
+() $RefContract$_contract_store(tuple v) impure inline;
+
+;; $global_contractAddress
+slice $global_contractAddress((cell, cell) $s) impure inline;
+
+;; $HelloWorld$_init_child
+(cell, cell) $HelloWorld$_init_child(cell sys') inline_ref;
+
+;; $RefContract$_fun_echo
+(tuple, ()) $RefContract$_fun_echo(tuple $self) impure inline_ref;

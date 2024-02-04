@@ -190,28 +190,28 @@ function dictValueParserSendParameters(): DictionaryValue<SendParameters> {
     }
 }
 
- type HelloWorld_init_args = {
-    $$type: 'HelloWorld_init_args';
+ type RefContract_init_args = {
+    $$type: 'RefContract_init_args';
 }
 
-function initHelloWorld_init_args(src: HelloWorld_init_args) {
+function initRefContract_init_args(src: RefContract_init_args) {
     return (builder: Builder) => {
         let b_0 = builder;
     };
 }
 
-async function HelloWorld_init() {
-    const __code = Cell.fromBase64('te6ccgECDgEAAU0AART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UBwQCASAFBgAaAZIwf+Ag10kxwh8wcAIPvY1W2ebZ4YwHCAIBIAoLATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAkAGou2hlbGxvIHdvcmxkgAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSAwNABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVJFaUd3SGRpdjZnS2NORTM5QXk3clk4NlU3YXNNRzJVRUpYdlpMRmk2Y0h1gg');
-    const __system = Cell.fromBase64('te6cckECEAEAAVcAAQHAAQEFoPYVAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtUkVpR3dIZGl2NmdLY05FMzlBeTdyWTg2VTdhc01HMlVFSlh2WkxGaTZjSHWCAAEbCvu1E0NIAAYACVu70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwnZdOWrNOy3M6DpZtlGbopIAg+9jVbZ5tnhjA4LABqLtoZWxsbyB3b3JsZIApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UDg0AGgGSMH/gINdJMcIfMHABNO1E0NQB+GPSADCRbeD4KNcLCoMJuvLgids8DwACbV2ayOQ=');
+async function RefContract_init() {
+    const __code = Cell.fromBase64('te6ccgECEAEAAnMAART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UCgQCASAICQE67aLt+wGSMH/gcCHXScIflTAg1wsf3sAAkTDjDXAFAfL5ASCC6bHPL1wFad9Fw+u6iKXU91kjXT5ldeMP8TQXNgQCCJu64wIggvBD22YJadULUrj4Fcs8ZSKtono95H1WTWvEfjh7voOrWrqUMH/bMeCC8MkSyNx7qwv5zqP4c2zVvv46gqT1SJXIZSu5L26BiUU1upN/2zHgBgH0MPhC+EPbPFxwWchwAcsBcwHLAXABywASzMzJ+QDIcgHLAXABywASygfL/8nQINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiF8DgW+qjQhgAnUU8AC+omw7Bjam65Mv5imbeXsmqSoxgWx0wnCKmO6UWMcF8vR/2zEHAFjQ9AQwbQGBewoBgBD0D2+h8uCHAYF7CiICgBD0F8gByPQAyQHMcAHKAG0wyQELvcM22eGECgIBIAwNATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAsAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSA4PABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVNHQ3pZU2dpQlFnSENtZ3l4c0VaRkI3VzFFdGpTRzZYcHhpRHRKNHdxMm1ogg');
+    const __system = Cell.fromBase64('te6cckECHgEAA10AAQHAAQIBIA8CAQW9roQDART/APSkE/S88sgLBAIBYgoFAgEgCQYCASAXBwIBSBYIAHWybuNDVpcGZzOi8vUW1TR0N6WVNnaUJRZ0hDbWd5eHNFWkZCN1cxRXRqU0c2WHB4aUR0SjR3cTJtaIIAELvcM22eGEHAKS0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8Wds88uCCMMj4QwHMfwHKAMntVBwLATrtou37AZIwf+BwIddJwh+VMCDXCx/ewACRMOMNcAwB8vkBIILpsc8vXAVp30XD67qIpdT3WSNdPmV14w/xNBc2BAIIm7rjAiCC8EPbZglp1QtSuPgVyzxlIq2iej3kfVZNa8R+OHu+g6taupQwf9sx4ILwyRLI3HurC/nOo/hzbNW+/jqCpPVIlchlK7kvboGJRTW6k3/bMeANAfQw+EL4Q9s8XHBZyHABywFzAcsBcAHLABLMzMn5AMhyAcsBcAHLABLKB8v/ydAg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIXwOBb6qNCGACdRTwAL6ibDsGNqbrky/mKZt5eyapKjGBbHTCcIqY7pRYxwXy9H/bMQ4AWND0BDBtAYF7CgGAEPQPb6Hy4IcBgXsKIgKAEPQXyAHI9ADJAcxwAcoAbTDJAQW/2FQQART/APSkE/S88sgLEQIBYhoSAgEgGBMCASAXFAIBSBYVAHWybuNDVpcGZzOi8vUW1SRWlHd0hkaXY2Z0tjTkUzOUF5N3JZODZVN2FzTUcyVUVKWHZaTEZpNmNIdYIAARsK+7UTQ0gABgAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCD72NVtnm2eGMHBkAGou2hlbGxvIHdvcmxkgCktAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFnbPPLggjDI+EMBzH8BygDJ7VQcGwAaAZIwf+Ag10kxwh8wcAE07UTQ1AH4Y9IAMJFt4Pgo1wsKgwm68uCJ2zwdAAJt+8Ve5Q==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initHelloWorld_init_args({ $$type: 'HelloWorld_init_args' })(builder);
+    initRefContract_init_args({ $$type: 'RefContract_init_args' })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
 
-const HelloWorld_errors: { [key: number]: { message: string } } = {
+const RefContract_errors: { [key: number]: { message: string } } = {
     2: { message: `Stack undeflow` },
     3: { message: `Stack overflow` },
     4: { message: `Integer overflow` },
@@ -239,42 +239,45 @@ const HelloWorld_errors: { [key: number]: { message: string } } = {
     28586: { message: `Sender is not tonkeeper owner.` },
 }
 
-const HelloWorld_types: ABIType[] = [
+const RefContract_types: ABIType[] = [
     {"name":"StateInit","header":null,"fields":[{"name":"code","type":{"kind":"simple","type":"cell","optional":false}},{"name":"data","type":{"kind":"simple","type":"cell","optional":false}}]},
     {"name":"Context","header":null,"fields":[{"name":"bounced","type":{"kind":"simple","type":"bool","optional":false}},{"name":"sender","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"raw","type":{"kind":"simple","type":"slice","optional":false}}]},
     {"name":"SendParameters","header":null,"fields":[{"name":"bounce","type":{"kind":"simple","type":"bool","optional":false}},{"name":"to","type":{"kind":"simple","type":"address","optional":false}},{"name":"value","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"mode","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"body","type":{"kind":"simple","type":"cell","optional":true}},{"name":"code","type":{"kind":"simple","type":"cell","optional":true}},{"name":"data","type":{"kind":"simple","type":"cell","optional":true}}]},
 ]
 
-const HelloWorld_getters: ABIGetter[] = [
-    {"name":"greeting","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
+const RefContract_getters: ABIGetter[] = [
+    {"name":"echo","arguments":[],"returnType":null},
 ]
 
-const HelloWorld_receivers: ABIReceiver[] = [
+const RefContract_receivers: ABIReceiver[] = [
+    {"receiver":"internal","message":{"kind":"text","text":"RefContract"}},
+    {"receiver":"internal","message":{"kind":"text","text":"string"}},
+    {"receiver":"internal","message":{"kind":"text","text":"cell"}},
 ]
 
-export class HelloWorld implements Contract {
+export class RefContract implements Contract {
     
     static async init() {
-        return await HelloWorld_init();
+        return await RefContract_init();
     }
     
     static async fromInit() {
-        const init = await HelloWorld_init();
+        const init = await RefContract_init();
         const address = contractAddress(0, init);
-        return new HelloWorld(address, init);
+        return new RefContract(address, init);
     }
     
     static fromAddress(address: Address) {
-        return new HelloWorld(address);
+        return new RefContract(address);
     }
     
     readonly address: Address; 
     readonly init?: { code: Cell, data: Cell };
     readonly abi: ContractABI = {
-        types:  HelloWorld_types,
-        getters: HelloWorld_getters,
-        receivers: HelloWorld_receivers,
-        errors: HelloWorld_errors,
+        types:  RefContract_types,
+        getters: RefContract_getters,
+        receivers: RefContract_receivers,
+        errors: RefContract_errors,
     };
     
     private constructor(address: Address, init?: { code: Cell, data: Cell }) {
@@ -282,11 +285,27 @@ export class HelloWorld implements Contract {
         this.init = init;
     }
     
-    async getGreeting(provider: ContractProvider) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'RefContract' | 'string' | 'cell') {
+        
+        let body: Cell | null = null;
+        if (message === 'RefContract') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'string') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'cell') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (body === null) { throw new Error('Invalid message type'); }
+        
+        await provider.internal(via, { ...args, body: body });
+        
+    }
+    
+    async getEcho(provider: ContractProvider) {
         let builder = new TupleBuilder();
-        let source = (await provider.get('greeting', builder.build())).stack;
-        let result = source.readString();
-        return result;
+        let source = (await provider.get('echo', builder.build())).stack;
     }
     
 }
