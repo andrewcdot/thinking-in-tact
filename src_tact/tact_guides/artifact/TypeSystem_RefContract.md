@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: RefContract
-BOC Size: 639 bytes
+BOC Size: 684 bytes
 
 # Types
 Total Types: 3

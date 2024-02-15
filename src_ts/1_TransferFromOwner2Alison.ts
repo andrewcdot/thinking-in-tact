@@ -49,13 +49,17 @@ export async function transferJetton(from: string, to: string) {
     let jettonMasterContractOpened = client4.open(jettonMasterContract);
     let ownerJettonWallet = await jettonMasterContractOpened.getGetWalletAddress(owner);
 
-    // ✨Pack the forward message into a cell
+    // ✨Pack the forward message into SAME cell
+    // 🔴 whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
+    // https://docs.ton.org/develop/func/cookbook#how-to-contain-a-body-as-slice-to-an-internal-message-cell
     const forwardPayloadLeft = beginCell()
-        .storeBit(0) // 🔴  whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
+        .storeBit(0) // 🔴 whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
         .storeUint(0, 32)
         .storeBuffer(Buffer.from("Hello, GM -- Left.", "utf-8"))
         .endCell();
 
+    // 🔴 whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
+    // https://docs.ton.org/develop/func/cookbook#how-to-contain-a-body-as-ref-to-an-internal-message-cell
     // const forward_message_right = beginCell()
     //     .storeBit(1) // 🔴 whether you want to store the forward payload in the same cell or not. 0 means no, 1 means yes.
     //     .storeRef(beginCell().storeUint(0, 32).storeBuffer(Buffer.from("Hello, GM. -- Right", "utf-8")).endCell())

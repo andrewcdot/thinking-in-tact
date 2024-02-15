@@ -53,13 +53,23 @@ tuple $RefContract$_contract_init() impure inline_ref {
     return ($self, ());
 }
 
-(tuple, ()) $RefContract$_internal_text_c912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535(tuple $self) impure inline {
+(tuple, ()) $RefContract$_internal_text_1de4b113d0b408747e8bc5f06d4c1893984cfd5f8a78bc94faaaf30ebac241c1(tuple $self) impure inline {
     var $self = $self;
     builder $b = begin_cell();
     store_uint($b, 100, 32);
     store_int($b, 200, 257);
     __tact_store_bool($b, true);
+    cell $cell = end_cell($b);
+    store_slice($b, begin_parse($cell));
+    return ($self, ());
+}
+
+(tuple, ()) $RefContract$_internal_text_602073c1e0bc009dcf67bc5816e2de8758e7afec8196ab1bed7a7a9d6237ddf7(tuple $self) impure inline {
+    var $self = $self;
+    builder $b = begin_cell();
     cell $c = end_cell($b);
+    slice $slice = begin_parse($c);
+    int $i = $slice~load_uint(32);
     return ($self, ());
 }
 
@@ -83,7 +93,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmSGCzYSgiBQgHCmgyxsEZFB7W1EtjSG6XpxiDtJ4wq2mh";
+    return "ipfs://QmcbQgxWwXm3s88BkpvoB8TKGRiPbAjzyCNHbYYK9E7dsz";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -123,9 +133,15 @@ _ lazy_deployment_completed() method_id {
             return (self, true);
         }
         
-        ;; Receive "cell" message
-        if (text_op == 0xc912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535) {
-            self~$RefContract$_internal_text_c912c8dc7bab0bf9cea3f8736cd5befe3a82a4f54895c8652bb92f6e81894535();
+        ;; Receive "SAVE：cell build with builder" message
+        if (text_op == 0x1de4b113d0b408747e8bc5f06d4c1893984cfd5f8a78bc94faaaf30ebac241c1) {
+            self~$RefContract$_internal_text_1de4b113d0b408747e8bc5f06d4c1893984cfd5f8a78bc94faaaf30ebac241c1();
+            return (self, true);
+        }
+        
+        ;; Receive "LOAD：slice parsed from cell" message
+        if (text_op == 0x602073c1e0bc009dcf67bc5816e2de8758e7afec8196ab1bed7a7a9d6237ddf7) {
+            self~$RefContract$_internal_text_602073c1e0bc009dcf67bc5816e2de8758e7afec8196ab1bed7a7a9d6237ddf7();
             return (self, true);
         }
     }

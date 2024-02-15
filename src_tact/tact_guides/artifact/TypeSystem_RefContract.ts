@@ -201,8 +201,8 @@ function initRefContract_init_args(src: RefContract_init_args) {
 }
 
 async function RefContract_init() {
-    const __code = Cell.fromBase64('te6ccgECEAEAAnMAART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UCgQCASAICQE67aLt+wGSMH/gcCHXScIflTAg1wsf3sAAkTDjDXAFAfL5ASCC6bHPL1wFad9Fw+u6iKXU91kjXT5ldeMP8TQXNgQCCJu64wIggvBD22YJadULUrj4Fcs8ZSKtono95H1WTWvEfjh7voOrWrqUMH/bMeCC8MkSyNx7qwv5zqP4c2zVvv46gqT1SJXIZSu5L26BiUU1upN/2zHgBgH0MPhC+EPbPFxwWchwAcsBcwHLAXABywASzMzJ+QDIcgHLAXABywASygfL/8nQINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiF8DgW+qjQhgAnUU8AC+omw7Bjam65Mv5imbeXsmqSoxgWx0wnCKmO6UWMcF8vR/2zEHAFjQ9AQwbQGBewoBgBD0D2+h8uCHAYF7CiICgBD0F8gByPQAyQHMcAHKAG0wyQELvcM22eGECgIBIAwNATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAsAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSA4PABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVNHQ3pZU2dpQlFnSENtZ3l4c0VaRkI3VzFFdGpTRzZYcHhpRHRKNHdxMm1ogg');
-    const __system = Cell.fromBase64('te6cckECHgEAA10AAQHAAQIBIA8CAQW9roQDART/APSkE/S88sgLBAIBYgoFAgEgCQYCASAXBwIBSBYIAHWybuNDVpcGZzOi8vUW1TR0N6WVNnaUJRZ0hDbWd5eHNFWkZCN1cxRXRqU0c2WHB4aUR0SjR3cTJtaIIAELvcM22eGEHAKS0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8Wds88uCCMMj4QwHMfwHKAMntVBwLATrtou37AZIwf+BwIddJwh+VMCDXCx/ewACRMOMNcAwB8vkBIILpsc8vXAVp30XD67qIpdT3WSNdPmV14w/xNBc2BAIIm7rjAiCC8EPbZglp1QtSuPgVyzxlIq2iej3kfVZNa8R+OHu+g6taupQwf9sx4ILwyRLI3HurC/nOo/hzbNW+/jqCpPVIlchlK7kvboGJRTW6k3/bMeANAfQw+EL4Q9s8XHBZyHABywFzAcsBcAHLABLMzMn5AMhyAcsBcAHLABLKB8v/ydAg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIXwOBb6qNCGACdRTwAL6ibDsGNqbrky/mKZt5eyapKjGBbHTCcIqY7pRYxwXy9H/bMQ4AWND0BDBtAYF7CgGAEPQPb6Hy4IcBgXsKIgKAEPQXyAHI9ADJAcxwAcoAbTDJAQW/2FQQART/APSkE/S88sgLEQIBYhoSAgEgGBMCASAXFAIBSBYVAHWybuNDVpcGZzOi8vUW1SRWlHd0hkaXY2Z0tjTkUzOUF5N3JZODZVN2FzTUcyVUVKWHZaTEZpNmNIdYIAARsK+7UTQ0gABgAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCD72NVtnm2eGMHBkAGou2hlbGxvIHdvcmxkgCktAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFnbPPLggjDI+EMBzH8BygDJ7VQcGwAaAZIwf+Ag10kxwh8wcAE07UTQ1AH4Y9IAMJFt4Pgo1wsKgwm68uCJ2zwdAAJt+8Ve5Q==');
+    const __code = Cell.fromBase64('te6ccgECEQEAAqAAART/APSkE/S88sgLAQIBYgIDApLQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxZ2zzy4IIwyPhDAcx/AcoAye1UCwQCASAJCgE67aLt+wGSMH/gcCHXScIflTAg1wsf3sAAkTDjDXAFAvb5ASCC6bHPL1wFad9Fw+u6iKXU91kjXT5ldeMP8TQXNgQCCJu64wIggvBD22YJadULUrj4Fcs8ZSKtono95H1WTWvEfjh7voOrWrqUMH/bMeAggvAd5LET0LQIdH6LxfBtTBiTmEz9X4p4vJT6qvMOusJBwbqUMH/bMeAGBwH0MPhC+EPbPFxwWchwAcsBcwHLAXABywASzMzJ+QDIcgHLAXABywASygfL/8nQINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiF8DgW+qjQhgAnUU8AC+omw7Bjam65Mv5imbeXsmqSoxgWx0wnCKmO6UWMcF8vR/2zEIAFCC8GAgc8HgvACdz2e8WBbi3odY56/sgZarG+16ep1iN933upN/2zHgAFjQ9AQwbQGBewoBgBD0D2+h8uCHAYF7CiICgBD0F8gByPQAyQHMcAHKAG0wyQELvcM22eGECwIBIA0OATTtRNDUAfhj0gAwkW3g+CjXCwqDCbry4InbPAwAAm0Albu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcJ2XTlqzTstzOg6WbZRm6KSAIBSA8QABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbWNiUWd4V3dYbTNzODhCa3B2b0I4VEtHUmlQYkFqenlDTkhiWVlLOUU3ZHN6gg');
+    const __system = Cell.fromBase64('te6cckECHwEAA4oAAQHAAQIBIBACAQW9roQDART/APSkE/S88sgLBAIBYgoFAgEgCQYCASAYBwIBSBcIAHWybuNDVpcGZzOi8vUW1jYlFneFd3WG0zczg4Qmtwdm9COFRLR1JpUGJBanp5Q05IYllZSzlFN2RzeoIAELvcM22eGEHQKS0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8Wds88uCCMMj4QwHMfwHKAMntVB0LATrtou37AZIwf+BwIddJwh+VMCDXCx/ewACRMOMNcAwC9vkBIILpsc8vXAVp30XD67qIpdT3WSNdPmV14w/xNBc2BAIIm7rjAiCC8EPbZglp1QtSuPgVyzxlIq2iej3kfVZNa8R+OHu+g6taupQwf9sx4CCC8B3ksRPQtAh0fovF8G1MGJOYTP1fini8lPqq8w66wkHBupQwf9sx4A4NAFCC8GAgc8HgvACdz2e8WBbi3odY56/sgZarG+16ep1iN933upN/2zHgAfQw+EL4Q9s8XHBZyHABywFzAcsBcAHLABLMzMn5AMhyAcsBcAHLABLKB8v/ydAg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIXwOBb6qNCGACdRTwAL6ibDsGNqbrky/mKZt5eyapKjGBbHTCcIqY7pRYxwXy9H/bMQ8AWND0BDBtAYF7CgGAEPQPb6Hy4IcBgXsKIgKAEPQXyAHI9ADJAcxwAcoAbTDJAQW/2FQRART/APSkE/S88sgLEgIBYhsTAgEgGRQCASAYFQIBSBcWAHWybuNDVpcGZzOi8vUW1SRWlHd0hkaXY2Z0tjTkUzOUF5N3JZODZVN2FzTUcyVUVKWHZaTEZpNmNIdYIAARsK+7UTQ0gABgAJW7vRgnBc7D1dLK57HoTsOdZKhRtmgnCd1jUtK2R8syLTry398WI5gnAgVcAbgGdjlM5YOq5HJbLDgnCdl05as07LczoOlm2UZuikgCD72NVtnm2eGMHRoAGou2hlbGxvIHdvcmxkgCktAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFnbPPLggjDI+EMBzH8BygDJ7VQdHAAaAZIwf+Ag10kxwh8wcAE07UTQ1AH4Y9IAMJFt4Pgo1wsKgwm68uCJ2zweAAJtgtwFsg==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -252,7 +252,8 @@ const RefContract_getters: ABIGetter[] = [
 const RefContract_receivers: ABIReceiver[] = [
     {"receiver":"internal","message":{"kind":"text","text":"RefContract"}},
     {"receiver":"internal","message":{"kind":"text","text":"string"}},
-    {"receiver":"internal","message":{"kind":"text","text":"cell"}},
+    {"receiver":"internal","message":{"kind":"text","text":"SAVE：cell build with builder"}},
+    {"receiver":"internal","message":{"kind":"text","text":"LOAD：slice parsed from cell"}},
 ]
 
 export class RefContract implements Contract {
@@ -285,7 +286,7 @@ export class RefContract implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'RefContract' | 'string' | 'cell') {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: 'RefContract' | 'string' | 'SAVE：cell build with builder' | 'LOAD：slice parsed from cell') {
         
         let body: Cell | null = null;
         if (message === 'RefContract') {
@@ -294,7 +295,10 @@ export class RefContract implements Contract {
         if (message === 'string') {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
-        if (message === 'cell') {
+        if (message === 'SAVE：cell build with builder') {
+            body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message === 'LOAD：slice parsed from cell') {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
         }
         if (body === null) { throw new Error('Invalid message type'); }

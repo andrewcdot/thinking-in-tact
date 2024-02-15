@@ -49,13 +49,25 @@ contract RefContract{
     }
 
 
-    receive("cell"){
+    receive("SAVE：cell build with builder"){
        let b:Builder = beginCell();
        b.storeUint(100,32);//0 ≤ len ≤ 256.
        b.storeInt(200,257);//0 ≤ len ≤ 257.
        b.storeBool(true);
-       b.storeSlice(beginString().append("fine.").toCell());
+
+       let cell:Cell = b.endCell();
+       b.storeSlice(cell.beginParse());
+
+    }
+
+   receive("LOAD：slice parsed from cell"){
+       let b:Builder = beginCell();
        let c:Cell = b.endCell();
+
+       let slice:Slice  = c:Cell.beginParse();
+       let i:Int = slice.loadUint(32);
+
+
     }
 
 
