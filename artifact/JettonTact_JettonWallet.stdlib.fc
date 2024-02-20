@@ -40,16 +40,16 @@ slice __tact_compute_contract_address(int chain, cell code, cell data) inline {
     return __tact_create_address(chain, hash);
 }
 
+int __tact_my_balance() inline {
+    return pair_first(get_balance());
+}
+
 forall X -> X __tact_not_null(X x) inline {
     throw_if(128, null?(x)); return x;
 }
 
 (int, slice, int, slice) __tact_context_get() inline {
     return __tact_context;
-}
-
-slice __tact_context_get_sender() inline {
-    return __tact_context_sender;
 }
 
 builder __tact_store_bool(builder b, int v) inline {
@@ -68,19 +68,6 @@ cell __tact_dict_get_code(cell dict, int id) inline {
     var (data, ok) = udict_get_ref?(dict, 16, id);
     throw_unless(135, ok);
     return data;
-}
-
-cell $global_emptyCell() impure inline {
-    return end_cell(begin_cell());
-}
-
-slice $Cell$_fun_asSlice(cell $self) impure inline {
-    var ($self) = $self;
-    return begin_parse($self);
-}
-
-slice $global_emptySlice() impure inline {
-    return $Cell$_fun_asSlice($global_emptyCell());
 }
 
 slice $global_contractAddress((cell, cell) $s) impure inline {
@@ -129,4 +116,15 @@ slice $global_contractAddress((cell, cell) $s) impure inline {
     }
     cell $c = end_cell($b);
     send_raw_message($c, $params'mode);
+}
+
+int $Context$_fun_readForwardFee((int, slice, int, slice) $self) impure inline {
+    var (($self'bounced, $self'sender, $self'value, $self'raw)) = $self;
+    var (($self'bounced, $self'sender, $self'value, $self'raw)) = $self;
+    slice $sc = $self'raw;
+    $sc~__tact_load_address();
+    $sc~load_coins();
+    $sc~skip_bits(1);
+    $sc~load_coins();
+    return (($sc~load_coins() * 3) / 2);
 }

@@ -1,15 +1,17 @@
 {
-    "projects": [{
-        "name": "JettonTact",
-        "path": "./src_tact/master.tact",
-        "output": "./artifact",
-        "options": {
-            "debug": true,
-            "external": true,
-            "masterchain": true,
-            "experimental": {
-                "inline": true
+    "projects": [
+        {
+            "name": "JettonTact",
+            "path": "./src_tact/jetton_demo/master.tact",
+            "output": "./artifact",
+            "options": {
+                "debug": true,
+                "external": true,
+                "masterchain": true,
+                "experimental": {
+                    "inline": true
+                }
             }
         }
-    }]
+    ]
 }

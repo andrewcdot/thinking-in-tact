@@ -174,30 +174,30 @@ cell $TakeWalletAddress$_store_cell((int, slice, slice) v) inline {
 }
 
 ;;
-;; Type: JettonDefaultWallet
+;; Type: JettonWallet
 ;;
 
-builder $JettonDefaultWallet$init$_store(builder build_0, (slice, slice) v) inline {
+builder $JettonWallet$init$_store(builder build_0, (slice, slice) v) inline {
     var (v'owner, v'master) = v;
     build_0 = __tact_store_address(build_0, v'owner);
     build_0 = __tact_store_address(build_0, v'master);
     return build_0;
 }
 
-(cell, cell) $JettonDefaultWallet$_init_child(cell sys', slice $owner, slice $master) inline_ref {
+(cell, cell) $JettonWallet$_init_child(cell sys', slice $owner, slice $master) inline {
     slice sc' = sys'.begin_parse();
     cell source = sc'~load_dict();
     cell contracts = new_dict();
     
-    ;; Contract Code: JettonDefaultWallet
-    cell mine = __tact_dict_get_code(source, 55471);
-    contracts = __tact_dict_set_code(contracts, 55471, mine);
+    ;; Contract Code: JettonWallet
+    cell mine = __tact_dict_get_code(source, 3765);
+    contracts = __tact_dict_set_code(contracts, 3765, mine);
     
     ;; Build cell
     builder b = begin_cell();
     b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
     b = b.store_int(false, 1);
-    b = $JettonDefaultWallet$init$_store(b, ($owner, $master));
+    b = $JettonWallet$init$_store(b, ($owner, $master));
     return (mine, b.end_cell());
 }
 
@@ -238,8 +238,6 @@ builder $JettonMasterContract$_store(builder build_0, (int, slice, cell, int, in
     if ($loaded) {
         return $sc~$JettonMasterContract$_load();
     } else {
-        ;; Allow only workchain deployments
-        throw_unless(137, my_address().preload_uint(11) == 1024);
         (slice owner, cell content, int max_supply) = $sc~$JettonMasterContract$init$_load();
         $sc.end_parse();
         return $JettonMasterContract$_contract_init(owner, content, max_supply);

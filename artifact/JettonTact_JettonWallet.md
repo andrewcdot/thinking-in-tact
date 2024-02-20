@@ -1,6 +1,6 @@
 # TACT Compilation Report
-Contract: JettonMasterContract
-BOC Size: 2658 bytes
+Contract: JettonWallet
+BOC Size: 2557 bytes
 
 # Types
 Total Types: 17
@@ -74,14 +74,9 @@ TLB: `mint#fc708bd2 amount:int257 receiver:address = Mint`
 Signature: `Mint{amount:int257,receiver:address}`
 
 # Get Methods
-Total Get Methods: 3
+Total Get Methods: 1
 
-## get_jetton_data
-
-## get_wallet_address
-Argument: owner
-
-## owner
+## get_wallet_data
 
 # Error Codes
 2: Stack undeflow

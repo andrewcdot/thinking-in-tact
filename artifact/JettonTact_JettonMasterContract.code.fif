@@ -26,7 +26,7 @@ PROGRAM{
   DECLPROC $StateInit$_get_code
   DECLPROC $Context$_get_value
   DECLPROC $JettonData$_to_external
-  DECLPROC $JettonDefaultWallet$init$_store
+  DECLPROC $JettonWallet$init$_store
   DECLPROC $JettonMasterContract$init$_load
   DECLPROC $JettonMasterContract$_contract_init
   DECLPROC $JettonMasterContract$_contract_load
@@ -36,7 +36,7 @@ PROGRAM{
   DECLPROC $global_emptySlice
   DECLPROC $global_contractAddress
   DECLPROC $global_send
-  DECLPROC $JettonDefaultWallet$_init_child
+  DECLPROC $JettonWallet$_init_child
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
   DECLPROC $TokenTransferInternal$_constructor_query_id_amount_from_response_destination_forward_ton_amount_forward_payload
   DECLPROC $JettonMasterContract$_fun_getJettonWalletInit
@@ -78,11 +78,12 @@ PROGRAM{
     DUP
     11 PLDU
     DUP
-    1279 PUSHINT
-    EQUAL
-    137 THROWIF
     10 PUSHPOW2
     EQUAL
+    SWAP
+    1279 PUSHINT
+    EQUAL
+    OR
     136 THROWIFNOT
   }>
   __tact_load_address PROCINLINE:<{
@@ -285,7 +286,7 @@ PROGRAM{
   }>
   $JettonData$_to_external PROCINLINE:<{
   }>
-  $JettonDefaultWallet$init$_store PROCINLINE:<{
+  $JettonWallet$init$_store PROCINLINE:<{
     -ROT
     __tact_store_address INLINECALLDICT
     SWAP
@@ -317,11 +318,6 @@ PROGRAM{
       $JettonMasterContract$_load INLINECALLDICT
       1 5 BLKDROP2
     }>
-    MYADDR
-    11 PLDU
-    10 PUSHPOW2
-    EQUAL
-    137 THROWIFNOT
     $JettonMasterContract$init$_load INLINECALLDICT
     s0 s3 XCHG
     ENDS
@@ -357,7 +353,7 @@ PROGRAM{
     -ROT
     __tact_compute_contract_address INLINECALLDICT
   }>
-  $global_send PROCREF:<{
+  $global_send PROCINLINE:<{
     NEWC
     1 PUSHINT
     SWAP
@@ -459,17 +455,17 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
-  $JettonDefaultWallet$_init_child PROCREF:<{
+  $JettonWallet$_init_child PROCINLINE:<{
     s0 s2 XCHG
     CTOS
     LDDICT
     DROP
     NEWDICT
     SWAP
-    55471 PUSHINT
+    3765 PUSHINT
     __tact_dict_get_code INLINECALLDICT
     SWAP
-    55471 PUSHINT
+    3765 PUSHINT
     s2 PUSH
     __tact_dict_set_code INLINECALLDICT
     NEWC
@@ -483,7 +479,7 @@ PROGRAM{
     SWAP
     1 STI
     s0 s0 s3 XCHG3
-    $JettonDefaultWallet$init$_store INLINECALLDICT
+    $JettonWallet$init$_store INLINECALLDICT
     ENDC
   }>
   $SendParameters$_constructor_to_value_bounce_mode_body_code_data PROCINLINE:<{
@@ -492,13 +488,13 @@ PROGRAM{
   }>
   $TokenTransferInternal$_constructor_query_id_amount_from_response_destination_forward_ton_amount_forward_payload PROCINLINE:<{
   }>
-  $JettonMasterContract$_fun_getJettonWalletInit PROCREF:<{
+  $JettonMasterContract$_fun_getJettonWalletInit PROCINLINE:<{
     __tact_context_sys GETGLOB
     MYADDR
     s1 s2 XCHG
-    $JettonDefaultWallet$_init_child INLINECALLDICT
+    $JettonWallet$_init_child INLINECALLDICT
   }>
-  $JettonMasterContract$_fun_mint PROCREF:<{
+  $JettonMasterContract$_fun_mint PROCINLINE:<{
     18668 PUSHINT
     s5 PUSH
     THROWANYIFNOT
@@ -529,7 +525,7 @@ PROGRAM{
     $global_send INLINECALLDICT
     s0 s3 s4 XCHG3
   }>
-  $JettonMasterContract$_fun_requireSenderAsWalletOwner PROCREF:<{
+  $JettonMasterContract$_fun_requireSenderAsWalletOwner PROCINLINE:<{
     __tact_context_get INLINECALLDICT
     s2 s3 XCHG
     3 BLKDROP
@@ -547,30 +543,30 @@ PROGRAM{
   }>
   $JettonData$_constructor_total_supply_mintable_owner_content_wallet_code PROCINLINE:<{
   }>
-  $JettonMasterContract$_fun_get_jetton_data PROCREF:<{
+  $JettonMasterContract$_fun_get_jetton_data PROCINLINE:<{
     __tact_context_sys GETGLOB
     MYADDR
     s5 s(-1) PUXC
-    $JettonDefaultWallet$_init_child INLINECALLDICT
+    $JettonWallet$_init_child INLINECALLDICT
     $StateInit$_get_code INLINECALLDICT
     s5 s2 s(-2) PU2XC
     s6 s5 s(-2) PU2XC
     $JettonData$_constructor_total_supply_mintable_owner_content_wallet_code INLINECALLDICT
   }>
-  $JettonMasterContract$_fun_get_wallet_address PROCREF:<{
+  $JettonMasterContract$_fun_get_wallet_address PROCINLINE:<{
     __tact_context_sys GETGLOB
     MYADDR
     s1 s2 XCHG
-    $JettonDefaultWallet$_init_child INLINECALLDICT
+    $JettonWallet$_init_child INLINECALLDICT
     $global_contractAddress INLINECALLDICT
   }>
-  $JettonMasterContract$_fun_requireOwner PROCREF:<{
+  $JettonMasterContract$_fun_requireOwner PROCINLINE:<{
     __tact_context_get_sender INLINECALLDICT
     s4 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     132 THROWIFNOT
   }>
-  $JettonMasterContract$_fun_owner PROCREF:<{
+  $JettonMasterContract$_fun_owner PROCINLINE:<{
     s3 PUSH
   }>
   $SendParameters$_constructor_to_value_bounce_mode_body PROCINLINE:<{
@@ -685,10 +681,10 @@ PROGRAM{
     6100000 PUSHINT
     GEQ
     THROWANYIFNOT
-    __tact_context_sys GETGLOB
     MYADDR
-    s3 s(-1) PUXC
-    $JettonDefaultWallet$_init_child INLINECALLDICT
+    __tact_context_sys GETGLOB
+    s3 s1 PUXC
+    $JettonWallet$_init_child INLINECALLDICT
     s0 s2 XCHG
     IF:<{
       __tact_context_get_sender INLINECALLDICT
@@ -752,12 +748,13 @@ PROGRAM{
     123515602279859691144772641439386770278 PUSHINT
     209801025412363888721030803524359905849 PUSHINT
     42980537499636128163026532310500881091 PUSHINT
-    209474421377847335869795010607481022628 PUSHINT
+    36993126140238121407019133875791708966 PUSHINT
+    289074767680806556846472852687671582181 PUSHINT
     258390863389042349688353801369539695109 PUSHINT
     86142586315491086060343270784266291122 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d664c514e644a66354b5961784e437950726e553575745a32367653677146514c3938676e4b584d5942597531} PUSHSLICE
+    x{697066733a2f2f516d5874716b5563576b51743273315336626b6b535671374a325532655566454a67664879725a36665679735a32} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
