@@ -1,0 +1,257 @@
+;; Jackpot.ton
+
+#include "./stdlib.fc";
+
+const MAX_TO_MINT = 50000000000000; ;; 50 000
+const NULL_ADDRESS = "0:0000000000000000000000000000000000000000000000000000000000000000"a;
+
+(slice, int, int, int, int, int, cell, slice) load_data() {
+    slice ds = get_data().begin_parse();
+    return(
+        ds~load_msg_addr(), ;; owner_address
+        ds~load_uint(8), ;; fee_percent
+        ds~load_coins(), ;; bet_min
+        ds~load_uint(8), ;; players_max
+        ds~load_uint(8), ;; players_current
+        ds~load_coins(), ;; locked_balance
+        ds~load_dict(), ;; players_list
+        ds~load_msg_addr() ;; mint_address
+    );
+}
+
+() save_data(slice owner_address, int fee_percent, int bet_min, int players_max, int players_current, int locked_balance, cell players_list, slice mint_address) impure {
+    set_data(begin_cell()
+        .store_slice(owner_address)
+        .store_uint(fee_percent, 8)
+        .store_coins(bet_min)
+        .store_uint(players_max, 8)
+        .store_uint(players_current, 8)
+        .store_coins(locked_balance)
+        .store_dict(players_list)
+        .store_slice(mint_address)
+        .end_cell()
+    );
+}
+
+() send_transaction(slice address, int value) impure inline {
+
+    var msg = begin_cell()
+    .store_uint(0x10, 6)
+    .store_slice(address)
+    .store_coins(value)
+    .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+    .store_uint(0, 32)
+    .store_slice("Transfer from Jackpot.ton!")
+    .end_cell();
+
+    send_raw_message(msg, 0);
+}
+
+() mint_tokens(slice mint_address, slice winner_address, int value) impure {
+
+    var msg = begin_cell()
+        .store_uint(0x18, 6) ;; nobounce - int_msg_info$0 ihr_disabled:Bool bounce:Bool bounced:Bool src:MsgAddress -> 011000
+        .store_slice(mint_address)
+        .store_coins(50000000)
+        .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+        .store_uint(21, 32)
+        .store_uint(0, 64)
+        .store_slice(winner_address)
+        .store_coins(20000000)
+        .store_ref(
+                begin_cell().store_uint(395134233, 32)
+                        .store_uint(0, 64)
+                        .store_coins(value)
+                        .store_slice(mint_address)
+                        .store_uint(0, 200)
+                        .store_uint(0, 67)
+                        .store_coins(0)
+                        .store_uint(0, 1)
+                .end_cell()
+    );
+
+    send_raw_message(msg.end_cell(), 1);
+}
+
+() revoke_ownership(slice mint_address) impure {
+        
+    var msg = begin_cell()
+        .store_uint(0x18, 6)
+        .store_slice(mint_address)
+        .store_coins(10000000)
+        .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+        .store_uint(3, 32)
+        .store_uint(0, 64)
+        .store_slice(NULL_ADDRESS)
+        .end_cell();
+
+    send_raw_message(msg, 1);
+}
+
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+
+    slice cs = in_msg_full.begin_parse();
+
+    int flags = cs~load_uint(4);
+    if (flags & 1) {
+        return ();
+    }
+
+    slice sender_address = cs~load_msg_addr();
+    (slice owner_address, int fee_percent, int bet_min, int players_max, int players_current, int locked_balance, cell players_list, slice mint_address) = load_data();
+
+    if(equal_slice_bits(sender_address, owner_address)){
+
+        int op = in_msg_body~load_uint(32);
+
+        if(op == 201) { ;; change bet_min
+            int new_bet_min = in_msg_body~load_coins();
+            throw_unless(402, new_bet_min > 100000000); ;; 0.1
+            throw_unless(403, new_bet_min < 100000000000); ;; 100
+            save_data(owner_address, fee_percent, new_bet_min, players_max, players_current, locked_balance, players_list, mint_address);
+            return();
+        }
+
+        if(op == 202) { ;; change players_max
+            int new_players_max = in_msg_body~load_uint(8);
+            throw_unless(404, new_players_max > 1);
+            throw_unless(405, new_players_max <= 100);
+            save_data(owner_address, fee_percent, bet_min, new_players_max, players_current, locked_balance, players_list, mint_address);
+            return();
+        }
+
+        if(op == 203) { ;; change fee_percent
+            int new_fee_percent = in_msg_body~load_uint(8);
+            throw_unless(406, new_fee_percent <= 5);
+            throw_unless(407, new_fee_percent > 0);
+            save_data(owner_address, new_fee_percent, bet_min, players_max, players_current, locked_balance, players_list, mint_address);
+            return();
+        }
+
+        if(op == 204) { ;; collect fees
+            int collect_value = in_msg_body~load_coins();
+            throw_unless(408, (my_balance - (locked_balance + 5000000000)) > collect_value);
+            send_transaction(owner_address, collect_value);
+            return();
+        }
+
+        if(op == 205) { ;; revoke ownership
+            revoke_ownership(mint_address);
+            return();
+        }
+
+        throw(409);
+    }
+
+    throw_unless(401, msg_value >= bet_min);
+
+    int from_ticket = (locked_balance + 100000) / 100000; ;; start ticket number
+    locked_balance += msg_value;
+    int to_ticket = locked_balance / 100000; ;; end ticket number
+
+    players_current += 1;
+
+    cell new_player = begin_cell()
+        .store_slice(sender_address)
+        .store_uint(from_ticket, 64)
+        .store_uint(to_ticket, 64)
+        .store_coins(msg_value)
+        .end_cell();
+    
+    players_list~udict_set_ref(256, players_current, new_player);
+
+    if(players_current >= players_max) { ;; raffle logic
+
+        ;; https://docs.ton.org/develop/smart-contracts/guidelines/random-number-generation
+        randomize_lt();
+
+        int total_tickets = locked_balance / 100000;
+        int lucky_ticket = rand(total_tickets);
+
+        slice winner_address = owner_address; ;; doesn't matter.
+        int winner_bet = 0;
+        int closest_ticket = total_tickets;
+
+        (int key, cell player, int success) = udict_get_min_ref?(players_list, 256);
+
+        int counter = 0;
+
+        repeat(players_current) {
+
+            counter += 1;
+
+            slice ds = player.begin_parse();
+            slice player_address = ds~load_msg_addr();
+            int start_ticket = ds~load_uint(64);
+            int end_ticket = ds~load_uint(64);
+            int player_bet = ds~load_coins();
+
+            int number = abs(lucky_ticket - start_ticket);
+            if(number < closest_ticket) {
+                closest_ticket = number;
+                winner_address = player_address;
+                winner_bet = player_bet;
+            }
+
+            number = abs(lucky_ticket - end_ticket);
+            if(number < closest_ticket) {
+                closest_ticket = number;
+                winner_address = player_address;
+                winner_bet = player_bet;
+            }
+
+            if(counter < players_current) {
+                (key, _, _) = udict_get_next?(players_list, 256, key);
+                (player, _) = udict_get_ref?(players_list, 256, key);
+            }
+        }
+
+        int to_send = (((locked_balance - winner_bet) / 100) * (100 - fee_percent)) + winner_bet;
+
+        send_transaction(winner_address, to_send);
+
+        int to_mint = to_send * 10;
+        if(to_mint > MAX_TO_MINT) { ;; 50 000 jettons MAX
+            to_mint = MAX_TO_MINT;
+        }
+        mint_tokens(mint_address, winner_address, to_mint); ;; 1 TON = 10 jettons
+
+        save_data(owner_address, fee_percent, bet_min, players_max, 0, 0, new_dict(), mint_address);
+
+        return();
+
+    } else {
+        save_data(owner_address, fee_percent, bet_min, players_max, players_current, locked_balance, players_list, mint_address);
+        return();
+    }
+}
+
+
+;;
+;; Get methods
+;;
+
+int get_fee_percent() method_id {
+    (_, int fee_percent, _, _, _, _, _, _) = load_data();
+    return fee_percent;
+}
+
+int get_bet_min() method_id {
+    (_, _, int bet_min, _, _, _, _, _) = load_data();
+    return bet_min;
+}
+
+int get_players_max() method_id {
+    (_, _, _, int players_max, _, _, _, _) = load_data();
+    return players_max;
+}
+
+int get_players_current() method_id {
+    (_, _, _, _, int players_current, _, _, _) = load_data();
+    return players_current;
+}
+
+int get_locked_balance() method_id {
+    (_, _, _, _, _, int locked_balance, _, _) = load_data();
+    return locked_balance;
+}

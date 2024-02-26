@@ -1,0 +1,106 @@
+;; Jackpot.ton
+
+#include "./stdlib.fc";
+
+(slice, int) load_data() inline {
+    var ds = get_data().begin_parse();
+    return(
+        ds~load_msg_addr(), ;; owner_address
+        ds~load_uint(8) ;; fee_percent
+    );
+}
+
+() save_data(slice owner_address, int fee_percent) impure inline {
+    set_data(
+        begin_cell()
+            .store_slice(owner_address)
+            .store_uint(fee_percent, 8)
+        .end_cell()
+    );
+}
+
+() send_transaction(slice address, int value) impure inline {
+    var msg = begin_cell()
+    .store_uint(0x10, 6)
+    .store_slice(address)
+    .store_coins(value)
+    .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+    .store_uint(0, 32)
+    .store_slice("Transfer from Jackpot.ton Piggy!")
+    .end_cell();
+
+    send_raw_message(msg, 0);
+}
+
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+
+    if (in_msg_body.slice_empty?()) { ;; ignore empty messages
+        return ();
+    }
+
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    
+    if(flags & 1) { ;; Skip bounce
+        return();
+    }
+
+    slice sender_address = cs~load_msg_addr();
+    int op = in_msg_body~load_uint(32);
+
+    (slice owner_address, int fee_percent) = load_data();
+
+    if(op == 777) { ;; Feed piggy
+
+        int piggy_balance = my_balance - msg_value;
+        int balance_twelve_percents = (piggy_balance / 100) * 12;
+        throw_unless(69, balance_twelve_percents > msg_value); ;; 12% > msg_value
+
+        randomize_lt();
+
+        int random_number = rand(piggy_balance) + 1;
+        int cutted_msg_value = (msg_value / 100) * 80; ;; 20% cut 
+
+        if(random_number <= cutted_msg_value) { ;; win
+            int balance_percent = piggy_balance / 100;
+            int winnings_value = balance_percent * (85 - fee_percent); ;; 15% to next round
+
+            int fees_value = 1000000; ;; 0.001 TON to reg fee transaction
+            
+            if(my_balance - winnings_value > 10000000000){ ;; 10 TON
+                fees_value = balance_percent * fee_percent;
+            }
+
+            send_transaction(sender_address, winnings_value); ;; Send winnings
+            send_transaction(owner_address, fees_value); ;; Collect fees
+        }
+        return();
+    }
+
+    throw_unless(71, equal_slices(sender_address, owner_address));
+
+    if(op == 2) { ;; Change fee_percent
+        int new_fee_percent = in_msg_body~load_uint(8);
+        throw_unless(72, new_fee_percent > 1);
+        throw_unless(73, new_fee_percent <= 5); ;; 5% is MAX
+
+        save_data(owner_address, new_fee_percent);
+        return();
+    }
+
+    if(op == 3) { ;; Change owner_address
+        slice new_owner_address = in_msg_body~load_msg_addr();
+
+        save_data(new_owner_address, fee_percent);
+        return();
+    }
+}
+
+;;
+;; Get methods
+;;
+
+int get_fee_percent() method_id {
+    (_, int fee_percent) = load_data();
+    return fee_percent;
+}
