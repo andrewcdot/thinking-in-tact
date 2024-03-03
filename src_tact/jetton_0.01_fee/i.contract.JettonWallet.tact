@@ -25,17 +25,15 @@ contract JettonWallet
         let fwd_fee: Int = (ctx.readForwardFee() + ctx.readForwardFee());
         let final: Int = (((fwd_fee + 2 * self.gasConsumption) + self.minTonsForStorage) + msg.forward_ton_amount);
         require(ctx.value > final, "Invalid value!!");
-
         // Update balance
-        self.balance = ((self.balance - msg.amount) + 10);
+        self.balance = (self.balance - msg.amount);
         require(self.balance >= 0, "Invalid balance");
-
         let init: StateInit = initOf JettonWallet(msg.destination, self.master);
         let wallet_address: Address = contractAddress(init);
         send(SendParameters{
                 to: wallet_address,
                 value: 0,
-                mode: SendRemainingValue,
+                mode: SendPayGasSeparately,
                 bounce: false,
                 body: TokenTransferInternal{
                     query_id: msg.query_id,
@@ -49,6 +47,9 @@ contract JettonWallet
                 data: init.data
             }
         );
+
+
+
     }
 
     receive(msg: TokenTransferInternal){

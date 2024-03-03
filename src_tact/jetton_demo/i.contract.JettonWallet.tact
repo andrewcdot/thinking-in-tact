@@ -20,10 +20,16 @@ contract JettonWallet
         // 0xf8a7ea5
         let ctx: Context = context(); // Check sender
         require(ctx.sender == self.owner, "Invalid sender");
-        // Gas checks
+
+        // Gas checks （下面计算的费用不是真实收取，而是确保大于一个范围）
+        // - 转发费用：2倍
+        // - 计算费用：2倍 （预估配置值0.03）
+        // - 存储费用：1倍 （预估配置值0.03）
+        // - 转发 TON ： 消息参数 forward_ton_amount
         let fwd_fee: Int = (ctx.readForwardFee() + ctx.readForwardFee());
         let final: Int = (((fwd_fee + 2 * self.gasConsumption) + self.minTonsForStorage) + msg.forward_ton_amount);
         require(ctx.value > final, "Invalid value!!");
+
         // Update balance
         self.balance = (self.balance - msg.amount);
         require(self.balance >= 0, "Invalid balance");
@@ -58,6 +64,7 @@ contract JettonWallet
         // Update balance
         self.balance = (self.balance + msg.amount);
         require(self.balance >= 0, "Invalid balance");
+
         // Get value for gas
         let msg_value: Int = self.msg_value(ctx.value);
         let fwd_fee: Int = ctx.readForwardFee();
@@ -67,7 +74,7 @@ contract JettonWallet
             send(SendParameters{
                     to: self.owner,
                     value: msg.forward_ton_amount,
-                    mode: SendPayGasSeparately,
+                    mode: SendPayGasSeparately, //to make sure full value of 'forward_ton_amount', use SendPayGasSeparately
                     bounce: false,
                     body: TokenNotification{
                         query_id: msg.query_id,
@@ -78,7 +85,7 @@ contract JettonWallet
                 }
             );
         }
-        // 0xd53276db -- Cashback to the original Sender
+            // 0xd53276db -- Cashback to the original Sender
         if (msg.response_destination != null && msg_value > 0) {
             send(SendParameters{
                     to: msg.response_destination,
