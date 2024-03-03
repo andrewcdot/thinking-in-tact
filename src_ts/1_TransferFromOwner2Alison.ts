@@ -10,7 +10,7 @@ import { Address } from "@ton/core";
 import { beginCell, contractAddress, fromNano, internal, toNano, TonClient4, WalletContractV4 } from "@ton/ton";
 import { mnemonicToPrivateKey } from "@ton/crypto";
 import { JettonMasterContract } from "../artifact/JettonTact_JettonMasterContract";
-import { storeTokenTransfer } from "../artifact/JettonTact_JettonDefaultWallet";
+import { storeTokenTransfer } from "../artifact/JettonTact_JettonWallet";
 
 // ========================================
 
@@ -74,7 +74,7 @@ export async function transferJetton(from: string, to: string) {
             storeTokenTransfer({
                 $$type: "TokenTransfer",
                 query_id: 0n,
-                amount: toNano(100000000),
+                amount: toNano(50),
                 destination: receiverTonWalletAddress,
                 response_destination: owner, // Original Owner, aka. First Minter's Jetton Wallet
                 custom_payload: customPayload,
@@ -97,7 +97,7 @@ export async function transferJetton(from: string, to: string) {
 
     let senderJettonWallet = await jettonMasterContractOpened.getGetWalletAddress(senderTonWallet.address);
 
-    let deployAmount = toNano("0.6");
+    let deployAmount = toNano("2");
     let seqno: number = await senderTonWalletContract.getSeqno();
     let balance: bigint = await senderTonWalletContract.getBalance();
     // ========================================

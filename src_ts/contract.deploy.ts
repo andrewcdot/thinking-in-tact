@@ -7,7 +7,7 @@ import { _ENDPOINT_MAINNET, _ENDPOINT_TESTNET } from "./utils/static";
 import { TonClient4, WalletContractV4, beginCell, contractAddress, toNano, internal, fromNano } from "@ton/ton";
 import { mnemonicToPrivateKey } from "@ton/crypto";
 import { JettonMasterContract } from "../artifact/JettonTact_JettonMasterContract";
-import { storeMint } from "../artifact/JettonTact_JettonDefaultWallet";
+import { storeMint } from "../artifact/JettonTact_JettonWallet";
 
 dotenv.config();
 
@@ -47,15 +47,15 @@ dotenv.config();
     // Get deployment wallet balance
     let balance: bigint = await ownerWalletContractOpened.getBalance();
     console.log("Current deployment wallet balance = ", fromNano(balance).toString(), "💎TON");
-    let supply = toNano(1000000); // 🔴 Specify total supply in nano
-    console.log("Minting:: ", fromNano(supply));
+    let mintAmt = toNano(200); // 🔴 Specify mintAmt in nano
+    console.log("Minting:: ", fromNano(mintAmt));
     printSeparator();
 
     let packedMsg = beginCell()
         .store(
             storeMint({
                 $$type: "Mint",
-                amount: supply,
+                amount: mintAmt,
                 receiver: ownerAddress,
             }),
         )

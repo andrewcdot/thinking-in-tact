@@ -2,18 +2,18 @@
   "private": true,
   "scripts": {
     "run_util": "ts-node ./src_ts/utils/ton_slice.ts",
-    "emulator": "ts-node ./src_ts/emulator.ts",
     "build": "tact --config ./tact.config.json",
     "build_tact_guides": "tact --config ./src_tact/tact_guides/tact.config.json",
-    "test": "jest",
-    "btest": "npx blueprint test",
     "deploy_demo": "ts-node ./src_ts/deploy.demo_code.ts",
-    "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
     "deploy_with_mint": "ts-node ./src_ts/contract.deploy.ts",
+    "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
     "read": "ts-node ./src_ts/contract.read.ts",
     "transferFromOwner2Alison": "ts-node ./src_ts/1_TransferFromOwner2Alison.ts",
     "transferFromAlison2Becky": "ts-node ./src_ts/2_TransferFromAlison2Becky.ts",
-    "transferURL": "ts-node ./src_ts/2_TransferURL.ts"
+    "transferURL": "ts-node ./src_ts/2_TransferURL.ts",
+    "emulator": "ts-node ./src_ts/emulator.ts",
+    "test": "jest",
+    "btest": "npx blueprint test"
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.2.0",

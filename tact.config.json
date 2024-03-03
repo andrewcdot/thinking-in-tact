@@ -2,7 +2,7 @@
     "projects": [
         {
             "name": "JettonTact",
-            "path": "./src_tact/jetton_demo/master.tact",
+            "path": "./src_tact/jetton_0.01_fee/master.tact",
             "output": "./artifact",
             "options": {
                 "debug": true,
