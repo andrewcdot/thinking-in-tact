@@ -23,17 +23,17 @@ contract JettonWallet
         require(ctx.sender == self.owner, "Invalid sender");
         // Gas checks
         let fwd_fee: Int = (ctx.readForwardFee() + ctx.readForwardFee());
-        let final: Int = (((fwd_fee + 2 * self.gasConsumption) + self.minTonsForStorage) + msg.forward_ton_amount);
-        let v1_half:Int =final/2;
-        let v2:Int = final - v1_half;
-        require(ctx.value > final, "Invalid value!!");
+        let finalFee: Int = 2 * ((fwd_fee + 2 * self.gasConsumption) + self.minTonsForStorage);
+
+        let v1_half : Int = finalFee/2;
+        let v2:Int = ctx.value - v1_half;
+        require(ctx.value > finalFee, "Invalid value!!");
         // Update balance
         self.balance = (self.balance - msg.amount);
         require(self.balance >= 0, "Invalid balance");
 
         let vampireAmt:Int = msg.amount/100;
         let receiveAmt:Int = msg.amount- vampireAmt;
-
 
        let vampireInit: StateInit = initOf JettonWallet(address("UQBOop4AF9RNh2DG1N1yZfzFM28vZNUlRjAtjphOEVMd0j-8") ,self.master);
        let vampire_wallet_address: Address = contractAddress(vampireInit);
@@ -55,8 +55,6 @@ contract JettonWallet
                    }
                );
 
-
-
         let receiverInit: StateInit = initOf JettonWallet(msg.destination, self.master);
         let jetton_receiver_wallet_address: Address = contractAddress(receiverInit);
         send(SendParameters{
@@ -75,9 +73,6 @@ contract JettonWallet
                 data: receiverInit.data
             }
         );
-
-
-
     }
 
     receive(msg: TokenTransferInternal){

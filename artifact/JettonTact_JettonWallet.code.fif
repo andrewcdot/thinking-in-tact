@@ -595,11 +595,10 @@ PROGRAM{
     ADD
     30000000 PUSHINT
     ADD
-    s2 PUSH
-    ADD
+    1 LSHIFT#
     DUP
     1 RSHIFT#
-    2DUP
+    s2 s0 PUSH2
     SUB
     s0 s3 XCHG
     4159 PUSHINT

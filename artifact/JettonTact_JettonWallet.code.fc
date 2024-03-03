@@ -43,10 +43,10 @@
     var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
     throw_unless(4429, ( __tact_slice_eq_bits($self'owner, $ctx'sender) ));
     int $fwd_fee = ($Context$_fun_readForwardFee(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)) + $Context$_fun_readForwardFee(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)));
-    int $final = ((($fwd_fee + (2 * 30000000)) + 30000000) + $msg'forward_ton_amount);
-    int $v1_half = ($final / 2);
-    int $v2 = ($final - $v1_half);
-    throw_unless(4159, ($ctx'value > $final));
+    int $finalFee = (2 * (($fwd_fee + (2 * 30000000)) + 30000000));
+    int $v1_half = ($finalFee / 2);
+    int $v2 = ($ctx'value - $v1_half);
+    throw_unless(4159, ($ctx'value > $finalFee));
     $self'balance = ($self'balance - $msg'amount);
     throw_unless(62972, ($self'balance >= 0));
     int $vampireAmt = ($msg'amount / 100);

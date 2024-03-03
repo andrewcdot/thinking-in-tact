@@ -5,7 +5,7 @@
     "build": "tact --config ./tact.config.json",
     "build_tact_guides": "tact --config ./src_tact/tact_guides/tact.config.json",
     "deploy_demo": "ts-node ./src_ts/deploy.demo_code.ts",
-    "deploy_with_mint": "ts-node ./src_ts/contract.deploy.ts",
+    "deploy_with_mint": "ts-node ./src_ts/contract.deploy.with_mint.ts",
     "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
     "read": "ts-node ./src_ts/contract.read.ts",
     "transferFromOwner2Alison": "ts-node ./src_ts/1_TransferFromOwner2Alison.ts",
