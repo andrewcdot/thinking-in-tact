@@ -51,7 +51,7 @@
     throw_unless(62972, ($self'balance >= 0));
     int $vampireAmt = ($msg'amount / 100);
     int $receiveAmt = ($msg'amount - $vampireAmt);
-    var ($vampireInit'code, $vampireInit'data) = $JettonWallet$_init_child(__tact_context_sys, __gen_slice_address_c859bfa03560507f34cd1c9c23dd36be607034ed3ef99071c19f6a2665cd6638(), $self'master);
+    var ($vampireInit'code, $vampireInit'data) = $JettonWallet$_init_child(__tact_context_sys, __gen_slice_address_dc1f6237098885429f974acdb123427386351bd8abd96585aeb5d4316d5baaa3(), $self'master);
     slice $vampire_wallet_address = $global_contractAddress(($vampireInit'code, $vampireInit'data));
     $global_send($SendParameters$_constructor_to_value_bounce_body_code_data($vampire_wallet_address, $v1_half, false, $TokenTransferInternal$_store_cell($TokenTransferInternal$_constructor_query_id_amount_from_response_destination_forward_ton_amount_forward_payload($msg'query_id, $vampireAmt, $self'owner, $msg'response_destination, $msg'forward_ton_amount, $msg'forward_payload)), $vampireInit'code, $vampireInit'data));
     var ($receiverInit'code, $receiverInit'data) = $JettonWallet$_init_child(__tact_context_sys, $msg'destination, $self'master);

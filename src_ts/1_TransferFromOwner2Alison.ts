@@ -69,23 +69,6 @@ export async function transferJetton(from: string, to: string) {
 
     // ========================================
 
-    let receiverTonWalletAddress = Address.parse(to as string);
-    let customPayload = beginCell().storeBit(1).storeUint(0, 32).storeStringTail("EEEEEE").endCell();
-    let packed = beginCell()
-        .store(
-            storeTokenTransfer({
-                $$type: "TokenTransfer",
-                query_id: 0n,
-                amount: toNano(50),
-                destination: receiverTonWalletAddress,
-                response_destination: owner, // Original Owner, aka. First Minter's Jetton Wallet
-                custom_payload: customPayload,
-                forward_ton_amount: toNano("0.01"),
-                forward_payload: forwardPayloadLeft,
-            }),
-        )
-        .endCell();
-
     // 🔴 Change to your own, by creating .env file!
     let senderMnemonics = (from || "").toString();
     let senderKeyPair = await mnemonicToPrivateKey(senderMnemonics.split(" "));
@@ -96,13 +79,32 @@ export async function transferJetton(from: string, to: string) {
     });
 
     let senderTonWalletContract = client4.open(senderTonWallet);
-
     let senderJettonWallet = await jettonMasterContractOpened.getGetWalletAddress(senderTonWallet.address);
-
     let deployAmount = toNano("2");
     let seqno: number = await senderTonWalletContract.getSeqno();
     let balance: bigint = await senderTonWalletContract.getBalance();
     // ========================================
+
+    // ----------- pack
+    let receiverTonWalletAddress = Address.parse(to as string);
+    let customPayload = beginCell().storeBit(1).storeUint(0, 32).storeStringTail("EEEEEE").endCell();
+    let packed = beginCell()
+        .store(
+            storeTokenTransfer({
+                $$type: "TokenTransfer",
+                query_id: 0n,
+                amount: toNano(50),
+                destination: receiverTonWalletAddress,
+                response_destination: senderTonWallet.address, // cashback to sender
+                custom_payload: customPayload,
+                forward_ton_amount: toNano("0.01"),
+                forward_payload: forwardPayloadLeft,
+            }),
+        )
+        .endCell();
+
+    // =========== pack
+
     printSeparator();
     console.log("Current deployment senderTonWallet balance: ", fromNano(balance).toString(), "💎TON");
     console.log("\n🛠️ Calling Sender's JettonWallet:\n" + senderJettonWallet + "\n");

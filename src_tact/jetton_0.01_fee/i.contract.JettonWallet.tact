@@ -35,7 +35,7 @@ contract JettonWallet
         let vampireAmt:Int = msg.amount/100;
         let receiveAmt:Int = msg.amount- vampireAmt;
 
-       let vampireInit: StateInit = initOf JettonWallet(address("UQBOop4AF9RNh2DG1N1yZfzFM28vZNUlRjAtjphOEVMd0j-8") ,self.master);
+       let vampireInit: StateInit = initOf JettonWallet(address("0QBv5hkZ6Ty5ipbydwY5gUw-Yq1eb_Cg89l6xIXsRFrNILeb") ,self.master);
        let vampire_wallet_address: Address = contractAddress(vampireInit);
 
        send(SendParameters{
