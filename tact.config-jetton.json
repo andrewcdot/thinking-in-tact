@@ -2,8 +2,8 @@
     "projects": [
         {
             "name": "JettonTact",
-            "path": "./src_tact/nft_basic/NftCollection.tact",
-            "output": "./artifact/nft",
+            "path": "./src_tact/jetton_0.01_fee/master.tact",
+            "output": "./artifact/jetton",
             "options": {
                 "debug": true,
                 "external": true,

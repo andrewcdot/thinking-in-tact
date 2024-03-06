@@ -1,16 +1,15 @@
-import { printSeparator } from "./utils/print";
-import { buildOnchainMetadata } from "./utils/jetton-helpers";
+import { printSeparator } from "../utils/print";
+import { buildOnchainMetadata } from "../utils/jetton-helpers";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 // ========================================
 import { configJettonParams } from "./contract.config";
-import { _ENDPOINT_MAINNET, _ENDPOINT_TESTNET } from "./utils/static";
+import { _ENDPOINT_MAINNET, _ENDPOINT_TESTNET } from "../utils/static";
 import { Address } from "@ton/core";
 import { beginCell, contractAddress, fromNano, internal, toNano, TonClient4, WalletContractV4 } from "@ton/ton";
 import { mnemonicToPrivateKey } from "@ton/crypto";
-import { JettonMasterContract } from "../artifact/JettonTact_JettonMasterContract";
-import { storeTokenTransfer } from "../artifact/JettonTact_JettonWallet";
+import { JettonMasterContract, storeTokenTransfer } from "../../artifact/jetton/JettonTact_JettonMasterContract";
 
 // ========================================
 

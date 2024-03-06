@@ -1,10 +1,10 @@
-import { printAddress, printHeader, printDeploy, printSeparator } from "./utils/print";
-import { deploy } from "./utils/deploy";
+import { printAddress, printHeader, printDeploy, printSeparator } from "../utils/print";
+import { deploy } from "../utils/deploy";
 
-import {Address} from "@ton/core";
-import {beginCell, toNano} from "@ton/ton";
-import {JettonMasterContract, storeTokenTransfer} from "../artifact/JettonTact_JettonMasterContract";
-import {JettonDefaultWallet} from "../artifact/JettonTact_JettonDefaultWallet";
+import { Address } from "@ton/core";
+import { beginCell, toNano } from "@ton/ton";
+import { JettonMasterContract, storeTokenTransfer } from "../../artifact/jetton/JettonTact_JettonMasterContract";
+import { JettonWallet } from "../../artifact/jetton/JettonTact_JettonWallet";
 
 // 🔴 Jetton Root Address
 let jetton_minter_root = Address.parse("");
@@ -19,10 +19,10 @@ let new_owner_Address = Address.parse("");
     let contract_address = JettonMasterContract.fromAddress(jetton_minter_root);
 
     // Get the Jetton Wallet Address of the deployer
-    let target_jetton_wallet_init = await JettonDefaultWallet.init(contract_address.address, caller_wallet_address);
+    let target_jetton_wallet_init = await JettonWallet.init(contract_address.address, caller_wallet_address);
 
     // Get the Jetton Wallet Address of the new owner
-    let new_owner_jetton_wallet = await JettonDefaultWallet.fromInit(contract_address.address, new_owner_Address);
+    let new_owner_jetton_wallet = await JettonWallet.fromInit(contract_address.address, new_owner_Address);
     printSeparator();
 
     // ✨Pack the forward message into a cell
@@ -43,7 +43,7 @@ let new_owner_Address = Address.parse("");
                 custom_payload: null,
                 forward_ton_amount: toNano("0.000000001"),
                 forward_payload: test_message,
-            })
+            }),
         )
         .endCell();
     printHeader("Write Contract");

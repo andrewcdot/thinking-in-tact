@@ -2,16 +2,23 @@
   "private": true,
   "scripts": {
     "run_util": "ts-node ./src_ts/utils/ton_slice.ts",
-    "build": "tact --config ./tact.config.json",
+    "build_jetton": "tact --config ./tact.config-jetton.json",
+    "deploy_jetton_with_mint": "ts-node src_ts/jetton/contract.deploy.with_mint.ts",
+    "transferJettonFromOwner2Alison": "ts-node src_ts/jetton/1_TransferFromOwner2Alison.ts",
+    "transferJettonFromAlison2Becky": "ts-node src_ts/jetton/2_TransferFromAlison2Becky.ts",
+    "transferJettonByURL": "ts-node ./src_ts/jetton//2_TransferURL.ts",
+
+    "build_nft": "tact --config ./tact.config-nft.json",
+
+
     "build_tact_guides": "tact --config ./src_tact/tact_guides/tact.config.json",
     "deploy_demo": "ts-node ./src_ts/deploy.demo_code.ts",
-    "deploy_with_mint": "ts-node ./src_ts/contract.deploy.with_mint.ts",
-    "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
+
     "read": "ts-node ./src_ts/contract.read.ts",
-    "transferFromOwner2Alison": "ts-node ./src_ts/1_TransferFromOwner2Alison.ts",
-    "transferFromAlison2Becky": "ts-node ./src_ts/2_TransferFromAlison2Becky.ts",
-    "transferURL": "ts-node ./src_ts/2_TransferURL.ts",
+
     "emulator": "ts-node ./src_ts/emulator.ts",
+    "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
+
     "test": "jest",
     "btest": "npx blueprint test"
   },
