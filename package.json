@@ -7,23 +7,18 @@
     "transferJettonFromOwner2Alison": "ts-node src_ts/jetton/1_TransferFromOwner2Alison.ts",
     "transferJettonFromAlison2Becky": "ts-node src_ts/jetton/2_TransferFromAlison2Becky.ts",
     "transferJettonByURL": "ts-node ./src_ts/jetton//2_TransferURL.ts",
-
     "build_nft": "tact --config ./tact.config-nft.json",
-
-
     "build_tact_guides": "tact --config ./src_tact/tact_guides/tact.config.json",
     "deploy_demo": "ts-node ./src_ts/deploy.demo_code.ts",
-
     "read": "ts-node ./src_ts/contract.read.ts",
-
     "emulator": "ts-node ./src_ts/emulator.ts",
     "run_emulator_demo": "ts-node ./src_ts/emulator.demo.ts",
-
     "test": "jest",
     "btest": "npx blueprint test"
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.2.0",
+    "@dedust/sdk": "^0.8.7",
     "@tact-lang/compiler": "^1.1.5",
     "@tact-lang/deployer": "^0.2.0",
     "@tact-lang/emulator": "^4.2.3",

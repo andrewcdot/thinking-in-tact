@@ -1,3 +1,3 @@
-// https://github.com/ton-community/ton-api-v4
-export let _ENDPOINT_MAINNET = "https://mainnet-v4.tonhubapi.com";
-export let _ENDPOINT_TESTNET = "https://sandbox-v4.tonhubapi.com";
+// https://github.com/ton-core/ton
+export let _ENDPOINT_MAINNET = "https://toncenter.com/api/v2/jsonRPC";
+export let _ENDPOINT_TESTNET = "https://testnet.toncenter.com/api/v2/jsonRPC";
