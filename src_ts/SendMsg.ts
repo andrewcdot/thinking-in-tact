@@ -1,6 +1,38 @@
-import { TonClient, WalletContractV4, internal } from "ton";
+import { Address, TonClient, WalletContractV4, beginCell, internal } from "ton";
 import { mnemonicNew, mnemonicToPrivateKey } from "ton-crypto";
-import { Address } from "@ton/core";
+import { SwapParams, Vault, VaultNative } from "@dedust/sdk";
+import { toNano } from "@ton/ton";
+import { Cell, Slice } from "@ton/core";
+import { parseBoc } from "@ton/core/dist/boc/cell/serialization";
+
+
+function  packSwapParams({
+    deadline,
+    recipientAddress,
+    referralAddress,
+    fulfillPayload,
+    rejectPayload,
+}: SwapParams) {
+    return beginCell()
+        .storeUint(deadline ?? 0, 32)
+        .storeAddress(recipientAddress ?? null)
+        .storeAddress(referralAddress ?? null)
+        .endCell();
+}
+
+
+// 辅助函数：将二进制数组转换为字符串
+function bitsToString(bits: boolean[]): string {
+    const byteLength = Math.ceil(bits.length / 8);
+    const bytes = new Uint8Array(byteLength);
+    for (let i = 0; i < bits.length; i++) {
+        const byte = Math.floor(i / 8);
+        const bit = 7 - (i % 8);
+        bytes[byte] |= (bits[i] ? 1 : 0) << bit;
+    }
+    return new TextDecoder().decode(bytes);
+}
+
 
 async function main() {
 
